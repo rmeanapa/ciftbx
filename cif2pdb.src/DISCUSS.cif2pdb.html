@@ -1,0 +1,805 @@
+<HTML>
+<HEAD>
+<TITLE>
+DISCUSS.cif2pdb.html
+</TITLE>
+</HEAD>
+<BODY BACKGROUND=".logos/cif2pdb_wallpaper.jpg">
+<a href="http://www.iucr.ac.uk/iucr-top/welcome.html">
+<img alt="[IUCr Home Page]" src=".logos/iucrhome.jpg"></a>
+<a href="http://www.iucr.ac.uk/iucr-top/cif/home.html">
+<img alt="[CIF Home Page]" src=".logos/cifhome.jpg"></a>
+<a href="README.cif2pdb.html">
+<img alt="[cif2pdb]" src=".logos/cif2pdbButton.jpg"></a>
+<a href="../ciftbx/README.html">
+<img alt="[ciftbx]" src=".logos/ciftbxButton.jpg"></a>
+<hr>
+<CENTER>
+<IMG SRC=".logos/cif2pdb.jpg" ALT="cif2pdb">
+</CENTER>
+
+<H1 ALIGN=CENTER>Translating mmCIF Data into PDB Entries</H1>
+<P>
+<CENTER>
+Based on <CITE>Translating mmCIF Data into PDB Entries</CITE>, 
+mmCIF workshop, IUCr meeting, 
+Seattle Washington, August 1996, Abstract E0721
+</CENTER>
+<P>
+<P>
+<CENTER>
+Frances C. Bernstein<BR>
+Bernstein+Sons, 5 Brewster Lane, Bellport, NY 11713-2803<BR>
+phone:  1-631-286-1339   email:  fcb@bernstein-plus-sons.com<BR>
+</CENTER>
+<P>
+<CENTER>
+Herbert J. Bernstein<BR>
+Bernstein+Sons, 5 Brewster Lane, Bellport, NY 11713-2803<BR>
+phone:  1-631-286-1339   email:  yaya@bernstein-plus-sons.com<BR>
+</CENTER>
+<p>
+<CENTER>	
+Work supported in part by IUCr and NSF (for HJB) and 
+US NSF, PHS, NIH, NCRR, NIGMS, NLM and DOE (for FCB prior to 1998). 
+</CENTER>
+<P>
+
+<hr>
+<P>
+<H3 ALIGN=CENTER>
+Before using this software, please read the <BR>
+<A HREF = "NOTICE.html"> <IMG SRC=".logos/noticeButton.jpg" ALT="NOTICE"></A><BR>
+ and please read the IUCr<BR>
+<A HREF="IUCR_POLICY.html"> <IMG SRC=".logos/policyButton.jpg" ALT="Policy"></A><BR>
+ on the Use of the Crystallographic Information File (CIF)
+</H3> 
+<HR>
+<H2>Introduction </H2>
+<BR>
+<P>
+The major steps needed to translate mmCIF data into a "pseudo-PDB" format (a
+format sufficiently similar to standard PDB format to be accepted by most
+applications) are presented, with examples
+drawn from the program cif2pdb [BB96]. The
+objective is to help application developers and people writing CIFs understand
+uses of mmCIF which will hinder translation to PDB format and to help users
+familiar with PDB format understand new mmCIF constructs.
+
+<P>
+The Protein Data Bank format [PDB77, PDB95, PDB96]
+has been used for over 20 years to archive
+macromolecular data, is produced by many refinement programs and is used as an
+input format by many applications. Adoption of the mmCIF dictionary [FBB96] 
+by the IUCr
+will lead to the creation of a significant pool of mmCIF data sets. However, it
+may be some time before existing application programs can handle mmCIF input.
+Therefore it is important to have facilities to translate mmCIF data into PDB
+format to facilitate the use of CIFs with existing programs. The PDB is
+developing a CIF-based AutoDep program [SAMXS96] ,which uses the WWW.
+ In those areas where
+there is a one-to-one correspondence, AutoDep will use mmCIF tokens and produce
+the appropriate PDB records. However, there are areas where more complex
+transformations are needed and in user labs it is not always possible, or even
+desirable, to make a perfect PDB entry from an mmCIF data set. If the only
+purpose of the translation is to display a molecule, then there may be no
+reason to reorganize residues and het groups and change atom names to match PDB
+standards. We discuss both the production of a "pseudo-PDB" format which can be
+converted into a rigorous PDB format with further processing, and the
+capabilities of the PDB AutoDep program. We consider ways to construct a valid
+PDB ATOM/HETATM/TER list, and approaches to deal with mmCIF tag values for
+chain identifiers and atom names which may not fit into PDB field sizes. <p>
+<P>
+A simple tabular concordance can be used for some tokens, and portions
+of such a concordance 
+are presented. Much of the work of translation from PDB format to mmCIF
+format has 
+been automated, though careful checking of the results is required and
+considerable manual revision is necessary for some entries. Work on
+automated translation from 
+mmCIF format to PDB format is in progress.  The status of the program
+cif2pdb[BB96] is presented.<BR>
+<BR>
+<P>
+The PDB format and mmCIF are different both in presentation and in content. 
+The PDB format 
+consists mainly of fixed format fields in an ordered set of records.
+The new mmCIF format is one of a family of STAR (Self-Defining Text Archive
+and Retrieval File [HS94]) formats 
+which  uses a tag-value style of presentation and has very little
+sensitivity to 
+the ordering of the information. The content of PDB entries is
+organized around the presentation 
+of sets of atomic coordinates associated with chains and HET groups.
+Some of the PDB record types have a very broad scope, drawing on data
+from many distinct conceptual levels.
+The content 
+of mmCIF data sets is organized around &quot;entities&quot; (discrete
+chemical components).   In most cases the data is broken down into
+tables oriented towards a single conceptual level.
+With care, all the information of interest about a
+macromolecule can be presented in either format clearly and
+efficiently, but challenging problems arise in moving between the two
+formats. When moving from mmCIF to PDB format, the fixed fields of the
+PDB format limit the range of values they may hold. Structural
+features identified in mmCIF in terms of entities and relative
+position within a sequence need to be re-identified in terms
+appropriate to PDB format. Separate mmCIF tables need to be joined to
+bring together the information needed for some PDB record types.
+
+<P>
+
+<H1>Relationship Between mmCIF and PDB format </H1>
+<P>
+mmCIF [FBB96] uses a system of tags and values to describe a structure, as
+shown in the extract 
+giving the chain sequences from the pdb2cif conversion of PDB entry
+4INS [DHH89]:<BR>
+<P>
+<PRE>
+
+loop_ 
+_entity_poly_seq.entity_id
+_entity_poly_seq.num
+_entity_poly_seq.mon_id
+     1    1 GLY     1    2 ILE     1    3 VAL     1    4 GLU     1    5 GLN
+     1    6 CYS     1    7 CYS     1    8 THR     1    9 SER     1   10 ILE
+     1   11 CYS     1   12 SER     1   13 LEU     1   14 TYR     1   15 GLN
+     1   16 LEU     1   17 GLU     1   18 ASN     1   19 TYR     1   20 CYS
+     1   21 ASN
+     2   22 PHE     2   23 VAL     2   24 ASN     2   25 GLN     2   26 HIS
+     2   27 LEU     2   28 CYS     2   29 GLY     2   30 SER     2   31 HIS
+     2   32 LEU     2   33 VAL     2   34 GLU     2   35 ALA     2   36 LEU
+     2   37 TYR     2   38 LEU     2   39 VAL     2   40 CYS     2   41 GLY
+     2   42 GLU     2   43 ARG     2   44 GLY     2   45 PHE     2   46 PHE
+     2   47 TYR     2   48 THR     2   49 PRO     2   50 LYS     2   51 ALA
+</PRE>
+<P>
+Because tags are always given, the same information can be presented in
+different 
+orderings. The Protein Data Bank [PDB96] uses a format with fixed fields
+and is order-dependent. 
+Here is the sequence information from the PDB entry:<BR>
+<P>
+<PRE>
+
+SEQRES   1 A   21  GLY ILE VAL GLU GLN CYS CYS THR SER ILE CYS SER LEU 4INS 170
+SEQRES   2 A   21  TYR GLN LEU GLU ASN TYR CYS ASN                     4INS 171
+SEQRES   1 B   30  PHE VAL ASN GLN HIS LEU CYS GLY SER HIS LEU VAL GLU 4INS 172
+SEQRES   2 B   30  ALA LEU TYR LEU VAL CYS GLY GLU ARG GLY PHE PHE TYR 4INS 173
+SEQRES   3 B   30  THR PRO LYS ALA                                     4INS 174
+SEQRES   1 C   21  GLY ILE VAL GLU GLN CYS CYS THR SER ILE CYS SER LEU 4INS 175
+SEQRES   2 C   21  TYR GLN LEU GLU ASN TYR CYS ASN                     4INS 176
+SEQRES   1 D   30  PHE VAL ASN GLN HIS LEU CYS GLY SER HIS LEU VAL GLU 4INS 177
+SEQRES   2 D   30  ALA LEU TYR LEU VAL CYS GLY GLU ARG GLY PHE PHE TYR 4INS 178
+SEQRES   3 D   30  THR PRO LYS ALA                                     4INS 179
+</PRE>
+<STRONG><BR>
+</STRONG>
+<P>
+<H2>Syntax </H2>
+<BR>
+<P>
+The major differences in syntax are as follows:<BR>
+<BR>
+<BR>
+
+<H3>mmCIF: </H3>
+tag-value definitions, little order dependence,
+strict table structure,
+upper/lower case,
+yyyy-mm-dd dates, 
+last-name-first author names, related items may have to appear in
+disjoint tag-value 
+lists.<BR>
+<P>
+
+<H3>PDB: </H3>
+fixed fields, strongly order dependent, 
+some information non-tabular,
+upper-case only, dd-mmm-yy
+dates (dd-mmm-yyyy in some REMARKS), last-name-last 
+author names.<BR>
+<BR>
+<P>
+
+<H2>Content </H2>
+The major differences in content are:
+<P>
+
+<H3>mmCIF: </H3>
+extensive normalization,
+works with entities (discrete chemical entities).<BR>
+<BR>
+<P>
+
+<H3>PDB: </H3>
+less normalization,
+works with chains and HET groups.<BR>
+<P>
+
+PDB and mmCIf formats agree simply and directly for some data items,
+such as cell parameters, and admit a simple tabular mapping, as shown
+by this extract from the concordance [B96] which is available as part
+of pdb2cif [BBB97]:
+
+<P>
+<PRE>
+                           
+PDB Field          Content  Type of Transformation
+                                            and Related mmCIF field
+CRYST1[1-6]        CRYST1   NA
+CRYST1[7-15]       a        equivalent to   _cell.length_a
+CRYST1[16-24]      b        equivalent to   _cell.length_b
+CRYST1[25-33]      c        equivalent to   _cell.length_c
+CRYST1[34-40]      alpha    equivalent to   _cell.angle_alpha
+CRYST1[41-47]      beta     equivalent to   _cell.angle_beta
+CRYST1[48-54]      gamma    equivalent to   _cell.angle_gamma
+CRYST1[56-66]      sGroup   equivalent to
+                               _symmetry.space_group_name_H-M
+CRYST1[67-70]      z        equivalent to    _cell.Z_PDB
+</PRE>
+
+while other important macromolecular data descriptors, because
+of the very different views of the same data,
+require complex transformations.
+<P>
+For example, in mmCIF, sheets are built up out of strands. All the
+strands in all sheets are listed in one STRUCT_SHEET_RANGE table. The
+relative ordering and orientation of all strands in all sheets are
+given in one STRUCT_SHEET_ORDER table. The hydrogen-bonding among all
+strands in all sheets is listed in one STRUCT_SHEET_HBOND table. The
+general characteristics of all sheets per se is given in one
+STRUCT_SHEET table. To convert to PDB format all these separate tables
+must be joined and the information extracted in terms of simple,
+nonbifurcated sheets, one order-dependent table per nonbifurcated sheet
+with each row
+carrying the definition of a strand, orientation and partial
+hydrogen-bonding relative to the
+prior strand in the same table.
+
+<P>Here is the strand information from a CIF of 2ACE [HRSS96] in mmCIF format.
+
+<PRE>
+
+loop_
+_struct_sheet.id
+_struct_sheet.number_strands
+#-------#-------#-------#-------#-------#-------#-------#-------#-------#-----
+#id     #number_strands
+  A     3
+  B    11
+
+loop_
+_struct_sheet_hbond.sheet_id
+_struct_sheet_hbond.range_id_1
+_struct_sheet_hbond.range_id_2
+_struct_sheet_hbond.range_1_beg_label_seq_id
+_struct_sheet_hbond.range_1_beg_label_atom_id
+_struct_sheet_hbond.range_2_beg_label_seq_id
+_struct_sheet_hbond.range_2_beg_label_atom_id
+_struct_sheet_hbond.range_1_end_label_seq_id
+_struct_sheet_hbond.range_1_end_label_atom_id
+_struct_sheet_hbond.range_2_end_label_seq_id
+_struct_sheet_hbond.range_2_end_label_atom_id
+#-------#-------#-------#-------#-------#-------#-------#-------#-------#-----
+#sheet_id
+#    range_id_1
+#          range_id_2
+#                range_1_beg_label_seq_id
+#                     range_1_beg_label_atom_id
+#                         range_2_beg_label_seq_id
+#                             range_2_beg_label_atom_id
+#                                 range_1_end_label_seq_id
+#                                    range_1_end_label_atom_id
+#                                        range_2_end_label_seq_id
+#                                           range_2_end_label_atom_id
+
+  A   1_A   2_A    8   O   15  N   8  O  15  N  
+  A   2_A   3_A   14   O   58  N  14  O  58  N  
+  B   1_B   2_B   18   N   29  O  18  N  29  O  
+  B  10_B  11_B  502   O  513  N 502  O 513  N  
+  B   2_B   3_B   30   O   99  N  30  O  99  N  
+  B   3_B   4_B  100   O  143  N 100  O 143  N  
+  B   4_B   5_B  142   O  112  N 142  O 112  N  
+  B   5_B   6_B  113   N  195  O 113  N 195  O  
+  B   6_B   7_B  196   O  223  N 196  O 223  N  
+  B   7_B   8_B  224   O  322  N 224  O 322  N  
+  B   8_B   9_B  321   O  421  N 321  O 421  N  
+  B   9_B  10_B  420   O  503  N 420  O 503  N  
+
+loop_
+_struct_sheet_order.sheet_id
+_struct_sheet_order.range_id_1
+_struct_sheet_order.range_id_2
+_struct_sheet_order.offset
+_struct_sheet_order.sense
+#-------#-------#-------#-------#-------#-------#-------#-------#-------#-----
+#sheet_id
+#       range_id_1
+#               range_id_2
+#                   offset
+#                      sense
+  A     1_A     2_A +1 anti-parallel
+  A     2_A     3_A +1 parallel
+  B     1_B     2_B +1 anti-parallel
+  B    10_B    11_B +1 anti-parallel
+  B     2_B     3_B +1 anti-parallel
+  B     3_B     4_B +1 anti-parallel
+  B     4_B     5_B +1 parallel
+  B     5_B     6_B +1 parallel
+  B     6_B     7_B +1 parallel
+  B     7_B     8_B +1 parallel
+  B     8_B     9_B +1 parallel
+  B     9_B    10_B +1 parallel
+
+loop_
+_struct_sheet_range.sheet_id
+_struct_sheet_range.id
+_struct_sheet_range.beg_label_comp_id
+_struct_sheet_range.beg_label_asym_id
+_struct_sheet_range.beg_label_seq_id
+_struct_sheet_range.end_label_comp_id
+_struct_sheet_range.end_label_asym_id
+_struct_sheet_range.end_label_seq_id
+#-------#-------#-------#-------#-------#-------#-------#-------#-------#-----
+#sheet_id
+#       id
+#           beg_label_comp_id
+#               beg_label_asym_id
+#                   beg_label_seq_id
+#                       end_label_comp_id
+#                           end_label_asym_id
+#                               end_label_seq_id
+  A     1_A LEU *    6  THR *   10 
+  A     2_A GLY *   13  MET *   16 
+  A     3_A VAL *   57  ALA *   60 
+  B     1_B MET *   16  PRO *   21 
+  B    10_B PHE *  502  LEU *  505 
+  B    11_B MET *  510  GLN *  514 
+  B     2_B HIS *   26  PRO *   34 
+  B     3_B TYR *   96  PRO *  102 
+  B     4_B VAL *  142  SER *  147 
+  B     5_B THR *  109  TYR *  116 
+  B     6_B THR *  193  GLU *  199 
+  B     7_B ARG *  220  SER *  226 
+  B     8_B GLN *  318  ASN *  324 
+  B     9_B GLY *  417  PHE *  423 
+
+</PRE>
+<P>
+Another example of the need to join and sort multiple tables
+can be seen in converting reference information to PDB format.  The
+reference information for 4INS [DDH89] in mmCIF format consists of multiple
+loops with one major concept per loop:
+<PRE>
+# ----------------------------------------------------------------------------
+# CITATION TABLE
+loop_
+_citation.id
+_citation.coordinate_linkage
+_citation.title
+_citation.country
+_citation.journal_abbrev
+_citation.journal_volume
+_citation.journal_issue
+_citation.page_first
+_citation.year
+_citation.journal_id_ASTM
+_citation.journal_id_ISSN
+_citation.journal_id_CSD
+_citation.book_title
+_citation.book_publisher
+_citation.book_id_ISBN
+_citation.details
+ 
+#-------#-------#-------#-------#-------#-------#-------#-------#-------#-----
+#id     #coordinate_linkage
+1       no
+#title
+; The Structure Of 2zn Pig Insulin Crystals At 1.5   
+  Angstroms Resolution                               
+;
+#country#journal#volume #issue  #page   #year
+UK 
+        'PHILOS.TRANS.R.SOC.LONDON, SER.B'                        
+                319     ?       369     1988 
+        #ASTM   #ISSN   #CSD
+        'PTRBAE' 
+                '0080-4622'  
+                        441 
+#book,publisher,ISBN,details
+? ? ? ?
+ #-------#-------#-------#-------#-------#-------#-------#-------#-------#-----
+#id     #coordinate_linkage
+2       no
+#title
+; A Comparative Assessment Of The Zinc-protein       
+  Coordination In 2Zn-insulin As Determined By X-ray
+  Absorption Fine Structure (EXAFS) And X-ray      
+  Crystallography                                    
+;
+#country#journal#volume #issue  #page   #year
+UK     'PROC.R.SOC.LONDON,SER.B'  
+                219     ?       21      1983 
+        #ASTM   #ISSN   #CSD
+        'PRLBA4' 
+                '0080-4649'  
+                         338 
+#book,publisher,ISBN,details
+? ? ? ?
+
+#  [... references 3-14 omitted from this example ...]
+
+#-------#-------#-------#-------#-------#-------#-------#-------#-------#-----
+#id     #coordinate_linkage
+15      no
+#title
+?  
+#country#journal#volume #issue  #page   #year
+?       ?       5       ?       187     1972 
+        #ASTM   #ISSN   #CSD
+        ?       ?       435
+#book,publisher,ISBN,details
+; ATLAS OF PROTEIN SEQUENCE   
+  AND STRUCTURE (DATA SECTION)
+;
+;  NATIONAL BIOMEDICAL RESEARCH FOUNDATION,            
+   SILVER SPRING,MD.                                   
+;
+ '0-912466-02-2            ' ? 
+
+# ----------------------------------------------------------------------------
+# CITATION_EDITOR TABLE
+loop_
+_citation_editor.citation_id
+_citation_editor.name
+  15   'Dayhoff, M.O.' 
+
+# ----------------------------------------------------------------------------
+# CITATION_AUTHOR TABLE
+loop_
+_citation_author.citation_id
+_citation_author.name
+   1       'Baker, E.N.' 
+   1       'Blundell, T.L.' 
+   1       'Cutfield, J.F.' 
+   1       'Cutfield, S.M.' 
+   1       'Dodson, E.J.' 
+   1       'Dodson, G.G.' 
+   1       'Crowfoot Hodgkin, D.M.' 
+   1       'Hubbard, R.E.' 
+   1       'Isaacs, N.W.' 
+   1       'Reynolds, C.D.' 
+   1       'Sakabe, K.' 
+   1       'Sakabe, N.' 
+   1       'Vijayan, N.M.' 
+   2       'Bordas, J.' 
+   2       'Dodson, G.G.' 
+   2       'Grewe, H.' 
+   2       'Koch, M.H.J.' 
+   2       'Krebs, B.' 
+   2       'Randall, J.' 
+
+#  [... references 3-14 omitted from this example ...]
+
+</PRE>
+<P>
+In PDB format, this information is merged to one block of records
+per reference:
+<PRE>
+
+REMARK   1 REFERENCE 1      
+REMARK   1  AUTH   E.N.Baker,T.L.Blundell,J.F.Cutfield,S.M.Cutfield,  
+REMARK   1  AUTH 2 E.J.Dodson,G.G.Dodson,D.M.Crowfoot Hodgkin,        
+REMARK   1  AUTH 3 R.E.Hubbard,N.W.Isaacs,C.D.Reynolds,K.Sakabe,      
+REMARK   1  AUTH 4 N.Sakabe,N.M.Vijayan
+REMARK   1  TITL   The Structure Of 2zn Pig Insulin Crystals At 1.5   
+REMARK   1  TITL 2 Angstroms Resolution 
+REMARK   1  REF    PHILOS.TRANS.R.SOC.LONDON,    V. 319   369 1988
+REMARK   1  REFN   ASTM PTRBAE  UK ISSN 0080-4622                  441
+REMARK   1 REFERENCE 2      
+REMARK   1  AUTH   J.Bordas,G.G.Dodson,H.Grewe,M.H.J.Koch,B.Krebs,    
+REMARK   1  AUTH 2 J.Randall
+REMARK   1  TITL   A Comparative Assessment Of The Zinc-protein       
+REMARK   1  TITL 2 Coordination In 2Zn-insulin As Determined By X-ray 
+REMARK   1  TITL 3 Absorption Fine Structure (EXAFS) And X-ray        
+REMARK   1  TITL 4 Crystallography 
+REMARK   1  REF    PROC.R.SOC.LONDON,SER.B       V. 219    21 1983
+REMARK   1  REFN   ASTM PRLBA4  UK ISSN 0080-4649                  338
+
+   [... references 3-14 omitted from this example ...]
+
+REMARK   1 REFERENCE 15     
+REMARK   1  EDIT   M.O.Dayhoff
+REMARK   1  REF    ATLAS OF PROTEIN SEQUENCE     V.   5   187 1972
+REMARK   1  REF  2 AND STRUCTURE (DATA SECTION)
+REMARK   1  PUBL   NATIONAL BIOMEDICAL RESEARCH FOUNDATION, SILVER    
+REMARK   1  PUBL 2 SPRING,MD.                                         
+REMARK   1  REFN                   ISBN 0-912466-02-2              435
+</PRE>
+<P>
+For more examples of mmCIF data and comparisons to PDB format, see 
+<A HREF="http://www.sdsc.edu/pb/cif/tutorials.html">
+the Macromolecular Crystallographic
+Information (mmCIF) Tutorial</A> [PEB95].
+
+
+
+<H2>cif2pdb  </H2>
+<BR>
+<P>
+[BB96] is a program which converts mmCIF data sets 
+into &quot;pseudo-PDB&quot; 
+format (a format sufficiently similar to 
+standard PDB format to be accepted by most 
+applications).  It is written in Fortran using CIFtbx2 [HB96].
+In its present form, it is able to produce HEADER, SCALE, ORIGX,
+CRYST1, and ATOM/HETATM/TER, which provides sufficient information to drive 
+RASMOL [S94].  It also provides additional record types.  The images shown here
+were produced from CIF's converted to PDB format by cif2pdb and then rendered by
+RASMOL (a program to do molecular graphics that runs on many platforms).
+<P>
+<H3>Using the Program cif2pdb</H3>
+<PRE>
+cif2pdb [-i input_cif] [-o output_entry] [-d dictionary]
+         [-p pdb_entry_id] [-f command_file] [-t u|l|p]
+         [-m string_in_cif string_in_pdb] [[[input_cif]
+         [[output_entry] [dictionary]]]
+ input_cif defaults to $CIF2PDB_INPUT_CIF or stdin
+ output_cif defaults to $CIF2PDB_OUTPUT_ENTRY or stdout
+ dictionary defaults to $CIF2PDB_CHECK_DICTIONARY
+ multiple dictionaries may be specified
+  input_cif of "-" is stdin, output_entry of "-" is stdout
+ -t has values of u for upper case, l for upper/lower,
+    p for PDB typesetting codes, (default -t l)
+ </PRE>
+ <P>
+ cif2pdb is used as a filter.  If the mmCIF dictionary is 
+ stored as a local file name cif_mm.dic, and the program
+ cif2pdb is in your path, then including
+ <PRE>
+  ... |cif2pdb -d cif_mm.dic -p | ...
+ </PRE>
+ in a pipeline will convert an mmCIF dataset on the incoming
+ standard input into a pseudo-PDB entry on the outgoing 
+ standard output.
+<H3>4INS</H3>
+[DDH89] is a PDB entry for Insulin.
+This image was created by processing 4INS through pdb2cif to produce
+an mmCIF data set, then through cif2pdb to create a pseudo-PDB entry,
+and finally through RASMOL.
+<P>
+<IMG SRC="4insrib.gif">  
+<P>
+<H3>2ACE</H3>
+[HRSS96] is a PDB entry for Acetylcholinesterase.  This image was created by 
+processing 2ACE through pdb2cif to produce
+an mmCIF data set, then through cif2pdb to create a pseudo-PDB entry,
+and finally through RASMOL.
+<P>
+<IMG SRC="2acecartoon.gif">
+<P>
+<H3>DDF040</H3>
+[GWB95] is an example mmCIF data set for a DNA-Drug complex structure.
+It was "born" as an mmCIF data set.
+This image was created by processing DDF040 through cif2pdb to 
+create a pseudo-PDB entry,
+and finally through RASMOL.
+<P>
+<IMG SRC="DDF040.gif">
+<P>
+
+<H1>References </H1>
+<UL>
+<P>
+<LI> [BBB97] Bernstein, H.J.,Bernstein, F.C., Bourne, P.E. &quot;pdb2cif: 
+Translating PDB Entries into mmCIF Format,&quot; , J. Appl. Cryst., to appear.  
+software available from 
+<A 
+http://www.iucr.org/iuc-top/CIF>http://www.iucr.org/iuc-top/CIF</A> and 
+<A
+HREF="http://ndbserver.rutgers.edu/">http://ndbserver.rutgers.edu</A>.
+<BR>
+
+<LI>[BBMWWF97] Bourne, P. E., Berman, H. M., McMahon, B., Watenpaugh, K. D., 
+Westbrook, J., Fitzgerald, P. M. D. 
+<a href="http://www.sdsc.edu/pb/cif/papers/methenz.html">
+&quot;The Macromolecular Crystallographic Information File
+(mmCIF)&quot;,</a>  Meth. Enzymol.  
+<b>277</b>, 571-590 (1997).
+<BR>
+
+
+<LI> [BB96] Bernstein, H. J. and Bernstein, F. C., &quot;cif2pdb -- program to
+filter a CIF data set 
+and produce a PDB entry,&quot; in preparation.<BR>
+<LI> [B95] An earlier draft of [B96] by F. C. Bernstein, and extensive
+discussions with 
+F. C. Bernstein.<BR>
+
+<LI> [B96] Bernstein, H. J., &quot;Partial Concordance of PDB Record Types to
+mmCIF,&quot; 6 January 1996,&quot; 
+available from http://ndbserver.rutgers.edu.<BR>
+<LI> [DDH89] Dodson, G.G., Dodson, E.J., Hodgkin, D.C., Isaacs, N.W., 
+Vijayan, M.,
+&quot;PDB entry 4INS, 
+Compound: Insulin, Source: Pig (Sus scrofa),&quot; Protein Data Bank,
+10 July 1989; Baker, E.N., Blundell,
+T.L., Cutfield, J.F., Cutfield, S.M., Dodson, E.J., Dodson, G.G.,
+Crowfoot Hodgkin, D.M., Hubbard, R.E., Isaacs, N.W., Reynolds, C.D.,
+Sakabe, K., Sakabe, N., Vijayan, N.M., "The Structure Of 2Zn Pig
+Insulin Crystals At 1.5 Angstroms Resolution", Philos. Trans. R. Soc.
+London, 319, 369-456, 1988.<BR>
+<LI> [EA95] untitled tabular form of PDB record formats provided by E. Abola, Dec.
+1995.<BR>
+<LI> [FBB96]  Fitzgerald, P. M. D., Berman, H. M., Bourne, P. E., McMahon, B., 
+Watenpaugh, K., Westbrook, J. &quot;The MMCIF Dictionary: 
+Community Review and Final Approval,&quot; 
+ 17th IUCR Congress and General Assembly, Seattle, 
+Washington, USA, 8-17 August 1996, <A HREF="E1226.html">Abstract E1226.</A>
+ Version 0.8.02 available from 
+<A HREF="http://ndbserver.rutgers.edu/">http://ndbserver.rutgers.edu</A><BR>
+<LI> [GWB95] Gelbin, A., Westbrook, J., Berman, H., 
+&quot;mmCIF Data Set DDF040&quot;, 1995, 
+available from 
+<A HREF="http://ndbserver.rutgers.edu/">http://ndbserver.rutgers.edu</A>
+derived from Leonard, G. A., Hambley, T. W., McAuley-Hecht, K., Brown, T., Hunter, W. N.,
+&quot;Anthracycline-DNA Interactions at Unfavourable Base-Pair
+Base-Pair Triplet-Binding Sites: Structures of
+d(CGGCCG)/Daunomycin and d(TGGCCA)/Adriamycin Complexes&quot;,
+Acta Cryst.,Sect.D, 49, 458 ff., 1993.
+<LI> [HB96] Hall, S.R., Bernstein, H.J., &quot;CIFtbx2: Extended Tool 
+Box for Manipulating CIFs,&quot; J. Appl. Cryst., (to appear)
+(1996).
+<LI> [HRSS96] Harel, M., Raves, M. L., Silman, I., Sussman, J.L.
+&quot;PDB entry 2ACE: Native Acetylcholinesterase (E.C.3.1.1.7) 
+from Torpedo Californica, Protein Data Bank,&quot; 23 June 1996;
+Raves, M.L., Harel, M., Pang, Y.-P., Silman, I., Kozikowski, A. P., 
+Sussman, J. L., &quot;3D Structure of acetylcholinesterase complexed 
+with the nootropic alkaloid, (-)-huperzine A&quot;, Nat. Struct. Biol. 
+4, p. 57-63, 1997.
+<LI> [HS94] Hall, S.R., Spadaccini, N., &quot;The STAR File: 
+Detailed Specifications,&quot;
+J. Chem. Info. Comp. Sci., 34, 505-508, 1994. See 
+<A HREF="http://www.crystal.uwa.edu.au/cc_star.html">
+http://www.crystal.uwa.edu.au/cc_star.html</A>
+<LI> [PDB77] Bernstein, F.C., Koetzle, T.F., Williams, G. J. B., 
+Meyer Jr., E. F.,
+Brice, M.D.,Rodgers, 
+J. R.,Kennard, O.,Shimanouchi, T., and Tasumi, M., &quot;The Protein
+Data Bank: A Computer-based 
+Archival File for Macromolecular Structures&quot;, J. Mol. Biol., 112,
+535-542 (1977)<BR>
+<LI> [PDB95] &quot;Protein Data Bank Atomic Coordinate Entry Format Description: An
+Annotated Reference 
+Manual,&quot;  December 21, 1995, provided by N. Manning,
+Protein Data Bank<BR>
+<LI> [PDB96] &quot;Protein Data Bank Contents Guide:  
+Atomic Coordinate Entry Format Description,&quot;  
+Version 2.0, February 21, 1996, available from 
+<A HREF="http://www.pdb.bnl.gov/">http://www.pdb.bnl.gov</A>.<BR>
+<LI> [PEB95] Bourne, P. E., &quot;Macromolecular Crystallographic
+Information (mmCIF) Tutorial,&quot; 8 Nov 95, available from
+<A HREF="http://www.sdsc.edu/CompSci/pb/cif/tutorial_mm.html">
+http://www.sdsc.edu/CompSci/pb/cif/tutorial_mm.html</A>.<BR>
+<LI> [S94] Sayle, R., &quot;Rasmol 2.5 Molecular Graphics Visualization
+Tool,&quot; BioMolecular Structures 
+Group, Glaxo Research &amp; Development, Greenford, Middlesex, UK.,
+October 1994<BR>
+<LI> [SAMXS96] Stampf, D.R.,
+Abola, E.E., Manning, N.O., Xue, D.,  Sussman, J. L., &quot;AutoDep - 
+Facilitating Deposition to the Protein Data Bank through the New Web-Based
+Submission Form,&quot; 17th IUCR Congress and General Assembly, Seattle, 
+Washington, USA, 8-17 August 1996, <A HREF="E1205.html">Abstract E1205.</A>
+<BR>
+</UL>
+<P>   
+<H1>Useful WWW URL's</H1> 
+<P>
+There are many useful sites on the World Wide Web where information, 
+tools and software related to CIF, mmCIF and the PDB can be found.  
+The following are good starting points for exploration:
+<P>
+The International Union of Crystallography (IUCr) provides access to 
+software, dictionaries, policy statements and documentation relating 
+to CIF and mmCIF at:
+<UL>
+<LI>
+<A HREF="http://www.iucr.org/iucr-top/cif/">
+IUCr, Chester, England (www.iucr.org/iucr-top/cif/)</A>, 
+</UL>
+with mirror sites at:
+<ul>
+<li><a href="http://www.ch.iucr.org/iucr-top/cif/">
+University of Geneva, Geneva,Switzerland
+(http://www.ch.iucr.org/iucr-top/cif/)</A>
+<li><a href="http://www.fr.iucr.org/iucr-top/cif/">
+Universit&eacute; P. et M. Curie, Paris, France
+(http://www.fr.iucr.org/iucr-top/cif/)</A>
+<li><a href="http://www.se.iucr.org/iucr-top/cif/">
+Dept. Structural Chemistry, Univ. Stockholm, Sweden
+(http://www.se.iucr.org/iucr-top/cif/)</A>
+<li><a href="http://www.us.iucr.org/iucr-top/cif/">
+San Diego Supercomputing Center, San Diego, California, USA
+(http://www.us.iucr.org/iucr-top/cif/)</A>
+<li><a href="http://www.za.iucr.org/iucr-top/cif/">
+Dept. Structural Chemistry, University of the Witwatersrand, South Africa
+(http://www.za.iucr.org/iucr-top/cif)</A>
+</ul>
+Information and Software for STAR and CIF can be found at:
+<UL>
+<LI><A HREF="http://www.crystal.uwa.edu.au">
+the University of Western Australia, Nedlands, Australia
+(http://www.crystal.uwa.edu.au)</A>
+</UL>
+
+<P>
+The Nucleic Acid Database Project provides access to its entries, 
+software and documentation, with an mmCIF page giving access to 
+the dictionary and mmCIF software tools at:
+<UL>
+<LI>
+<A HREF="http://ndbserver.rutgers.edu/NDB/mmcif"> at Rutgers University, 
+New Jersey, USA (http://ndbserver.rutgers.edu/NDB/mmcif)</A>
+</UL>
+with mirror sites at:
+<UL>
+<LI><A HREF="http://www.ebi.ac.uk/NDB/mmcif/">
+the European Bioinformatics Institute, Hinxton, England, 
+(http://www.ebi.ac.uk/NDB/mmcif/)</A>
+<LI><A HREF="http://ndbserver.nibh.go.jp/NDB/mmcif/"> 
+the Structural Biology Centre, NIBH, Japan 
+(http://www.nibh.go.jp/NDB/mmcif/)</A>
+<LI><A HREF="http://ndb.sdsc.edu/NDB/mmcif/"> 
+San Diego Supercomputer Center, San Diego, California, USA 
+(http://ndb.sdsc.edu/NDB/mmcif/)</A>
+</UL>
+
+<P>
+The Protein Data Bank provides access to entries, software and documentation 
+with a browser, and an on-line PDB format description at:
+<UL>
+<LI><A HREF="http://www.pdb.bnl.gov/">
+Brookhaven National Laboratory, Upton, NY, USA (http://www.pdb.bnl.gov)</A>,
+</UL>
+with a mirror sites at:
+<UL>
+<LI><A HREF="http://pdb.ccdc.cam.ac.uk/">
+Cambridge Crystallographic Data Centre, 
+Cambridge, United Kingdom 
+(http://pdb.ccdc.cam.ac.uk)</A>
+<LI><A HREF="http://www2.ebi.ac.uk/pdb">
+the European Bioinformatics Institute, 
+Hinxton, United Kingdom 
+(http://www2.ebi.ac.uk/pdb)</A> 
+<LI><A HREF="http://162.105.177.12/npdb/index.html">
+Institute of Physical Chemistry, Peking University, 
+Beijing, China (http://162.105.177.12/npdb/index.html)</A> 
+<LI><A HREF="http://pdb.life.nthu.edu.tw">
+National Tsing Hua University, HsinChu, Taiwan 
+(http://pdb.life.nthu.edu.tw)</A>
+<LI><A HREF="http://bcl10.bmb.uga.edu">
+University of Georgia, Athens, Georgia, USA 
+(http://bcl10.bmb.uga.edu)</A>
+<LI><A HREF="http://pdb.wehi.edu.au/pdb/">
+The Walter and Eliza Hall Institute of Medical Research, 
+Melbourne, Australia (http://pdb.wehi.edu.au/pdb/)</A>
+<LI><A HREF="http://pdb.weizmann.ac.il/">
+Weizmann Institute of Science, Rehovot, Israel 
+(http://pdb.weizmann.ac.il)</FONT></A> 
+</UL>
+
+<P>
+Tutorials on mmCIF and the relationship to PDB format can be found at:
+<A HREF="http://www.sdsc.edu/pb/cif/tutorial_mm.html">
+http://www.sdsc.edu/pb/cif/tutorials.html</A>
+<HR>
+Updated 15 June 1998.  Revised 3 July 2002.<P>
+<address>
+Herbert J. Bernstein <A HREF="mailto:yaya@bernstein-plus-sons.com"> 
+     (yaya@bernstein-plus-sons.com) </A>
+</address>
+
+
+</body></html>

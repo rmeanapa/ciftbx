@@ -1,0 +1,20 @@
+
+   File Name            Archive #       Description
+-----------------------------------------------------------
+ cif2xml.src                1   directory for cif2xml sources
+ dictionaries               1   directory for dictionaries
+ ciftbx.src                 1   directory for ciftbx (load first)
+ cif2xml.src/README.cif2xml  1  information about cif2xml
+ cif2xml.src/MANIFEST       1   a list of files in the kit
+ cif2xml.src/Makefile       1   a preliminary control file for make
+ cif2xml.src/4ins.cif       1   example mmcif file used to test cif2xml
+ cif2xml.src/4ins.out       1   example XML output from test of cif2xml
+ cif2xml.src/4ins.prt       1   example list file from test of cif2xml
+ cif_cml.dic/cif_cml.dic    1   example of CML mapping definitions
+ cif2xml.src/cif2xml.cmn    1   cif2xml common block
+ cif2xml.src/cif2xml.f      1   cif2xml fortran source
+ cif2xml.src/cif_cml.dic    1   translation dictionary for cml
+ cif2xml.src/xtalt2.cif     1   example cif file used to test cif2xml
+ cif2xml.src/xtalt2.out     1   example XML output from test of cif2xml
+ cif2xml.src/xte29.out      1   example XML output from test of cif2xml
+ cif2xml.src/xttne9.out     1   example XML output from test of cif2xml

@@ -1,0 +1,162 @@
+#
+#  Makefile file for cif2xml 0.1.0
+#  Version of 18 November 2000
+#  H. J. Bernstein, Bernstein+Sons
+#  yaya@bernstein-plus-sons.com
+#
+#
+#
+#  provide here a path to mkdecompln and rmdecompln
+#
+MKDECOMPLN	= ../mkdecompln
+RMDECOMPLN	= ../rmdecompln
+#
+#  define the directory for temporary uncompressed files
+#
+#EXPAND		= /var/tmp
+EXPAND		= .
+#
+#  The definition of VPATH must be the httpd virtual path to
+#  the directory holding this version of the directory, i.e.
+#  containing the ciftbx_n.n.n directory  MANIFEST.html
+#  and README.cif2xml.html must be rebuilt if VPATH changes.
+VPATH          =       NDB/mmcif/software
+#VPATH          =       ~yaya/software
+#VPATH           =       pb/pdb2cif
+#
+#  The definition of DECOMP must be the httpd virtual path to
+#  the cgi-bin script decomp.cgi.  If this script is not available
+#  define DECOMP as NODECOMP
+#DECOMP         =       /cgi-bin/yaya/decomp.cgi
+#DECOMP         =       /~yaya/cgi-bin/decomp.cgi
+#DECOMP          =       /pb/pdb2cif/cgi-bin/decomp.cgi
+DECOMP	=	NODECOMP
+#
+#
+#
+ZPATH           =       $(DECOMP)/$(VPATH)
+#
+#  provide here a path to cif_mm.dic
+#
+MMDICPATH		= 	../dictionaries/cif_mm.dic
+#
+#  provide here the path to the CIFtbx2 directory
+TBXPATH		=	../ciftbx.src
+#
+#  provide a path to the shell sh here
+SHELL		=	/bin/sh
+#
+#  Add any necessary compilation flags on the next line
+FFLAGS		= -g -O2
+#
+all:	cif2xml postshar
+#
+#  If any of the following fail, it means the basic ciftbx
+#  installation needs to be redone
+
+$(TBXPATH)/ciftbx.o:	$(TBXPATH)/ciftbx.f \
+		$(TBXPATH)/ciftbx.sys \
+		$(TBXPATH)/ciftbx.cmv
+		( cd $(TBXPATH) ; make ciftbx.o )
+
+$(TBXPATH)/hash_funcs.o:	$(TBXPATH)/hash_funcs.f
+		( cd $(TBXPATH); make hash_funcs.o )
+
+MANIFEST.html:	MANIFEST.html.m4 Makefile
+		-@rm MANIFEST.html.BAK
+		-@mv MANIFEST.html MANIFEST.html.BAK
+		m4 -DZPATH=$(ZPATH) -DDECOMP=$(DECOMP) < MANIFEST.html.m4 \
+		> MANIFEST.html
+
+README.cif2xml.html:	 README.cif2xml.html.m4 Makefile
+		-@rm README.cif2xml.html.BAK
+		-@mv README.cif2xml.html README.cif2xml.html.BAK
+		m4 -DGRAPHICS=1 \
+		-DZPATH=$(ZPATH) -DDECOMP=$(DECOMP) < README.cif2xml.html.m4 \
+		> README.cif2xml.html
+
+cif2xml:	cif2xml.o $(TBXPATH)/hash_funcs.o $(TBXPATH)/ciftbx.o
+		$(FC) $(FFLAGS) cif2xml.o \
+		$(TBXPATH)/ciftbx.o $(TBXPATH)/hash_funcs.o \
+		-o cif2xml
+
+ciftbx.sys:	$(TBXPATH)/ciftbx.sys
+		ln -f -s $(TBXPATH)/ciftbx.sys ciftbx.sys
+
+ciftbx.cmn:	$(TBXPATH)/ciftbx.cmn
+		ln -f -s $(TBXPATH)/ciftbx.cmn ciftbx.cmn
+
+ciftbx.cmf:	$(TBXPATH)/ciftbx.cmf
+		ln -f -s $(TBXPATH)/ciftbx.cmf ciftbx.cmf
+
+ciftbx.cmv:	$(TBXPATH)/ciftbx.cmv
+		ln -f -s $(TBXPATH)/ciftbx.cmv ciftbx.cmv
+
+cif2xml.o:	cif2xml.f cif2xml.cmn ciftbx.sys ciftbx.cmn ciftbx.cmf \
+		ciftbx.cmv
+		$(FC) $(FFLAGS) -c cif2xml.f
+
+
+clean:		
+		-@rm -f *.o
+		-@rm -f cif2xml
+		-@rm -f *.lst
+		-@rm -f *.new
+		-@rm -f *.diff
+		-@rm -f *.BAK
+		-@rm -f *.bak
+		-@$(RMDECOMPLN) *.uZ
+
+
+shars:	MANIFEST Makefile README.cif2xml cif_cml.dic\
+		cif2xml.cmn cif2xml.f 4ins.cif 4ins.out 4ins.prt \
+		xtalt2.cif xtalt2.out xttne9.out xte29.out 
+		-@rm -f ../Part*
+		-@rm -f ../cif2xml.cshar
+		-@rm -f ../cif2xml.shar
+		-@rm -f ../cif2xml.cshar.Z
+		-@rm -f ../cif2xml.shar.Z
+		( cd .. ; makekit -c -icif2xml.src/MANIFEST \
+		 -ocif2xml.src/MANIFEST -h2 -p -s 1000k )
+		mv ../Part01 ../cif2xml.cshar
+		( cd .. ; makekit -icif2xml.src/MANIFEST \
+		 -ocif2xml.src/MANIFEST -h2 -p -s 1000k )
+		mv ../Part01 ../cif2xml.shar
+		-@rm -f MANIFEST.BAK
+		compress ../cif2xml.cshar
+		compress ../cif2xml.shar
+
+
+tests:	cif_mm.dic cif_cml.dic\
+		xtalt2.cif 4ins.cif 4ins.out 4ins.prt cif2xml
+		-@rm -f *.lst
+		-@rm -f *.new
+		-@rm -f *.diff
+		./cif2xml -t y -s referto cml.dtd \
+			-d cif_mm.dic -d cif_cml.dic< xtalt2.cif > xtalt2.new
+		./cif2xml -e 9 -s referto cml.dtd < xtalt2.cif > xttne9.new
+		./cif2xml -t y -e 29 < xtalt2.cif > xte29.new
+		./cif2xml -d cif_mm.dic -d cif_cml.dic -s referto cml.dtd \
+			-p .._ < 4ins.cif > 4ins.new \
+			2> 4ins.lst
+		-@diff xtalt2.out xtalt2.new > xtalt2.diff
+		-@diff xttne9.out xttne9.new > xttne9.diff
+		-@diff xte29.out xte29.new > xte29.diff
+		-@diff 4ins.out 4ins.new > 4ins.diff
+		-@diff 4ins.prt 4ins.lst > 4insprt.diff
+		cat *.diff			
+
+cif_mm.dic:	$(MMDICPATH).Z
+		ln -f -s $(MMDICPATH).Z cif_mm.dic.Z
+		$(MKDECOMPLN) cif_mm.dic $(EXPAND)
+
+4ins.cif:	4ins.cif.Z
+		$(MKDECOMPLN) 4ins.cif $(EXPAND)
+
+4ins.out:	4ins.out.Z
+		$(MKDECOMPLN) 4ins.out $(EXPAND)
+
+postshar:	
+		compress 4ins.cif
+		compress 4ins.out
+		touch postshar

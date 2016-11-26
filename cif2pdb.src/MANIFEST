@@ -1,0 +1,66 @@
+   File Name		Archive #	Description
+-----------------------------------------------------------
+ COPYING                    1	GPL (GNU General Public License)
+ NOTICE                     1	Notices
+ dictionaries               1	directory for dictionaries
+ ciftbx.src/                1	ciftbx source directory (load first)
+ cif2pdb.src/               1	cif2pdb source directory
+ cif2pdb.src/1ace.cif       1	cif of PDB entry 1ace
+ cif2pdb.src/1ace.tpdb      1	test output of 1ace
+ cif2pdb.src/1ace.twid      1	wide test output of 1ace
+ cif2pdb.src/1crn.cif       1	cif of PDB entry 1crn
+ cif2pdb.src/1crn.tpdb      1	test output of 1crn
+ cif2pdb.src/1crn.twid      1	wide test output of 1crn
+ cif2pdb.src/1cro.cif       1	cif of PDB entry 1cro
+ cif2pdb.src/1cro.tpdb      1	test output of 1cro
+ cif2pdb.src/1cro.twid      1	wide test output of 1cro
+ cif2pdb.src/1cwp.cif       1	cif of PDB entry 1cwp
+ cif2pdb.src/1cwp.tpdb      1	test output of 1cwp
+ cif2pdb.src/1cwp.twid      1	wide test output of 1cwp
+ cif2pdb.src/1hyh.cif       1	cif of PDB entry 1hyh
+ cif2pdb.src/1hyh.tpdb      1	test output of 1hyh
+ cif2pdb.src/1hyh.twid      1	wide test output of 1hyh
+ cif2pdb.src/1zrt.cif       1	cif of PDB entry 1zrt
+ cif2pdb.src/1zrt.tpdb      1	test output of 1zrt
+ cif2pdb.src/1zrt.twid      1	wide test output of 1zrt
+ cif2pdb.src/2ace.cif       1	cif of PDB entry 2ace
+ cif2pdb.src/2ace.tpdb      1	test output of 2ace
+ cif2pdb.src/2ace.twid      1	wide test output of 2ace
+ cif2pdb.src/4hir.cif       1	cif of PDB entry 4hir
+ cif2pdb.src/4hir.tpdb      1	test output of 4hir
+ cif2pdb.src/4hir.twid      1	wide test output of 4hir
+ cif2pdb.src/4ins.cif       1	cif of PDB entry 4ins
+ cif2pdb.src/4ins.tpdb      1	test output of 4ins
+ cif2pdb.src/4ins.twid      1	wide test output of 4ins
+ cif2pdb.src/5hvp.cif       1	cif of PDB entry 5hvp
+ cif2pdb.src/5hvp.tpdb      1	test output of 5hvp
+ cif2pdb.src/5hvp.twid      1	wide test output of 5hvp
+ cif2pdb.src/ADH041.cif     1	cif ADH041
+ cif2pdb.src/ADH041.tpdb    1	test output of ADH041
+ cif2pdb.src/ADH041.twid    1	wide test output of ADH041
+ cif2pdb.src/BDL001.cif     1	cif BDL001
+ cif2pdb.src/BDL001.tpdb    1	test output of BDL001
+ cif2pdb.src/BDL001.twid    1	wide test output of BDL001
+ cif2pdb.src/BDLB13.cif     1	cif BDLB13
+ cif2pdb.src/BDLB13.tpdb    1	test output of BDLB13
+ cif2pdb.src/BDLB13.twid    1	wide test output of BDLB13
+ cif2pdb.src/DDF040.cif     1	cif DDF040
+ cif2pdb.src/DDF040.tpdb    1	test output of DDF040
+ cif2pdb.src/DDF040.twid    1	wide test output of DDF040
+ cif2pdb.src/DISCUSS.cif2pdb.html  1	background information on cif2pdb
+ cif2pdb.src/IUCR_POLICY    1	IUCr policy on CIF
+ cif2pdb.src/IUCR_POLICY.html  1	IUCr policy on CIF
+ cif2pdb.src/MANIFEST       1	a list of files in the kit
+ cif2pdb.src/MANIFEST.html  1	web page version of MANIFEST
+ cif2pdb.src/MANIFEST.html.m4  1	m4 document to build MANIFEST.html
+ cif2pdb.src/Makefile       1	a control file for make
+ cif2pdb.src/Makefile.m4    1	m4 document to build Makefile(s)
+ cif2pdb.src/NOTICE         1	important notice, please read
+ cif2pdb.src/NOTICE.html    1	cif2pdb.src/NOTICE
+ cif2pdb.src/README         1	Information on use of this kit
+ cif2pdb.src/README.cif2pdb.html  1	web page version of README
+ cif2pdb.src/README.cif2pdb.html.m4  1	m4 document to build README.cif2pdb.html
+ cif2pdb.src/cif2pdb.cmn    1	common declarations needed for cif2pdb
+ cif2pdb.src/cif2pdb.f      1	source of the program cif2pdb
+ cif2pdb.src/mkdecompln     1	script to create links to compressed files
+ cif2pdb.src/rmdecompln     1	script to remove links to compressed files

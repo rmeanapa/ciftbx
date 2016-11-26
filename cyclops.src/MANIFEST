@@ -1,0 +1,14 @@
+   File Name		Archive #	Description
+-----------------------------------------------------------
+ COPYING                    1	GPL (GNU General Public License)
+ NOTICE                     1	Notices
+ cyclops.src                1	directory for cyclops sources
+ dictionaries               1	directory for dictionaries
+ ciftbx.src                 1	directory for ciftbx (load first)
+ cyclops.src/README.cyclops  1	information on CYCLOPS2
+ cyclops.src/MANIFEST       1	a list of files in the kit
+ cyclops.src/Makefile       1	a preliminary control file for make
+ cyclops.src/cyclops.cmn    1	CYCLOPS common block
+ cyclops.src/cyclops.f      1	CYCLOPS fortran source
+ cyclops.src/cyclops_test.prt  1	CYCLOPS stdout test output
+ cyclops.src/mtest.cyc      1	CYCLOPS STARCHEK output for mtest

@@ -1,0 +1,84 @@
+C
+C --------------------------------------------------------------------------
+C
+C       Common file for CYCLOPS
+C
+        CHARACTER*(MAXBUF)IBUF
+        CHARACTER*(MAXBUF) STRI
+        CHARACTER*(NUMCHAR) VERS
+        CHARACTER*(NUMCHAR) XNAME
+        CHARACTER*(NUMCHAR) UNAME
+        CHARACTER*256 XDICT(100)
+        CHARACTER*(NUMCHAR) DICTNM(100)
+        CHARACTER*(NUMCHAR) DICTVR(100)
+        CHARACTER*1  XTAB
+        INTEGER      LNAM(NUMDICT)
+        INTEGER      NPOS(NUMDICT,20)
+        INTEGER      NNDICT(NUMDICT)
+        INTEGER      NORDER(NUMDICT)
+        INTEGER      MDICT(99)
+        INTEGER      KDICT
+C
+C                               name of input text file
+        CHARACTER*256 inptext
+C                               name of validation output file
+        CHARACTER*256 valout
+C                               name of primary check dictionary file
+        CHARACTER*256 ckdict
+C                               string component array
+        CHARACTER*256 cstr(128)
+C                               input unit number
+        INTEGER       iuninp
+C                               output unit number
+        INTEGER       iunout
+C                               direct access unit number
+        INTEGER       iundac
+C                               message unit number
+        INTEGER       iunerr
+C                               number of command arguments
+        INTEGER       numarg
+C                               length of name of input text file
+        INTEGER       linptext
+C                               length of name of validation output file
+        INTEGER       lvalout
+C                               length of name of primary check dictionary file
+        INTEGER       lckdict
+C                               signals end of file on dict & text file
+        INTEGER      IEOF
+C                               current column pointer for GETSTR
+        INTEGER      ICHR
+C                               input string type from GETSTR
+        INTEGER      NTYP
+C                               number of characters in string
+        INTEGER      NCHR
+C                               number of lines input on archive file
+        INTEGER      LLINE
+C                               signals when '_name' found in dictionary
+        INTEGER      FLAG
+C                               count of data names encountered
+        INTEGER      NCNT
+C                               count of data names in dictionary
+        INTEGER      MCNT
+C                               current max chars on GETSTR input file
+        INTEGER      MAXC
+C                               shift number from upper to lower casee
+        INTEGER      CASE
+C                               max chars expected on input text file
+        INTEGER      MAXTEX
+C                               verbose output
+        LOGICAL      verbose
+C                               short output
+        LOGICAL      short
+C
+        COMMON/CYCLI/NPOS,IEOF,ICHR,NTYP,NCHR,LLINE,FLAG,NCNT,MCNT,
+     *                MAXC,MAXTEX,LNAM,CASE,KDICT,MDICT,NNDICT,NORDER,
+     *                linptext,lvalout,lckdict,
+     *                iuninp,iunout,iundac,iunerr,numarg
+C
+        COMMON/CYCLC/ IBUF,STRI,VERS,XDICT,XNAME,XTAB,UNAME,
+     *                inptext,valout,ckdict,cstr,DICTNM,DICTVR
+C
+        COMMON/CYCLL/ verbose,short
+C
+
+

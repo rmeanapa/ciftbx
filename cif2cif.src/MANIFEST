@@ -1,0 +1,28 @@
+   File Name		Archive #	Description
+-----------------------------------------------------------
+ COPYING                    1	GPL (GNU General Public License)
+ NOTICE                     1	Notices
+ cif2cif.src                1	directory for cif2cif sources
+ dictionaries               1	directory for dictionaries
+ ciftbx.src                 1	directory for ciftbx (load first)
+ cif2cif.src/README.cif2cif  1	information about cif2cif
+ cif2cif.src/MANIFEST       1	a list of files in the kit
+ cif2cif.src/Makefile       1	a preliminary control file for make
+ cif2cif.src/4ins.cif       1	example mmcif file used to test cif2cif
+ cif2cif.src/4ins.out       1	example mmcif output from test of cif2cif
+ cif2cif.src/4ins.prt       1	example mmcif list file from test of cif2cif
+ cif2cif.src/4insuw.out     1	example mmcif unwrapped long output
+ cif2cif.src/4insuw.prt     1	example mmcif list unwrapped long output
+ cif2cif.src/4insw.out      1	example mmcif wrapped output
+ cif2cif.src/4insw.prt      1	example mmcif list wrapped output
+ cif2cif.src/cif2cif.cmn    1	cif2cif common block
+ cif2cif.src/cif2cif.f      1	cif2cif fortran source
+ cif2cif.src/qtest.cif      1	quasar mode test cif
+ cif2cif.src/qtest.req      1	quasar mode test request file
+ cif2cif.src/qtest.out      1	quasar mode test output cif
+ cif2cif.src/qtest.prt      1	quasar mode test list output
+ cif2cif.src/xtalt2.cif     1	example cif file used to test cif2cif
+ cif2cif.src/xtalt2.out     1	example cif output from test of cif2cif
+ cif2cif.src/xte29.out      1	example cif output from test of cif2cif
+ cif2cif.src/xttne9.out     1	example cif output from test of cif2cif
+ cif2cif.src/cif_expanded.duff  1	changes to cif_expanded.dic

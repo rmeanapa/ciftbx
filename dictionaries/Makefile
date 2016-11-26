@@ -1,0 +1,108 @@
+#
+#  Makefile for ciftbx, etc dictionaries web related files
+#  H. J. Bernstein, Bernstein+Sons, 2 June 1997
+#  rev 2 Aug 2005
+#
+#  The valid make calls are:
+#
+#     make README.dictionaries.html
+#     make expanded	 creates local expanded files
+#
+#===============  The following definitions may need to be modified for
+#===============  your system
+#
+
+#  The locations of any programs used
+#  The most common alternative are given immediately below
+M4	=	m4
+MKDECOMPLN	=	../mkdecompln
+RMDECOMPLN	=	../rmdecompln
+EXPAND		=	/var/tmp
+#
+#  The definition of VPATH must be the httpd virtual path to
+#  dictionaries holding this version of the directory, i.e.
+#  containing the ciftbx_n.n.n directory  (one level up)
+#  README.dictionaries.html must be rebuilt if VPATH changes.
+VPATH		=	NDB/mmcif/software
+#VPATH		=	~yaya/software
+#VPATH		=	pb/pdb2cif
+#
+#  The definition of DECOMP must be the httpd virtual path to
+#  the cgi-bin script decomp.cgi.  If this script is not available
+#  define DECOMP as NODECOMP
+DECOMP		=	/cgi-bin/yaya/decomp.cgi
+#DECOMP		=	/~yaya/cgi-bin/decomp.cgi
+#DECOMP		=	/pb/pdb2cif/cgi-bin/decomp.cgi
+#DECOMP	=	NODECOMP
+#
+#
+#
+ZPATH		=	$(DECOMP)/$(VPATH)
+#
+#
+#  The definition of COMPRESS must be the path of the compression
+#  utility to produce .Z files
+COMPRESS	=	compress
+
+README.dictionaries.html:	README.dictionaries.html.m4 Makefile
+		-@rm README.dictionaries.html.BAK
+		-@mv README.dictionaries.html README.dictionaries.html.BAK
+		m4 -DGRAPHICS=1 \
+		-DZPATH=$(ZPATH) -DDECOMP=$(DECOMP) < README.dictionaries.html.m4 \
+		> README.dictionaries.html
+
+expanded:	cif_core.dic.Z cif_mm.dic.Z \
+		cif_expanded_aug08.dic.Z \
+		cif_expanded_jun06.dic.Z \
+		cif_expanded_oct09.dic.Z \
+		cif_mm_cif2pdb.dic.Z \
+		cif_mm_pdbx.dic.Z
+		$(MKDECOMPLN) cif_core.dic .
+		$(MKDECOMPLN) cif_mm.dic .
+		$(MKDECOMPLN) cif_expanded_jun06.dic .
+		$(MKDECOMPLN) cif_expanded_aug08.dic .
+		$(MKDECOMPLN) cif_expanded_oct09.dic .
+		$(MKDECOMPLN) cif_mm_pdbx.dic .
+		$(MKDECOMPLN) cif_mm_cif2pdb.dic .
+		touch expanded
+
+compressed:	cif_core.dic cif_mm.dic \
+		cif_expanded_aug08.dic \
+		cif_expanded_jun06.dic \
+		cif_expanded_oct09.dic \
+		cif_mm_cif2pdb.dic \
+		cif_mm_pdbx.dic
+		$(COMPRESS)  cif_core.dic
+		$(COMPRESS)  cif_mm.dic
+		$(COMPRESS)  cif_expanded_jun06.dic
+		$(COMPRESS)  cif_expanded_aug08.dic
+		$(COMPRESS)  cif_expanded_oct09.dic
+		$(COMPRESS)  cif_mm_cif2pdb.dic
+		$(COMPRESS)  cif_mm_pdbx.dic
+		rm -f uncompress
+		rm -f expanded
+		touch compressed
+
+uncompress:     cif_core.dic.Z cif_mm.dic.Z \
+		cif_expanded_aug08.dic.Z \
+		cif_expanded_jun06.dic.Z \
+		cif_expanded_oct09.dic.Z \
+		cif_mm_cif2pdb.dic.Z \
+		cif_mm_pdbx.dic.Z
+		$(RMDECOMPLN) cif_core.dic
+		$(RMDECOMPLN) cif_mm.dic
+		$(RMDECOMPLN) cif_expanded_jun06.dic
+		$(RMDECOMPLN) cif_expanded_aug08.dic
+		$(RMDECOMPLN) cif_expanded_oct09.dic
+		$(RMDECOMPLN) cif_mm_cif2pdb.dic
+		$(RMDECOMPLN) cif_mm_pdbx.dic
+		$(COMPRESS)  -d cif_core.dic.Z
+		$(COMPRESS)  -d cif_mm.dic.Z
+		$(COMPRESS)  -d cif_expanded_jun06.dic.Z
+		$(COMPRESS)  -d cif_expanded_aug08.dic.Z
+		$(COMPRESS)  -d cif_expanded_oct09.dic.Z
+		$(COMPRESS)  -d cif_mm_cif2pdb.dic
+		$(COMPRESS)  -d cif_mm_pdbx.dic
+		rm -f compressed
+		rm -f expanded
+		touch uncompress

@@ -1,0 +1,1060 @@
+<HTML>
+<HEAD>
+<TITLE>DISCUSS.ciftbx.html</TITLE>
+</HEAD>
+<BODY BACKGROUND=".logos/ciftbx_wallpaper.jpg">
+<a href="http://www.iucr.org/iucr-top/welcome.html">
+<img alt="[IUCr Home Page]" src=".logos/iucrhome.jpg"></a>
+<a href="http://www.iucr.org/iucr-top/cif/home.html">
+<img alt="[CIF Home Page]" src=".logos/cifhome.jpg"></a>
+<A HREF="ciftbx.src/README.ciftbx.html"> <IMG SRC=".logos/ciftbxButton.jpg" 
+ALT="[ciftbx.src]"></A>
+<A HREF="cyclops.src/README.cyclops.html"> <IMG SRC=".logos/cyclopsButton.jpg" 
+ALT="[cyclops.src]"></A> 
+<A HREF="cif2cif.src/README.cif2cif.html"> <IMG SRC=".logos/cif2cifButton.jpg" 
+ALT="[cif2cif.src]"></A> 
+<hr>
+<CENTER>
+<IMG  SRC=".logos/ciftbx.jpg" ALT="CIFtbx">
+</CENTER>
+<H1 ALIGN=CENTER>Reading, Writing and Validating CIFS using CIFtbx2, cif2cif and Cyclops</H1>
+<CENTER>(Revised 23 June 1998)
+</CENTER>
+<P>
+<CENTER>
+Based on <CITE>Reading, Writing and Validating CIFS using CIFtbx2 and Cyclops</CITE>,
+mmCIF workshop, IUCr meeting, 
+Seattle Washington, August 1996, Abstract E0725<BR>
+
+</CENTER>
+<P>
+<CENTER>
+Herbert J. Bernstein<BR>
+Bernstein + Sons, 5 Brewster Lane, Bellport, NY 11713-2803, USA<BR>
+phone: 1-516-286-1339 
+email:  <A HREF="mailto:yaya@bernstein-plus-sons.com">yaya@bernstein-plus-sons.com</A>
+</CENTER>
+<P>
+<CENTER>
+Sydney R. Hall<BR>
+Crystallographic Centre, University of Western Australia, Nedlands 6009, Australia<BR>
+phone: 61-9-380-2725 email:  <A HREF="mailto:syd@crystal.uwa.edu">syd@crystal.uwa.edu</A>
+</CENTER>
+<P>
+<CENTER>	
+Work supported in part by IUCr (for HJB)
+</CENTER>
+<hr>
+<P>
+<H3 ALIGN=CENTER>
+Before using this software, please read the <BR>
+<A HREF = "NOTICE.html"> <IMG SRC=".logos/noticeButton.jpg" ALT="NOTICE"></A><BR>
+ and please read the IUCr<BR>
+<A HREF="IUCR_POLICY.html"> <IMG SRC=".logos/policyButton.jpg" ALT="Policy"></A><BR>
+ on the Use of the Crystallographic Information File (CIF)
+</H3> 
+<HR>
+<H2>Introduction </H2>
+<BR>
+<p>
+The basic steps needed to adapt existing Fortran applications and write new
+applications which will manipulate CIFs are explained. We emphasize techniques
+needed to make applications compatible with both DDL1 and DDL2 CIFs. We discuss
+validating CIFs and more general STAR documents against dictionaries. 
+<p>
+CIFs are becoming the standard for presentation of small molecules, and the
+pending adoption of the mmCIF dictionary by the IUCr is encouraging increasing
+use of CIFs for macromolecules. It is critically important for existing
+applications, such as molecular display programs, to be adapted to accept small
+molecule and macromolecule CIFs for input and to be able to produce CIFs as
+output in order to ensure a common interchange format among programs.
+Application programmers need to become familiar with the dictionary-based
+definition of CIF tokens and to  design their applications so that the addition
+of new layered dictionaries will not require a redesign of code. We use the
+experience in adapting the DDL1 versions of several programs to a compatible
+DDL1/DDL2 environment to illustrate some to the practical issues involved. We
+show how tools, such as the extended version of CIFtbx2, a new version of a
+Fortran subroutine library for programmers developing CIF applications, cif2cif,
+a CIFtbx2 application which checks CIFs, copies, reformats and extract subsets of CIFs and
+Cyclops2, a new version of the very effective STAR data name checking program,
+can be used to make the transition to CIF and between DDL1 and DDL2 more
+manageable. 
+<p>
+Issues that are addressed include managing large dictionaries efficiently with
+the use of hash-tables, the use of layered dictionaries, the implications of
+categories, and the implications of the more precise data types of mmCIF.
+<p>
+<p>
+
+<H2>CIFtbx2</H2>
+<P>
+CIFtbx2 (Hall and Bernstein, 1996)
+is a new version of a Fortran subroutine library for programmers 
+developing CIF applications. The functions for reading and writing CIF 
+data in CIFtbx [H95] have been expanded and facilities for handling 
+macromolecular CIF data and dictionaries have been added. The CIFtbx2 
+library facilitates applications involving all current versions of 
+the dictionary definition language.
+<P>
+Since that time the CIF approach has been applied to new areas such 
+as NMR data and macromolecular structural data. The dictionary which 
+defines the macromolecular structural data [FBB96] uses an extended dictionary 
+definition language (DDL2) with stronger relational attributes than 
+that of the DDL [HC95] used for the core crystallographic 
+dictionaries. The extended DDL2 [WH95] is not 
+supported by the dictionary functions in CIFtbx  and this was the 
+primary motivation for creating the new CIFtbx2 library. This 
+library, which is equally applicable to the macromolecular CIF 
+(mmCIF) dictionary in DDL2 and to other dictionaries in DDL, 
+is the subject of this talk.
+<P>
+The initial impetus for this work was to support one of us 
+(HJB) in the use of CIF data derived from Protein Data 
+Bank [PDB77] files.  CIFtbx2 was used 
+to map hundreds of CIF data names embedded in existing software 
+into the mmCIF name format, and to check the existence and 
+application of these items.  As a result, code for conversion 
+of Protein Data Bank entries to mmCIF format was developed 
+in the form of an awk script, pdb2cif  
+[BBB98]. 
+CIFtbx2 is also used in the recent release of the Xtal 3.4 System 
+[HKS95]. 
+<P>
+With minor exceptions, CIFtbx2 is a fully upward compatible 
+extension of CIFtbx.
+<P>
+The user interface to CIFtbx2 consists of Fortran functions, 
+subroutines and common variables.  The user-accessible functions, 
+subroutines and variables are identified by a trailing underscore 
+(&quot;_&quot;) character.  The functions and subroutines, 
+often referred to as "commands", may be divided into basic 
+three groups: set-up commands that initialise data handling; 
+read commands that input data from a CIF; and write commands 
+that output CIF data.  The read and write commands are logically 
+independent and may be applied simultaneously to copy and update CIFs.
+<H3>GENERAL TOOLS</H3>
+<P>
+<TABLE>
+<tr>
+<td><b>init_</b><td COLSPAN=2>Sets the device numbers of files. (optional)<tr>
+<td>      <td COLSPAN=2>[logical function always returned .true.]<tr>
+<td>      <td>&lt;input CIF dev number&gt;<td>Set input CIF device (def=1)<tr>
+<td>      <td>&lt;output CIF dev number&gt;<td>Set output CIF device (def=2)<tr>
+<td>      <td>&lt;diracc dev number&gt;<td>Set direct access formatted
+scratch device number (def=3)<tr>
+<td>      <td>&lt;error  dev number&gt;<td>Set error message device (def=6)<tr>
+<tr>
+<td><b>dict_</b><td COLSPAN=2>Requests a CIF dictionary be used for various data
+ checks.<tr>
+<td>      <td COLSPAN=2>[logical function returned as .true. if the name dictionary
+was opened; and if the check codes are recognisable.  The
+data item names used in the first dictionary loaded are
+considered to be preferred by the user to aliases found
+in dictionaries loaded in later calls.    On exit from dict_
+the variable dicname_ is either equal to the filename, or,
+if the dictionary had a value for the tag dictionary_name
+of dictionary.title, dicname_ is set to that value.
+The variable dicver_ is blank or set to the value of
+_dictionary_version or of _dictionary.version  The check codes
+'catck' and 'catno' turn on and off checking of dictionary
+catgeory conventions.  The default is 'catck'.  Three check
+codes control the handling of tags from the current dictionary
+which duplicate tags from a dictionary loaded earlier.  These
+codes ('first', 'final' and 'nodup') have effect only for the
+current call to dict_  The default is 'first'.]<tr>
+<td>      <td>&lt;dictionary filename&gt;<td>A CIF dictionary in DDL format
+or blank if just setting flags
+or resetting the dictionary<tr>
+<td>      <td>&lt;check code string&gt;<td>The codes specifying the types of 
+checks to be applied to the CIF.<tr>
+<td>      <td>                   <td>'valid'  data name validation check.<tr>
+<td>      <td>                   <td>'dtype'  data item data type check.<tr>
+<td>      <td>                   <td>'catck'  check datanames against categories.<tr>
+<td>      <td>                   <td>'catno'  don't check datanames against categories.<tr>
+<td>      <td>                   <td>'first'  accept first dictionary's 
+definitions of duplicate tags.<tr>
+<td>      <td>                   <td>'final'  accept final dictionary's
+definitions of duplicate tags.<tr>
+<td>      <td>                   <td>'nodup'  do not accept duplicate tag
+definitions.<tr>
+<td>      <td>                   <td>'reset'  switch off checking flags.<tr>
+<td>      <td>                   <td>'close'  close existing dictionaries.<tr>
+<td><td><td></TABLE>
+<P>
+<H3>CIF ACCESS TOOLS  (&quot;the get_ing commands&quot;) </H3>
+<P>
+<TABLE>
+<tr>
+<td><b>ocif_</b><td COLSPAN=2>Opens the CIF containing the required data.<tr>
+<td>      <td COLSPAN=2>[logical function returned .true. if CIF opened]<tr>
+<td>      <td>&lt;CIF filename&gt;<td>A blank name signals that the
+currently open input CIF file will be read. <tr>
+<td><b>data_</b><td COLSPAN=2>Identifies the data block containing the data to be requested.<tr>
+<td>      <td COLSPAN=2>[logical function returned .true. if block found]<tr>
+<td>      <td>&lt;data block name&gt;<td>A blank name signals that the next
+encountered block is used (the block name is stored in the variable bloc_).<tr>
+
+
+<tr>
+<td><b>bkmrk_</b><td COLSPAN=2>Saves or restores the current position so that data from 
+elsewhere in the cif can be examined.<tr>
+<td>      <td COLSPAN=2>[logical function returned as .true. on save if there was
+room in internal storage to hold the current position, .true.
+on restore if the bookmark number used was valid.  If the
+argument is zero, the call is to save the position and return
+the bookmark number in the argument.  If the argument is
+non-zero, the call is to restore the position saved for the
+bookmark number given.  The bookmark and the argument are
+cleared.  The position set on return allow reprocessing of
+the data item or loop row last processed when the bookmark
+was placed.<tr>
+<tr>
+<td>      <td COLSPAN=2>NOTE:  All bookmarks are cleared by a call to data_]<tr>
+<td>      <td>&lt;integer variable&gt;<td>Bookmark number.<tr>
+<tr>
+<td><b>find_</b><td COLSPAN=2>Find the location of the requested item in the CIF.<tr>
+<td>      <td COLSPAN=2>[The argument "name" may be a data item name, blank
+for the next such item.  The argument "type" may be
+blank for unrestricted acceptance of any non-comment
+string (use cmnt_ to see comments), including loop headers,
+&quot;name&quot; to accept only the name itself and &quot;valu&quot;
+to accept only the value, or &quot;head&quot; to position to the
+head of the CIF.  Except when the &quot;head&quot; is requested,
+the position is left after the data item provided.  If the
+item found is of type &quot;name&quot;, posnam_ is set, otherwise, 
+posval_]<tr>
+<td>      <td>&lt;data item name&gt;<td>A blank name signals that the next
+item of the type specified is needed.<tr>
+<td>      <td>&lt;data item type&gt;<td>blank, 'head', 'name' or 'valu'<tr>
+<td>      <td>&lt;character variable&gt;<td>Returned string is of length long_.<tr>
+
+<tr>
+<td><b>test_</b><td COLSPAN=2>Identify the data attributes of the named data item.<tr>
+<td>      <td COLSPAN=2>[logical function returned as .true. if the item is present or
+.false. if it is not. The data attributes are stored in the
+common variables list_, type_, dictype_, diccat_ and dicname_. 
+The values in dictype_, diccat_ and dicname_ are valid
+whether or not the data item is found in the input CIF, as
+long as the named data item is found in the dictionaries
+declared by calls to dict_.  The data item name found
+in the input CIF is stored in tagname_.  The appropriate
+column numbers are stored in posnam_, posval_ and (for
+numbers in posdec_).  The quotation mark, if any, used is
+stored in quote_.<tr>
+<td>      <td COLSPAN=2>list_ is an integer variable containing the sequential number
+of the loop block in the data block. If the item is not within
+a loop structure this value will be zero.<tr>
+<td>      <td COLSPAN=2>type_ is a character*4 variable with the possible values:<tr>
+<td><td><td>'numb'  for number data<tr>
+<td><td><td>'char'  for character data<tr>
+<td><td><td>'text'  for text data<tr>
+<td><td><td>'null'  if data missing or '?' or '.'<tr>
+<td>      <td COLSPAN=2>dictype_ is a character*(NUMCHAR) variable with the type code
+given in the dictionary entry for the named data item.  If
+no dictionary was used, or no type code was specified, this
+field will simply agree with type_.  If a dictionary was used,
+this type may be more specific than the one given by type_.<tr>
+<td>      <td COLSPAN=2>diccat_ is a character*(NUMCHAR) variable with the category
+of the named data item, or '(none)'<tr>
+<td>      <td COLSPAN=2>dicname_ is a character*(NUMCHAR) variable with the name of
+the data item which is found in the dictionary for the
+named data item.  If alias_ is .true., this name may
+differ from the name given in the call to test_.  If alias_
+is .false. or no preferred alias is found, dicname_ agrees with
+the data item name.<tr>
+<td>      <td COLSPAN=2>tagname_ is a character*(NUMCHAR) variable with the name
+of the data item as found in the input CIF.  It will be
+blank if the data item name requested is not found in the
+input CIF and may differ from the data item name provided
+by the user if the name used in the input CIF is an
+alias of the data item name and alias_ is .true.<tr>
+<td>      <td COLSPAN=2>posnam_, posval_ and posdec_ are integer variables which
+may be examined if information about the horizontal position
+of the name and data read are needed.  posnam_ is the
+starting column of the data name found (most often 1).
+posval_ is the starting column of the data value.  If the
+field is numeric, then posdec_ will contain the effective
+column number of the decimal point.  For whole numbers, the
+effective position of the decimal point is one column to the
+right of the field.<tr>
+<td>      <td COLSPAN=2>quote_ is a character*1 variable which may be examined to
+determine if a quotation character was used on character data.]<tr>
+<td>      <td>&lt;data name&gt;<td>Name of the data item to be tested.<tr>
+<tr>
+<td><b>name_</b><td COLSPAN=2>Get the NEXT data name in the current data block.<tr>
+<td>      <td COLSPAN=2>[logical function returned as .true. if a new data name exists
+in the current data block, and .false. when the end of the data
+block is reached.]<tr>
+<td>      <td>&lt;data name&gt;    <td>Returned name of next data item in block.<tr>
+<tr>
+<td><b>numb_</b><td COLSPAN=2>Extracts the number and its standard deviation (if appended).<tr>
+<td>      <td COLSPAN=2>[logical function returned as .true. if number present. If
+.false. arguments 2 and 3 are unaltered. If the esd is not
+attached to the number argument 3 is unaltered.]<tr>
+<td>      <td>&lt;data name&gt;     <td>Name of the number sought.<tr>
+<td>      <td>&lt;real variable&gt; <td>Returned number.<tr>
+<td>      <td>&lt;real variable&gt; <td>Returned standard deviation.<tr>
+<tr>
+<td><b>numd_</b><td COLSPAN=2>Extracts the number and its standard deviation (if appended)
+as double precision variables.<tr>
+<td>      <td COLSPAN=2>[logical function returned as .true. if number present. If
+.false. arguments 2 and 3 are unaltered. If the esd is not
+attached to the number argument 3 is unaltered.]<tr>
+<td>      <td>&lt;data name&gt;  <td> Name of the number sought.<tr>
+<td>      <td>&lt;double precision variable&gt;
+<td>Returned number.<tr>
+<td>      <td>&lt;double precision variable&gt;
+<td>Returned standard deviation.<tr>
+<tr>
+<td><b>char_</b><td COLSPAN=2>Extracts character and text strings.<tr>
+<td>      <td COLSPAN=2>[logical function returned as .true. if the string is present.
+Note that if the character string is text this function is 
+called repeatedly until the logical variable text_ is .false.]<tr>
+<td>      <td>&lt;data name&gt;        <td>Name of the string sought.<tr>
+<td>      <td>&lt;character variable&gt;<td>Returned string is of length long_.<tr>
+<tr>
+<td><b>cmnt_</b><td COLSPAN=2>Extracts the next comment from the data block.<tr>
+<td>      <td COLSPAN=2>[logical function returned as .true. if a comment is present.
+The initial comment character "#" is _not_ included in the
+returned string.  A completely blank line is treated as
+a comment.]<tr>
+<td>      <td>&lt;character variable&gt;<td>Returned string is of length long_.<tr>
+<tr>
+<td><b>purge_</b><td COLSPAN=2>Closes existing data files and clears tables and pointers.<tr>
+<td>      <td COLSPAN=2>[subroutine call] <tr>    
+</TABLE>
+<H3>CIF CREATION TOOLS (&quot;the put_ing commands&quot;)</H3>
+<P>
+<TABLE>
+<tr>
+<td><b>pfile_</b><td COLSPAN=2>Create a file with the specified file name.<tr>
+<td>      <td COLSPAN=2>[logical function returned as .true. if the file is opened.
+The value will be .false. if the file already exists.]<tr>
+<td>      <td>&lt;file name&gt;     <td>Blank for use of currently open file<tr>
+<tr>
+<td><b>pdata_</b><td COLSPAN=2>Put a data block command into the created CIF. <tr>
+<td>      <td COLSPAN=2>[logical function returned as .true. if the block is created.
+The value will be .false. if the block name already exists.
+Produces a save frame instead of a data block if the
+variable saveo_ is true during the call.  No block duplicate
+check is made for a save frame.]<tr>
+<td>      <td>&lt;block name&gt;<td><tr>
+<tr>
+<td><b>ploop_</b><td COLSPAN=2>Put a loop_ data name into the created CIF. <tr>            
+<td>      <td COLSPAN=2>[logical function returned as .true. if the invocation 
+conforms with the CIF logical structure.]<tr>
+<td>      <td>&lt;data name&gt;<td><tr>
+<tr>
+<td><b>pchar_</b><td COLSPAN=2>Put a character string into the created CIF.  <tr>           
+<td>      <td COLSPAN=2>[logical function returned as .true. if the name is unique,
+AND, if dict_ is invoked, is a name defined in the dictionary, 
+AND, if the invocation conforms to the CIF logical structure.
+The action of pchar_ is modified by the variables pquote_ and
+nblanko_.  If pquote_ is non-blank, it is used as a quotation
+character for the string written by pchar_.  The valid values
+are '''', '&quot;', and ';'.  In the last case a text field is
+written.  If the string contains a matching character to the
+value of quote_, or if quote_ is not one of the valid
+ quotation characters, a valid, non-conflicting quotation
+character is used.  Except when writing a text field, if 
+nblanko_ is true, pchar_ converts a blank string to 
+an unquoted period.]<tr>
+<td>      <td>&lt;data name&gt;    <td>If the name is blank, do not output name.<tr>
+<td>      <td>&lt;character string&gt;<td>A character string of MAXBUF chars or less.<tr>
+<tr>
+<td><b>pcmnt_</b><td COLSPAN=2>Puts a comment into the created CIF.<tr>
+<td>      <td COLSPAN=2>[logical function returned as .true.  The comment character
+&quot;#&quot; should not be included in the string.  A blank comment
+is presented as a blank line without the leading &quot;#&quot;].<tr>
+<td>      <td>&lt;character string&gt;<td>A character string of MAXBUF chars or less.<tr>
+<tr>
+<td><b>pnumb_</b><td COLSPAN=2>Put a single precision number and its esd into the created CIF.<tr>          
+<td>      <td COLSPAN=2>[logical function returned as .true. if the name is unique,
+AND, if dict_ is invoked, is a name defined in the dictionary, 
+AND, if the invocation conforms to the CIF logical structure.
+The number of esd digits is controlled by the variable
+esdlim_]<tr>
+<td>      <td>&lt;data name&gt;     <td>If the name is blank, do not output name.<tr>
+<td>      <td>&lt;real variable&gt; <td>Number to be inserted.<tr>
+<td>      <td>&lt;real variable&gt; <td>Esd number to be appended in parentheses.<tr>
+<tr>
+<td><b>pnumd_</b><td COLSPAN=2>Put a double precision number and its esd into the created CIF. <tr>            
+<td>      <td COLSPAN=2>[logical function returned as .true. if the name is unique,
+AND, if dict_ is invoked, is a name defined in the dictionary, 
+AND, if the invocation conforms to the CIF logical structure.
+The number of esd digits is controlled by the variable
+ esdlim_]<tr>
+<td>      <td>&lt;data name&gt;    <td>If the name is blank, do not output name.<tr>
+<td>      <td>&lt;double precision variable&gt;  
+<td>Number to be inserted.<tr>
+<td>      <td>&lt;double precision variable&gt;  
+<td>Esd number to be appended in parentheses.<tr>
+<tr>
+<td><b>ptext_</b><td COLSPAN=2>Put a character string into the created CIF.<tr>             
+<td>      <td COLSPAN=2>[logical function returned as .true. if the name is unique,
+AND, if dict_ is invoked, is a name defined in the dictionary, 
+AND, if the invocation conforms to the CIF logical structure.]<tr>
+<td>      <td COLSPAN=2>ptext_ is invoked repeatedly until the text is finished. Only
+the first invocation will insert a data name.<tr>
+<td>      <td>&lt;data name&gt;      <td>If the name is blank, do not output name.<tr>
+<td>      <td>&lt;character string&gt; <td>A character string of MAXBUF chars or less.<tr>
+<tr>
+<td><b>prefx_</b><td COLSPAN=2>Puts a prefix onto subsequent lines of the created CIF.<tr>
+<td>      <td COLSPAN=2>[logical function returned as .true.  The second argument
+may be zero to suppress a previously used prefix, or
+greater than the non-blank length of the string to force
+a left margin.  Any change in the length of the prefix 
+string flushes pending partial output lines, but does _not_
+force completion of pending text blocks or loops.
+This function allows the CIF output functions to be used 
+within what appear to be text fields to support annotation 
+of a CIF.]<tr>
+<td>      <td>&lt;character string&gt;<td>A character string of MAXBUF chars or less.<tr>
+<td>      <td>&lt;integer variable&gt;<td>The length of the prefix string to use.<tr>
+<tr>
+<td><b>close_</b><td COLSPAN=2>Close the creation CIF. MUST be used if pfile_ is used.<tr>
+<td>      <td COLSPAN=2>[subroutine call]<tr>
+</TABLE>
+<H3>Variables for Data Access Control:</H3>
+<P>
+<TABLE>
+<tr>
+<td VALIGN=top><b>alias_</b><td>Logical variable: if left .true. then all calls to
+CIFtbx functions may use aliases of data item names.
+The preferred synonym from the dictionary will be
+substituted internally, provided aliased data names were
+supplied by an input dictionary (via dict_).  The
+default is .true., but alias_ may be set to .false.
+in an application.
+<tr>
+<td VALIGN=top><b>aliaso_</b><td>Logical variable: if set .true. then cif output 
+routines will convert aliases to the names to preferred
+synonyms from the dictionary.  The default is .false., but
+aliaso_ may be set to .true. in an application.  The
+setting of aliaso_ is independent of the setting of
+alias_.
+<tr>
+<td VALIGN=top><b>align_ </b><td>Logical variable signals alignment of loop_ lists during
+the creation of a CIF. The default is .true.
+<tr>
+<td VALIGN=top><b>append_</b><td>Logical variable:  if set .true. each call to ocif_ will
+append the information found to the current cif.  The default
+is .false.
+<tr>
+<td VALIGN=top><b>bloc_</b><td>Character*(NUMCHAR) variable: the current block name.
+<tr>
+<td VALIGN=top><b>decp_</b><td>Logical variable: set when processing numeric input, .true.
+if there is a decimal point in the numeric value, .false.
+otherwise.
+<tr>
+<td VALIGN=top><b>dictype_</b><td>Character*(NUMCHAR) variable: the precise data type code
+(see test_)
+<tr>
+<td VALIGN=top><b>diccat_</b><td>Character*(NUMCHAR) variable: the category (see test_)
+<tr>
+<td VALIGN=top><b>dicname_</b><td>Character*(NUMCHAR) variable: the root alias (see test_)
+<tr>
+<td VALIGN=top><b>dicver_</b><td>Character*(NUMCHAR) variable: the version of the dictionary
+just loaded (see dict_)
+<tr>
+<td VALIGN=top><b>esddig_</b><td> Integer variable:  The number of esd digits 
+in the last  number read from a CIF.  Will be zero if no esd  was 
+given.
+<tr>
+<td VALIGN=top><b>esdlim_</b><td>Integer variable:  Specifies the upper limit of esd's
+produced by pnumb_, and, implicitly, the lower limit.
+The default value is 19, which limits esd's to the range
+2-19.  Typical values of esdlim_ might be 9 (limiting
+esd's to the range 1-9), 19, or 29 (limiting esd's
+to the range 3-29)
+<tr>
+<td VALIGN=top><b>file_</b><td>Character*(MAXBUF) variable: the filename of the current file.
+<tr>
+<td VALIGN=top><b>glob_</b><td>Logical variable signals that the current data block
+<tr>
+<td VALIGN=top><b>globo_</b><td>Logical variable signals that the output data block from
+pdata_ is actually a global block (.true. for a global block).
+<tr>
+<td VALIGN=top><b>line_</b><td>Integer variable: Specifies the input/output line limit
+for processing a CIF. The default value is 80 characters.
+This may be set by the program. The max value is MAXBUF
+which has a default value of 200.
+<tr>
+<td VALIGN=top><b>list_</b><td>Integer variable: the loop block number (see test_).
+<tr>
+<td VALIGN=top><b>long_ </b><td>Integer variable: the length of the data string in strg_.
+<tr>
+<td VALIGN=top><b>longf_</b><td>Integer variable: the length of the filename in file_.
+<tr>
+<td VALIGN=top><b>loop_</b><td>Logical variable signals if another loop packet is present.
+<tr>
+<td VALIGN=top><b>lzero_</b><td>Logical variable: set when processing numeric input, .true.
+if the numeric value is of the form [sign]0.nnnn rather than
+[sign].nnnn, .false. otherwise 
+<tr>
+<td VALIGN=top><b>nblank_</b><td>Logical variable: if set .true. then all calls to
+to char_ or test_ which encounter a non-text quoted blank 
+will return the type as 'null' rather than 'char'.
+<tr>
+<td VALIGN=top><b>nblanko_</b><td>Logical variable: if set .true. then cif output 
+routines will convert quoted blank strings to an
+unquoted period (i.e. to a data item of type null).
+<tr>
+<td VALIGN=top><b>pdecp_</b><td>Logical variable: if set .true. then cif numeric output
+routines will insert a decimal point in all numbers written by
+pnumb_ or pnumbd_.  If set .false. then a decimal point will be
+written only when needed.  The default is .false.
+<tr>
+<td VALIGN=top><b>pesddig_</b><td>Integer variable: if set non-zero, and esdlim_ is negative, controls the number of digits for esd's produced by pnumb_ and pnumd_
+<tr>
+<td VALIGN=top><b>plzero_</b><td>Logical variable: if set .true. then cif numeric output
+routines will insert a zero before a leading decimal point,
+The default is .false.
+<tr>
+<td VALIGN=top><b>pposdec_</b><td>Integer variable giving the position of the decimal point
+for the next number to be written.
+<tr>
+<td VALIGN=top><b>pposnam_</b><td>Integer variable giving the starting column of the next
+name or comment to be written.
+<tr>
+<td VALIGN=top><b>pposval_</b><td>Integer variable giving the starting column of the next
+data value to be written.
+<tr>
+<td VALIGN=top><b>posdec_</b><td>Integer variable giving the position of the decimal point
+for the last number read.
+<tr>
+<td VALIGN=top><b>posend_</b><td>Integer variable giving the ending column of the last
+data value read, not including a terminal quote.
+<tr>
+<td VALIGN=top><b>posnam_</b><td>Integer variable giving the starting column of the last
+name or comment read.
+<tr>
+<td VALIGN=top><b>posval_</b><td>Integer variable giving the starting column of the last
+data value read.
+<tr>
+<td VALIGN=top><b>pquote_</b><td>Character variable giving the quotation symbol to be
+used for the next string written.
+<tr>
+<td VALIGN=top><b>quote_</b><td>Character variable giving the quotation symbol found
+delimiting the last string read.
+<tr>
+<td VALIGN=top><b>precn_</b><td>Integer variable:  Reports the record number of the last
+line written to the output cif.  Set to zero by init_.  Also
+set to zero by pfile_ and close_ if the output cif file name
+was not blank.
+<tr>
+<td VALIGN=top><b>ptabx_</b><td>Logical variable signals tab character expansion to blanks 
+during the creation of a CIF. The default is .true.
+<tr>
+<td VALIGN=top><b>quote_</b><td>Character variable giving the quotation symbol found
+delimiting the last string read.
+<tr>
+<td VALIGN=top><b>recbeg_</b><td>Integer variable:  Gives the record number of the first
+record to be used.  May be changed by the user to restrict
+access to a CIF.
+<tr>
+<td VALIGN=top><b>recend_</b><td>Integer variable:  Gives the record number of the last
+ record to be used.  May be changed by the user to restrict
+access to a CIF.
+<tr>
+<td VALIGN=top><b>recn_</b><td>Integer variable:  Reports the record number of the last
+line read from the direct access copy of the input cif.
+<tr>
+<td VALIGN=top><b>save_</b><td>Logical variable signals that the current data block
+is actually a save-frame (.true. for a save-frame).
+<tr>
+<td VALIGN=top><b>saveo_</b><td>Logical variable signals that the output data block from
+pdata_ is actually a save-frame (.true. for a save-frame).
+<tr>
+<td VALIGN=top><b>strg_ </b><td>Character*(MAXBUF) variable: the current data item.
+<tr>
+<td VALIGN=top><b>tabl_</b><td>Logical variable signals tab-stop alignment of output 
+during the creation of a CIF. The default is .true.
+<tr>
+<td VALIGN=top><b>tabx_</b><td>Logical variable signals tab character expansion to blanks 
+during the reading of a CIF. The default is .true.
+<tr>
+<td VALIGN=top><b>tbxver_</b><td>Character*32 variable: the CIFtbx version and date
+in the form 'CIFtbx version N.N.N, DD MMM YY '
+<tr>
+<td VALIGN=top><b>text_</b><td>Logical variable signals if another text line is present.
+<tr>
+<td VALIGN=top><b>type_</b><td>Character*4 variable: the data type code (see test_).
+<tr>
+</TABLE>
+<H2>cif2cif</H2>
+cif2cif is a CIFtbx2 application which copies CIFs while optionally checking 
+them against dictionaries.  While doing the copy, cif2cif can reformat a CIF 
+which has strayed past column 80 to bring it back into spec and can modify esd's
+for numbers to conform to the rul of 9, 19, 29, etc.  It also can perform the
+functions of QUASAR [HS93] for CIFs, extracting selected tags in the order specified
+by a request list.
+<H3>Using the Program cif2cif</H3>
+<PRE>
+      cif2cif [-i input_cif] [-o output_cif] [-d dictionary]
+              [-f command_file] [-e esdlim_] [-a aliaso_] [-p prefix]
+              [-t tabl_] [-q request_list]
+              [[[input_cif] [[output_cif] [[dictionary] [request_list]]]]
+      where:
+              input_cif defaults to $CIF2CIF_INPUT_CIF or stdin
+              output_cif defaults to $CIF2CIF_OUTPUT_CIF or stdout
+              dictionary defaults to $CIF2CIF_CHECK_DICTIONARY
+                (multiple dictionaries may be specified)
+              request_list defaults to $CIF2CIF_REQUEST_LIST
+              input_cif of "-" is stdin, output_cif of "-" is stdout
+               request_list of "-" is stdin
+              -e has integer values (e.g. 9, 19(default) or 29)
+              -a has values of t or 1 or y vs. f or 0 or n
+              -p has string values in which "_" is replaced by blank
+              -t has values of t or 1 or y vs. f or 0 or n (default n)
+
+</PRE>
+<p>
+cif2cif is used as a filter. 
+<H2> Cyclops2 </H2>
+Cyclops2 is a new version of the program Cyclops (Hall, 1993) which is used, 
+in conjunction with CIF dictionaries, to validate data names in an ASCII 
+file.  The validated file may contain CIF or non-CIF data, text documents 
+or a program source.  The new version is able to work with DDL1 or DDL2 
+dictionaries, the long data names of mmCIF dictionaries and with multiple 
+dictionaries.  Cyclops2 is written incorporating the 
+CIFtbx2 (Hall and Bernstein, 1996) library of Fortran functions 
+and is portable to a variety of platforms.
+<P>
+Files are read and written by Cyclops2  as follows:
+<P> 
+The text file to be validated is read from the standard input device 
+(normally device 5). For Unix operating systems this is the file stdin; 
+on other systems Cyclops2 uses the file STARTEXT.  
+<P>
+The dictionary file or files are identified in the input text file 
+STARDICT. This file may itself be a DDL-conforming dictionary, or, 
+if it begins with the characters &quot;#DICT&quot;, may list the filenames of 
+dictionaries to be entered, one per line.
+<P>  
+The validation report is output to the file STARCHEK.  
+<P>
+Messages are output to the standard output device stdout (normally device 6).
+<H3>Using the Program cif2cif</H3>
+<PRE>
+cyclops [-i input_text] [-o validation_output]
+    [-d dictionary] [-p priority] [-c catck]
+    [-f command_file] [-v verbose] [-s short]
+where:
+    input_text defaults to $Cyclops_INPUT_TEXT or stdin
+    validation_output defaults to $Cyclops_VALIDATION_OUT or stdout
+    dictionary defaults to $Cyclops_CHECK_DICTIONARY
+      (multiple dictionaries may be specified)
+      input_text of "-" is stdin, validation_output of "-" is stdout
+    -c has values of t or 1 or y vs. f or 0 or n,
+      (default f, i.e. no checking of dictionary categories),
+    -v has values of t or 1 or y vs. f or 0 or n,
+      (default f, i.e. non-verbose),
+    -s has values of t or 1 or y vs. f or 0 or n,
+      (default f, i.e. not short),
+      short restricts output to items not in dictionaries'
+    -p has values of first, final or nodup 
+      (default first for first dictionary has priority) ',
+    a command file may contain additional arguments.
+</PRE>
+
+<H3>Sample Cyclops2 Output</H3>
+<PRE>
+
+                    Cyclops Check List
+                    ------------------
+
+
+                Dictionary data names  = 2244
+                New data names in text =    4
+                [1]  Dictionary cif_core.dic 2.0.1 data names =   624
+                [2]  Dictionary cif_mm.dic 0.9.01 data names =  1620
+
+
+ Data names NOT in Dictionary                         Line Numbers
+
+ _blat1  . . . . . . . . . . . . . . . . . . . . . . . .     9    11    94    96
+                                               197   199   306   312   318   324
+                                               330
+ _blat2  . . . . . . . . . . . . . . . . . . . . . . . .    13    15    98   100
+                                               201   203   303   309   315   321
+                                               327
+ _dummy_test   . . . . . . . . . . . . . . . . . . . . .     5     7    90    92
+                                               193   195   217
+ _rubish_here  . . . . . . . . . . . . . . . . . . . . .   447
+
+
+
+ [1]  Dictionary cif_core.dic 2.0.1
+ [2]  Dictionary cif_mm.dic 0.9.01
+                                                      Line Numbers
+
+ [2] _atom_site.calc_attached_atom   . . . . . . . . . .   429
+ [1] = _atom_site_calc_attached_atom                       428
+ [2] _atom_site.calc_flag  . . . . . . . . . . . . . . .   426
+ [1] = _atom_site_calc_flag                                425
+ [2] _atom_site.fract_x  . . . . . . . . . . . . . . . .    38    44    50   406
+ [1] = _atom_site_fract_x                                  405
+ [2] _atom_site.fract_y  . . . . . . . . . . . . . . . .    39    45    51   410
+ [1] = _atom_site_fract_y                                  409
+ [2] _atom_site.fract_z  . . . . . . . . . . . . . . . .    40    46    52   414
+ [1] = _atom_site_fract_z                                  413
+ [2] _atom_site.id   . . . . . . . . . . . . . . . . . .    37    43    49   402
+ [1] = _atom_site_label                                    401
+ [2] _atom_site.thermal_displace_type  . . . . . . . . .   422
+ [1] = _atom_site_thermal_displace_type                    421
+ [2] _atom_site.type_symbol  . . . . . . . . . . . . . .   432   436   440   444
+                                               450   454   458   466   470   474
+                                               478
+ [1] = _atom_site_type_symbol                              431   435   439   443
+                                               449   453   457   465   469   473
+                                               477
+ [2] _atom_site.U_iso_or_equiv   . . . . . . . . . . . .    41    47    53   418
+
+  ... SECTION OF OUTPUT OMITTED ...
+
+
+</PRE>
+
+<H2>
+References
+</H2>
+<UL>
+<LI>[BH98] Bernstein, H. J., Hall, S. R., 
+&quot;CIF Applications.  Cyclops2:  Extending the Validation of CIF Data Names&quot;,
+J. Appl. Cryst., J. Appl. Cryst., 31, 278-281, 1998.
+
+<LI>[BBB98] Bernstein, H. J., Bernstein, F. C., Bourne, P. E.,
+CIF Applications.  pdb2cif:  Translating PDB Entries into mmCIF Format&quot; 
+J. Appl. Cryst.,  J. Appl. Cryst., 31, 282-295, 1998.
+
+<LI> [FBB96]  Fitzgerald, P. M. D., Berman, H. M., Bourne, P. E., McMahon, B., 
+Watenpaugh, K., Westbrook, J. &quot;The MMCIF Dictionary: 
+Community Review and Final Approval,&quot; 
+ 17th IUCR Congress and General Assembly, Seattle, 
+Washington, USA, 8-17 August 1996, Abstract E1226.
+ Version 1.0.0 available from 
+<A HREF="http://ndbserver.rutgers.edu/">http://ndbserver.rutgers.edu</A><BR>
+
+<LI> [H93] Hall, S. R., &quot;CIF Appl. IV. CIFtbx  a toolbox for Manipulating CIF's.&quot;,
+(1993) 
+J. Appl. Cryst.,  26, 482-494.
+
+<LI> [HB96] Hall, S.R., Bernstein, H.J., &quot;CIFtbx2: Extended Tool 
+Box for Manipulating CIFs,&quot; J. Appl. Cryst., 29, pp 598-603, 1996.
+
+<li> [HC95] Hall, S. R., Cook, A. P. F. &quot;Data Definition Language for STAR File 
+Dictionaries&quot;, J. Chem. Inform. Comp. Sci. R35, 819-825, 1995.
+
+<LI> [HKS95] Hall, S. R., King, G. D. S., Stewart, J. M., &quot;Xtal3.4 Users Manual&quot;, 
+Report, University of Western Australia, 1995.
+
+<LI> [HS93] Hall, S. R. & Sievers, R., &quot;CIF Appl. I. QUASAR: for extracting CIF data&quot;, 
+J. Appl. Cryst.,  26, 469-473, 1993. 
+
+<LI> [K73] Knuth, D. E., &quot;The Art of Computer Programming, Volume 3/Sorting 
+and Searching&quot;, Reading, Massachusetts: Addison-Wesley, 1973.
+
+<LI> [PDB77] Bernstein, F.C., Koetzle, T.F., Williams, G. J. B., 
+Meyer Jr., E. F.,
+Brice, M.D.,Rodgers, 
+J. R.,Kennard, O.,Shimanouchi, T., and Tasumi, M., &quot;The Protein
+Data Bank: A Computer-based 
+Archival File for Macromolecular Structures&quot;, J. Mol. Biol., 112,
+535-542 (1977)
+
+
+
+<LI>[WH95] Westbrook, J. & Hall, S .R., &quot; A Dictionary Description Language 
+for Macromolecular Structure, Draft DDL V 2.1.0&quot;, IUCr COMCIFS, Chester, England, 1995.
+</UL>
+
+<H1>Useful WWW URL's</H1> 
+<P>
+There are many useful sites on the World Wide Web where information, 
+tools and software related to CIF, mmCIF and the PDB can be found.  
+The following are good starting points for exploration:
+<P>
+The International Union of Crystallography (IUCr) provides access to 
+software, dictionaries, policy statements and documentation relating 
+to CIF and mmCIF at:
+<UL>
+<LI>
+<A HREF="http://www.iucr.ac.uk/iucr-top/cif/">
+IUCr, Chester, England (www.iucr.ac.uk/iucr-top/cif/)</A>, 
+</UL>
+with mirror sites at:
+<ul>
+<li><a href="http://www.ch.iucr.org/iucr-top/cif/">
+University of Geneva, Geneva,Switzerland
+(http://www.ch.iucr.org/iucr-top/cif/)</A>
+<li><a href="http://www.fr.iucr.org/iucr-top/cif/">
+Universit&eacute; P. et M. Curie, Paris, France
+(http://www.se.iucr.org/iucr-top/cif/)</A>
+<li><a href="http://www.se.iucr.org/iucr-top/cif/">
+University of Stockholm, Stockholm, Sweden
+(http://www.fr.iucr.org/iucr-top/cif/)</A>
+<li><a href="http://www.us.iucr.org/iucr-top/cif/">
+San Diego Supercomputing Center, San Diego, California, USA
+(http://www.us.iucr.org/iucr-top/cif/)</A>
+<li><a href="http://www.za.iucr.org/iucr-top/cif/">
+University of the Witwatersrand, South Africa
+(http://www.za.iucr.org/iucr-top/cif)</A>
+</ul>
+Information and Software for STAR and CIF can be found at:
+<UL>
+<LI><A HREF="http://www.crystal.uwa.edu.au">
+the University of Western Australia, Nedlands, Australia
+(http://www.crystal.uwa.edu.au)</A>
+</UL>
+
+<P>
+The Nucleic Acid Database Project provides access to its entries, 
+software and documentation, with an mmCIF page giving access to 
+the dictionary and mmCIF software tools at:
+<UL>
+<LI>
+<A HREF="http://ndbserver.rutgers.edu/NDB/mmcif"> at Rutgers University, 
+New Jersey, USA (http://ndbserver.rutgers.edu/NDB/mmcif)</A>
+</UL>
+with mirror sites at:
+<UL>
+<LI><A HREF="http://www.ebi.ac.uk/NDB/mmcif/">
+the European Bioinformatics Institute, Hinxton, England, 
+(http://www.ebi.ac.uk/NDB/mmcif/)</A>
+<LI><A HREF="http://ndbserver.nibh.go.jp/NDB/mmcif/"> 
+the Structural Biology Centre, NIBH, Japan 
+(http://www.nibh.go.jp/NDB/mmcif/)</A>
+<LI><A HREF="http://ndb.sdsc.edu/NDB/mmcif/"> 
+San Diego Supercomputer Center, San Diego, California, USA 
+(http://ndb.sdsc.edu/NDB/mmcif/)</A>
+</UL>
+
+<P>
+The Protein Data Bank provides access to entries, software and documentation 
+with a browser, and an on-line PDB format description at:
+<UL>
+<LI><A HREF="http://www.pdb.bnl.gov/">
+Brookhaven National Laboratory, Upton, NY, USA (http://www.pdb.bnl.gov)</A>,
+</UL>
+<P>
+with mirror sites at many locations (see
+<A HREF="http://www.pdb.bnl.gov/pdb-docs/mirror_sites.html">
+http://www.pdb.bnl.gov/pdb-docs/mirror_sites.html</A>).
+<P>
+Tutorials on mmCIF and the relationship to PDB format can be found at:
+<A HREF="http://www.sdsc.edu/pb/cif/tutorial_mm.html">
+http://www.sdsc.edu/pb/cif/tutorials.html</A>
+
+<hr>
+<P>
+Here are direct links to copies of the IUCr CIF home page, 
+the NDB's mmCIF home page, 
+pdb2cif, cif2pdb and CIFtbx (with Cyclops and cif2cif).
+<P>
+<TABLE>
+<TR>
+<TD COLSPAN="6">
+<FONT SIZE="4">
+<B>United States</B>
+</FONT><BR>
+<TR>
+<TD WIDTH=160>
+<FONT SIZE = "4"><A HREF="http://ndbserver.rutgers.edu/">NDB, Rutgers, NJ</A>
+</FONT><TD><TD>
+<FONT SIZE="4">
+<A HREF="http://ndbserver.rutgers.edu/NDB/mmcif/">mmCIF</A>
+</FONT>
+<TD>
+<FONT SIZE="4">
+<A HREF="http://ndbserver.rutgers.edu/NDB/mmcif/software/pdb2cif/">pdb2cif</A>
+</FONT>
+<TD><FONT SIZE="4">
+<A HREF="http://ndbserver.rutgers.edu/NDB/mmcif/software/cif2pdb/">cif2pdb</A>
+</FONT>
+<TD><FONT SIZE="4">
+<A HREF="http://ndbserver.rutgers.edu/NDB/mmcif/software/ciftbx/">CIFtbx...</A></FONT><BR>
+
+</FONT><TR>
+<TD WIDTH=160>
+<FONT SIZE = "4"><a href="http://www.sdsc.edu/">SDSC, San Diego, CA</A>
+</FONT>
+<TD>
+<FONT SIZE = "4">
+<a href="http://iucr.sdsc.edu/iucr-top/cif/">CIF</A>
+</FONT>
+<TD>
+<FONT SIZE = "4"><A HREF="http://ndb.sdsc.edu/NDB/mmcif">mmCIF</A></FONT>
+<TD>
+<FONT SIZE = "4">
+<A HREF="http://www.sdsc.edu/pb/pdb2cif/pdb2cif">pdb2cif</A>
+</FONT>
+<TD>
+<FONT SIZE="4"><A HREF="http://www.sdsc.edu/pb/pdb2cif/cif2pdb">cif2pdb</A>
+</FONT>
+<TD>
+<FONT SIZE="4">
+<A HREF="http://www.sdsc.edu/pb/pdb2cif/ciftbx">CIFtbx...</A></FONT><BR>
+<TR>
+
+<TD COLSPAN="6">
+<FONT SIZE="4">
+<B>United Kingdom</B>
+</FONT><BR>
+<TR>
+<TD WIDTH=160>
+<FONT SIZE="4"><A HREF="http://www.iucr.org/">IUCr, Chester</a></FONT>
+<TD>
+<FONT SIZE="4"><A HREF="http://www.iucr.org/iucr-top/cif">CIF</A></FONT>
+<TD>&nbsp;
+<TD>
+<FONT SIZE="4"><A 
+HREF="http://www.iucr.org/iucr-top/cif/software/pdb2cif/">pdb2cif</A></FONT>
+<TD><FONT SIZE = "4"><A 
+HREF="http://www.iucr.org/iucr-top/cif/software/cif2pdb/">cif2pdb</A></FONT>
+<TD><FONT SIZE = "4"><A 
+HREF="http://www.iucr.org/iucr-top/cif/software/ciftbx/">CIFtbx...</A></FONT><BR>
+<TR>
+<TD WIDTH=120>
+<FONT SIZE = "4"><A HREF="http://www.ebi.ac.uk/">EBI, Hinxton</A>
+</FONT>
+<TD>&nbsp;
+<TD>
+<FONT SIZE = "4">
+<A HREF="http://www.ebi.ac.uk/NDB/mmcif/">mmCIF</A></FONT>
+<TD>
+<FONT SIZE="4">
+<A HREF="http://www.ebi.ac.uk/NDB/mmcif/software/pdb2cif/">pdb2cif</A>
+</FONT>
+<TD>
+<FONT SIZE="4">
+<A HREF="http://www.ebi.ac.uk/NDB/mmcif/software/cif2pdb/">cif2pdb</A>
+</FONT>
+<TD>
+<FONT SIZE="4">
+<A HREF="http://www.ebi.ac.uk/NDB/mmcif/software/ciftbx/">CIFtbx...</A></FONT><BR>
+<TR>
+
+<TD COLSPAN="6">
+<FONT SIZE="4">
+<B>France</B>
+</FONT><BR>
+<TR>
+<TD WIDTH=160>
+<FONT SIZE="4"><a href="http://www.fr.iucr.org/">
+U. P. et M. Curie, Paris</A></FONT>
+<TD><FONT SIZE="4">
+<a href="http://www.fr.iucr.org/iucr-top/cif/">CIF</A></FONT>
+<TD><TD>
+<FONT SIZE="4"><A 
+HREF="http://www.fr.iucr.org/iucr-top/cif/software/pdb2cif/">pdb2cif</A></FONT>
+<TD><FONT SIZE="4"><A 
+HREF="http://www.fr.iucr.org/iucr-top/cif/software/cif2pdb/">cif2pdb</A></FONT>
+<TD><FONT SIZE="4"><A 
+HREF="http://www.fr.iucr.org/iucr-top/cif/software/ciftbx/">CIFtbx...</A></FONT><BR>
+<TR>
+
+<TD COLSPAN="6">
+<FONT SIZE="4">
+<B>Sweden</B>
+</FONT>
+<TR>
+<TD WIDTH=160>
+<FONT SIZE = "4"><a href="http://www.se.iucr.org/">U. of Stockholm
+<TD>
+<FONT SIZE = "4"><a href="http://www.se.iucr.org/iucr-top/cif/">CIF
+</FONT>
+<TD>&nbsp;<TD>
+<FONT SIZE="4"><A 
+HREF="http://www.se.iucr.org/iucr-top/cif/software/pdb2cif/">pdb2cif</A></FONT>
+<TD><FONT SIZE="4"><A 
+HREF="http://www.se.iucr.org/iucr-top/cif/software/cif2pdb/">cif2pdb</A></FONT>
+<TD><FONT SIZE="4"><A 
+HREF="http://www.se.iucr.org/iucr-top/cif/software/ciftbx/">CIFtbx...</A></FONT><BR>
+<TR>
+
+<TD COLSPAN="6">
+<FONT SIZE="4">
+<B>South Africa</B>
+</FONT><BR>
+<TR>
+<TD WIDTH=160>
+<FONT SIZE="4"><a href="http://www.za.iucr.org/">
+U. of the Witwatersrand</A></FONT>
+<TD><FONT SIZE="4">
+<a href="http://www.za.iucr.org/iucr-top/cif/">CIF</A></FONT>
+<TD>&nbsp;<TD>
+<FONT SIZE="4"><A 
+HREF="http://www.za.iucr.org/iucr-top/cif/software/pdb2cif/">pdb2cif</A></FONT>
+<TD><FONT SIZE="4"><A 
+HREF="http://www.za.iucr.org/iucr-top/cif/software/cif2pdb/">cif2pdb</A></FONT>
+<TD><FONT SIZE="4"><A 
+HREF="http://www.za.iucr.org/iucr-top/cif/software/ciftbx/">CIFtbx...</A></FONT><BR>
+<TR>
+
+<TD COLSPAN="6">
+<FONT SIZE="4">
+<B>Japan</B>
+</FONT><BR>
+<TR>
+
+<TD WIDTH=160>
+<FONT SIZE = "4"><A HREF="http://www.aist.go.jp/NIBH/">NIBH, Ibaraki</A>
+</FONT>
+<TD>&nbsp;
+<TD>
+<FONT SIZE="4">
+<A HREF="http://ndbserver.nibh.go.jp/NDB/mmcif/">mmCIF</A>
+</FONT>
+<TD>
+<FONT SIZE="4">
+<A HREF="http://ndbserver.nibh.go.jp/NDB/mmcif/software/pdb2cif/">pdb2cif</A>
+</FONT>
+<TD>
+<FONT SIZE="4">
+<A HREF="http://ndbserver.nibh.go.jp/NDB/mmcif/software/cif2pdb/">cif2pdb</A>
+</FONT>
+<TD>
+<FONT SIZE="4">
+<A HREF="http://ndbserver.nibh.go.jp/NDB/mmcif/software/ciftbx/">CIFtbx...</a></FONT><BR>
+<TR>
+
+<TD COLSPAN="6">
+<FONT SIZE="4">
+<B>Australia</B>
+</FONT><BR>
+<TR>
+
+<TD WIDTH=160>
+<FONT SIZE = "4"><A HREF="http://www.crystal.uwa.edu.au">
+UWA, Nedlands</A>
+</FONT>
+<TD>
+<FONT SIZE="4">
+<A HREF="http://www.crystal.uwa.edu.au/~yaya/software/star_soft.html">STAR/CIF</A>
+</FONT>
+<TD>&nbsp;
+<TD>
+<FONT SIZE="4">
+<A HREF="http://www.crystal.uwa.edu.au/~yaya/software/pdb2cif/">pdb2cif</A>
+</FONT>
+<TD>
+<FONT SIZE="4">
+<A HREF="http://www.crystal.uwa.edu.au/~yaya/software/cif2pdb/">cif2pdb</A>
+</FONT>
+<TD>
+<FONT SIZE="4">
+<A HREF="http://www.crystal.uwa.edu.au/~yaya/software/ciftbx/">CIFtbx...</a></FONT><BR>
+<TR>
+</TABLE>
+<hr>
+
+
+<P>
+<HR>
+Updated 23 June 1998<P>
+<address>
+Herbert J. Bernstein <A HREF="mailto:yaya@bernstein-plus-sons.com"> 
+     (yaya@bernstein-plus-sons.com) </A>
+</address>
+</body></html>

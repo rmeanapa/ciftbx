@@ -1,0 +1,42 @@
+C
+C     cif2cif.cmn -- common blocks for cif2pdb
+C
+C
+C      Copyright (C) 2000
+C      Herbert J. Bernstein, Bernstein+Sons, Bellport, NY 11713
+C      yaya@bernstein-plus-sons.com
+C
+C      This is a copyrighted open source program subject to the license
+C      conditions in the file NOTICE.html
+C
+C      Parameters controlling number of tags that may be
+C      requested, and their size.  Note that NUMREQ in this
+C      common must be at least as large as NUMBLOCK in
+C      ciftbx.sys
+C
+       integer NUMREQ, NUMCHRR
+       PARAMETER (NUMREQ = 3200)
+       PARAMETER (NUMCHRR = 54)
+C
+C      inpcif -- name of input cif dataset
+C      outcif -- name of output cif
+C      ckdict -- name of dictionary to use for checking
+C      reqlst -- name of quasar-style request list
+C
+       character*256 inpcif,ckdict,outcif,reqlst,cstr(128)
+       character reqnam(NUMREQ)*(NUMCHRR)
+       character*5 cats
+       integer linpcif,lckdict,loutcif,lreqlst,
+     *  iuninp,iunout,iundac,iunerr,iunrql,numarg,nreqnam,
+     *  irord(NUMREQ)
+       logical result,guesst
+C
+       common /cif2cif_cfs/inpcif,ckdict,outcif,reqlst,
+     *  cstr,cats,reqnam
+       common /cif2cif_cfi/linpcif,lckdict,loutcif,lreqlst,
+     *  iuninp,iunout,iundac,iunerr,iunrql,numarg,nreqnam,
+     *  irord
+
+       common /cif2cif_cfl/result,guesst
+
+

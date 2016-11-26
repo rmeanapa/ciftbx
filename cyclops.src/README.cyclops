@@ -1,0 +1,541 @@
+
+                                 README.cyclops
+
+                Information for cyclops 2.1.5, 29 November 2009
+
+     ----------------------------------------------------------------------
+
+                  Before using this software, please read the
+                                     NOTICE
+                            and please read the IUCr
+                                     Policy
+           on the Use of the Crystallographic Information File (CIF)
+
+     ----------------------------------------------------------------------
+
+        *%%%%%*
+     *%%%%%%%%%%%*
+   *%%%%%/\|/\%%%%%*
+ *%%%%%%|--2--|%%%%%%*   C Y C L O P S 2 ...... STAR data name checker
+   *%%%%%\/|\/%%%%%*
+     *%%%%%%%%%%%*                Version 2.1.5
+        *%%%%%*                  29 November 2009
+
+
+
+  CYCLOPS2 is a fortran program for checking STAR data names against data
+  -------- name dictionaries written in DDL-STAR format proposed by Tony Cook
+           of ORAC Ltd., Leeds. Data names may be checked in any text file.
+
+           CYCLOPS Version 2
+               by
+
+               Copyright (c) 1997
+               Sydney R. Hall (syd@crystal.uwa.edu.au)
+               Crystallography Centre
+               University of Western Australia
+               Nedlands 6009, AUSTRALIA
+              
+               and
+              
+               Copyright (c) 1997
+               Herbert J. Bernstein (yaya@bernstein-plus-sons.com)
+               Bernstein + Sons
+               5 Brewster Lane
+               Bellport, NY 11713, U.S.A.
+
+           Version 2 handles DDL1 and DDL2 dictionaries, and uses CIFtbx2
+
+  The latest program source and information is available from:
+
+  Em: syd@crystal.uwa.edu.au       ,-_|\      Sydney R. Hall
+  sendcif@crystal.uwa.edu.au      /     \     Crystallography Centre
+  Fx: +61 9 380 1118          --> *_,-._/     University of Western Australia
+  Ph: +61 9 380 2725                   v      Nedlands 6009, AUSTRALIA
+
+   In order to ensure continuing availability of source code and
+   documentation CYCLOPS2 and its documentation are subject to copyright.
+   This does not prevent you from using the program, from making copies and
+   changes, but prevents the creation of "closed source" versions out of the
+   open source versions. See NOTICE.
+
+   Science is best served when the tools we use are fully understood by those
+   who wield those tools and by those who make used of results obtained with
+   those tools. When a scientific tool exists as software, access to source
+   code is an important element in achieving full understanding of that tool.
+   As our field evolves and new versions of software are required, access to
+   source allows us to adapt our tools quickly and effectively.
+
+   In the early days of software development, most scientific software source
+   code was freely and openly shared with a minimum of formalities. These
+   days, it appears that carefully drawn legal documents are necessary to
+   protect free access to the source code of scientific software. We are all
+   deeply indebted to Richard Stallman for showing us how a creative
+   combination of copyrights and seemingly restrictive licenses could give us
+   truly unfettered freedom to use programs, to read their source code and to
+   develop new versions. The GNU project, and the Linux project have shown
+   that an open source approach works. We use the GNU General Public License
+   (the "GPL") for our program starting with the releases of CIFtbx3. Older
+   versions use the license from OpenRasmol. The OpenRasMol conditions for
+   use have correctly been called "GPL-like".
+
+   If you are a user of this program, you will find that the copyrights and
+   notices ask little more of you than that you avoid mistakes by others by
+   keeping the notices with copies, display scientific integrity by citing
+   your sources properly and treating this like other shared scientific
+   developments by not inferring a warranty. If you are a software developer
+   and wish to incorporate what you find here into new code, or to pick up
+   bits and pieces and used them in another context, the situation becomes
+   more complex. Read the copyrights and notices carefully. You will find
+   that they are "infectious". Whatever you make from our Open Source code
+   must itself be offered as Open Source code. In addition, in order to allow
+   users to understand what has changed and to ensure orderly development you
+   have to describe your changes.
+
+     ----------------------------------------------------------------------
+
+   This version of CYCLOPS is released with CIFtbx2. Before reading this
+   document, please read the CIFtbx2 README file. The basic instructions for
+   building CYCLOPS2 are included with those for building CIFtbx2. Additional
+   information needed for the installation of CYCLOPS appears in the section
+   INSTALLATION NOTES, below. If you are on a UNIX system, the Makefile for
+   CIFtbx2 can be used to build and test cyclops.
+
+  PROGRAM OPERATION
+
+   CYCLOPS reads the text containing data names from the standard input
+   device (normally device 5). One or more STAR data name dictionaries (in
+   DDL format) are opened (normally from unit 1). A report on the data names
+   is output to the standard output device (normally device 6). Messages are
+   output to the standard error device (normally device 0). If an error is
+   encountered in attempting to write to the standard error device, further
+   messages output is diverted to the standard output device.
+
+   NOTE: If no dictionaries are specified on the command line, an attempt is
+   made to open a file named "STARDICT" to use either as a dictionary or from
+   which to obtain a list of names of dictionaries.
+
+   STARDICT may directly contain a dictionary as in version 1 of CYCLOPS, or
+   contain a list of file names of dictionaries, one per line. In that case
+   the list must begin with the line for which the first 5 characters are
+   "#DICT". The list of unreferenced data names is suppressed unless the line
+   "#VERBOSE" appears in STARDICT, or the command line argument "-v yes" is
+   used.
+
+   In a UNIX-like environment, the program is run as:
+
+      cyclops [-i input_text] [-o validation_output] \
+          [-d dictionary] [-p priority] [-c catck] \
+          [-f command_file] [-v verbose] [-s short]\
+      where:
+          input_text defaults to $CYCLOPS_INPUT_TEXT or stdin
+          validation_output defaults to $CYCLOPS_VALIDATION_OUT or stdout
+          dictionary defaults to $CYCLOPS_CHECK_DICTIONARY
+            (multiple dictionaries may be specified)
+            input_text of "-" is stdin, validation_output of
+            "-" is stdout
+          -c has values of t or 1 or y vs. f or 0 or n,
+            (default f, i.e. no category checking),
+          -v has values of t or 1 or y vs. f or 0 or n,
+            (default f, i.e. non-verbose),
+          -s has values of t or 1 or y vs. f or 0 or n,
+            (default f, i.e. not short),
+            short restricts output to items not in dictionaries
+          -p has values of first, final or nodup
+            (default first for first dictionary has priority)
+          a command file may contain additional arguments
+
+  1. INSTALLATION
+
+   Here is the recommended procedure for implementing and testing this
+   version of cyclops.
+
+   1.0. Before you try to install this version of cyclops2
+
+   
+       *** ========================================================== ***
+       *** ========================================================== ***
+       *** ==>>> You must have ciftbx version 2.5.4 or greater  <<<== ***
+       *** ==>>> installed in a directory named ciftbx.src.     <<<== ***
+       *** ==>>> The scripts mkdecompln and rmdecompln, which   <<<== ***
+       *** ==>>> come with ciftbx, must be installed in the     <<<== ***
+       *** ==>>> top level directory and executable.            <<<== ***
+       *** ==>>> To test cyclops, you must have compressed      <<<== ***
+       *** ==>>> copies of cif_core.dic and cif_mm.dic installed<<<== ***
+       *** ==>>> in a directory named dictionaries.             <<<== ***
+       *** ========================================================== ***
+       *** ========================================================== ***
+
+   The directory structure within which you will work is
+
+                   top level directory
+                   -------------------
+                            |
+                            |
+             ------------------------------
+             |              |             |
+        dictionaries   ciftbx.src     cyclops.src
+        ------------   ----------     -----------
+
+   You may have acquired this package in one of several forms. The most
+   likely are as a "C-shell Archive," a "Shell Archive", or as separate
+   files. The idea is to get to separate files, all in the same directory,
+   named cyclops.src, parallel to the directory ciftbx.src, but let's start
+   with the possibility that you got the package as one big file, i.e. in one
+   of the archive file formats. Place the archive in the top level directory.
+
+      *** ========================================================== ***
+      *** ========================================================== ***
+      *** ==>>> The files in this kit will unpack into a       <<<== ***
+      *** ==>>> directory named cyclops.src.  It is a good idea<<<== ***
+      *** ==>>> to save the current contents of cyclops.src    <<<== ***
+      *** ==>>> and then to make the directory empty           <<<== ***
+      *** ========================================================== ***
+      *** ========================================================== ***
+
+   If you are on a machine which does not provide a unix-like shell, you will
+   need to take apart the archive by hand using a text editor. We'll get to
+   that in a moment.
+
+   1.1. ON A UNIX MACHINE
+
+   If you have the shell archive on a unix machine, follow the instructions
+   at the front of the archive, i.e. save the uncompressed archive file as
+   "file", then, if the archive is a "Shell Archive" execute "sh file". If
+   the archive is a "C-Shell Archive" execute "csh file".
+
+   1.2. IF YOU DON'T HAVE UNIX
+
+   If sh or csh are not available, then it is best to start with the "C-Shell
+   Archive" and do the steps that follow. If you must use the "Shell Archive"
+   you should be aware that the lines you want to extract have been prefixed
+   with "X", while most of the lines you want to discard have not. For a
+   "C-Shell Archive" such prefixes are rare and the file is easier to read.
+   Assume you have a "C-Shell Archive".
+
+   Use your editor to separate the different parts of the file into
+   individual files in your workspace. Each part starts with a lot of
+   unixisms, then several blank lines and then two lines which identify the
+   file, and most importantly, contain the text "CUT_HERE_CUT_HERE_CUT_HERE"
+   You can look at the line before and the line after to see if you are at
+   the head or tail of a file. Use your editor to search for the "CUT_HERE"
+   lines. Each part is carefully labeled and indicates the recommended
+   filename for the separated file. On some machines these filenames may need
+   to be altered to suit the OS or compiler.
+
+   1.3. MANIFEST
+
+   The partitions are as follows:
+
+    part  filename                      description
+
+      1   COPYING                       GPL (GNU General Public License)
+      2   NOTICE                        Notices
+      3   cyclops.src/README.cyclops    this file      
+      4   cyclops.src/MANIFEST          a list of files in the kit
+      5   cyclops.src/Makefile          a control file for make
+                                        to compile and test the code
+      6   cyclops.src/cyclops.cmn       CYCLOPS common block
+      7   cyclops.src/cyclops.f         CYCLOPS fortran source
+      8   cyclops.src/cyclops_test.prt  CYCLOPS stdout test output
+      9   cyclops.src/mtest.cyc         CYCLOPS STARCHEK output
+
+  2. COMPILING AND EXECUTING
+
+   Here are the recommended steps for a UNIX system. Vary this according to
+   the requirements of your OS and compiler. You will find it simplest to
+   work if you place the cyclops files together in a common subdirectory
+   named 'cyclops.src'. Be very careful if you place them in a directory with
+   other files, since some of the build and test instructions remove or
+   overwrite existing files, especially with extensions such as '.o', '.lst',
+   or '.diff'. On a UNIX system, most of what you need to do to build and
+   test cyclops is laid out in Makefile. *** Be sure to examine and edit this
+   file appropriately before using it.*** But, once properly edited, all you
+   should need to do is 'make clean' to remove old object files, 'make all'
+   to build new version of 'cyclops' and 'make tests' to test what you have
+   built.
+
+   For non-UNIX-like environments, you will have to provide replacements for
+   iargc, getarg and getenv. The following are reasonable possibilities:
+
+           integer function iargc(dummy)
+           iargc=1
+           return
+           end
+  
+           subroutine getarg(narg,string)
+           integer narg
+           character*(*) string
+           string=char(0)
+           if (narg.eq.1) string='-vn'
+           return
+           end
+
+           subroutine getenv(evar,string)
+           character*(*) evar,string
+           string=char(0)
+           if(evar.eq."CYCLOPS_INPUT_TEXT")
+          *  string='STARTEXT'//char(0)
+           if(evar.eq."CYCLOPS_VALIDATION_OUT")
+          *  string='STARCHEK'//char(0)
+           if(evar.eq."CYCLOPS_CHECK_DICTIONARY")
+          *  string=char(0)
+           return
+           end
+
+   This combination of substitute routines would "wire-in" CYCLOPS2 to read
+   its input text from a file named STARTEXT, write the validations output to
+   a file named STARCHEK, and check names against the default dictionary or
+   file listing dictionaries STARDICT
+
+   Note that the PARAMETER 'MAXBUF' should contain the maximum number of
+   characters contained on a single text line. The default value is 200.
+
+   If you don't wish to use the Makefile or can't, then here are the
+   essential steps to build cyclops:
+
+   (a) compile 'cyclops.f' [note that you will need the files 'cyclops.cmn',
+   'ciftbx.cmn', ciftbx.cmv', 'ciftbx.cmf', and 'ciftbx.sys' in the same
+   directory as cyclops.f, or you will need to change the fortran includes.]
+
+   (b) if you hove not already done so, compile 'ciftbx.f' and 'hash_funcs.f'
+   to create the object files 'ciftbx.o' and 'hash_funcs.o'.
+
+   (c) link 'cyclops.o', 'ciftbx.o' and 'hash_funcs.o' together to make the
+   program 'cyclops'
+
+   (d) if at all possible, please test cyclops by creating a file named
+   'STARDICT' with the three lines
+
+   
+        #DICT
+        cif_core.dic
+        cif_mm.dic
+
+   and place a copy of cif_core.dic and of cif_mm.dic into the same
+   directory. Then execute the command
+
+                
+        ./cyclops mtest.prt STARCHEK 2> cyclops_test.lst
+
+   Compare STARCHEK to 'mtest.cyc' and 'cyclops_test.lst' to
+   'cyclops_test.prt' There should not be any differences.
+
+   (e) if you have any problems with this process please report them to
+   Herbert J. Bernstein [em: yaya@bernstein-plus-sons.com, ph:
+   1-516-286-1339, fax: 1-516-286-1999] for the changes from CYCLOPS to
+   CYCLOPS2 in particular, or to Syd Hall [em: syd@crystal.uwa.edu.au fx:
+   61(9)3801118] for general ciftbx and CYCLOPS issues. If in doubt as to
+   where your problem lies, send it to whichever one of us is more likely to
+   be convenient to your time-zone, and we will try to sort things out for
+   you.
+
+  FILES USED
+
+      dictionary input         input   on device 1
+        Optionally a list of dictionaries, 1 per line after a #DICT line
+      validation output        output  on device 6 ('stdout')
+      Input text               input   on device 1, if a file, 5  if 'stdin'
+      Message device           output  on device 0 ('stderr')
+        may be diverted to the validation output file
+      Direct access            in/out  on device 3
+
+  SAMPLE REPORT
+
+   The following is a portion of CYCLOPS report output when run to check the
+   file mtest.lst from this kit against the dictionaries cif_core.dic and
+   cif_mm.dic:
+
+
+                     CYCLOPS Check List
+                     ------------------
+
+
+                 Dictionary data names  = 2244
+                 New data names in text =    4
+                 [1]  Dictionary cif_core.dic 2.0.1 data names =   624
+                 [2]  Dictionary cif_mm.dic 0.9.01 data names =  1620
+
+
+  Data names NOT in Dictionary                         Line Numbers
+
+  _blat1  . . . . . . . . . . . . . . . . . . . . . . . .     9    11    94    96
+                                                197   199   306   312   318   324
+                                                330
+  _blat2  . . . . . . . . . . . . . . . . . . . . . . . .    13    15    98   100
+                                                201   203   303   309   315   321
+                                                327
+  _dummy_test   . . . . . . . . . . . . . . . . . . . . .     5     7    90    92
+                                                193   195   217
+  _rubish_here  . . . . . . . . . . . . . . . . . . . . .   447
+
+
+
+  [1]  Dictionary cif_core.dic 2.0.1
+  [2]  Dictionary cif_mm.dic 0.9.01
+                                                       Line Numbers
+
+  [2] _atom_site.calc_attached_atom   . . . . . . . . . .   429
+  [1] = _atom_site_calc_attached_atom                       428
+  [2] _atom_site.calc_flag  . . . . . . . . . . . . . . .   426
+  [1] = _atom_site_calc_flag                                425
+  [2] _atom_site.fract_x  . . . . . . . . . . . . . . . .    38    44    50   406
+  [1] = _atom_site_fract_x                                  405
+  [2] _atom_site.fract_y  . . . . . . . . . . . . . . . .    39    45    51   410
+  [1] = _atom_site_fract_y                                  409
+  [2] _atom_site.fract_z  . . . . . . . . . . . . . . . .    40    46    52   414
+  [1] = _atom_site_fract_z                                  413
+
+  WARNING
+
+   There were major changes to CYCLOPS2 in the transition to version 2.1.0.
+   In addition to major restructuring of the output, input and output files
+   are handled very differently. CYCLOPS2 now reads the input text file from
+   the standard input file, writes the report to the standard output file,
+   and writes messages to the standard error file. The redirection to
+   specific files in UNIX may be given either by listing the source and
+   target filenames on the command line or by using "<" and ">". This makes
+   is easier to use CYCLOPS2 as a "filter" in UNIX-like environments, but
+   invalidates jobs which depend on the former CYCLOPS2 behavior inherited
+   from CYCLOPS: writing the report to a file named "STARCHEK" and messages
+   to the standard output file. For example, if, on a UNIX system, under sh,
+   you had a command line of the form:
+
+     cyclops < text > summary
+
+   the new command line could be
+
+     cyclops text STARCHEK 2> summary
+
+  CHANGES
+
+   CYCLOPS2 works very much that same way CYCLOPS version 1 works. However,
+   the dictionary processing, for good or ill, is now that used by CIFtbx2.
+   This means that some user-defined dictionaries which do not follow
+   CIF-style dictionary practices may produce warning messages. We had to
+   make this change to be able to find all the name definitions in the newer
+   DDL2-based dictionaries, since some names definitions are embedded in
+   loops quite remote from the defining tags.
+
+   The STARCHEK output has been reorganized to be more practical with very
+   large dictionaries. The list of data names not defined in any dictionary
+   now comes first. This is followed by the data names which are both defined
+   and referenced. Finally, the names which are defined but not referenced
+   are listed.
+
+   The number of line numbers listed for any name has been reduced from 99 to
+   19. If there are more than 19 lines on which a name is used, this is
+   indicated after the 10th line number by ".." with the first 10 and the
+   last 9 line numbers being explicitly given.
+
+   To avoid having to copy large dictionaries and to allow for multiple,
+   layered dictionaries, the file STARDICT may optionally contain a list of
+   paths to dictionaries to load. To distinguish this case from a dictionary
+   loaded directly from STARDICT, the first 5 characters of STARTDICT must be
+   "#DICT" followed by a list of dictionary file names, one per line. If the
+   dictionaries are not in the same directory, give full path names to the
+   proper directories.
+
+   ***** WARNING ***** CYCLOPS2 will overwrite an existing STARCHEK file
+   without warning messages.
+
+   Release 2.1.5 adapted CYCLOPS2 to CIFtbx 4.1.0 to start the conversion to
+   handling of DDLm dictionaries when they become available.
+
+   Release 2.1.4 restored the missing code for the "-f command-file" command
+   line option. Examples were changed to use cif_core.dic and cif_mm.dic.
+   Several typos in the documentation were corrected. The Makefile was
+   updated to use compressed dictionaries. The new command line option "-c
+   catck" to control dictionary category checking was added. The default is
+   not to check.
+
+   Release 2.1.3 added the option "-p priority" to the command line, and
+   changed the handling to STARDICT to prevent opening of STARDICT if any
+   dictionaries are specified on the command line. The default list of tags
+   to be ignored was updated from the DDL0 list to the DDL1.4 list. The scan
+   for tags enclosed in parentheses, brackets or braces was made more robust.
+
+   Release 2.1.2 added the option "#SHORT" to STARDICT and "-s short" to the
+   command line to allow for a short output of unreferenced names only. A bug
+   which prevented recognition of names of the form "*_name" was corrected.
+   Duplicate dictionary file names are now detected and removed.
+
+   Release 2.1.1 made the necessary changes to adapt to the reorganization of
+   'ciftbx.cmn' and 'ciftbx.sys' in ciftbx 2.5.1.
+
+   Release 2.1.0 reorganized the report, so that "[n]" is used to identify
+   the fact that a tag came from dictionary "n" in a consolidated report for
+   all dictionaries sorted alphabetically by name, first giving the data
+   names which were not referenced, then the data names which were
+   referenced, and, optionally (depending on the command-line argument
+   -v[y|n]), a section reporting the data names defined in the dictionary,
+   but not referenced.
+
+   Release 2.0.4 used ciftbx 2.4.6 to report upper/lower case versions of
+   data item names.
+
+   Release 2.0.3 introduced support for aliases. The output is annotated with
+   the remarks "Referenced Alias: ..." or "Unreferenced Alias: ..." listing
+   the name of any referenced or unreferenced aliases to the name being
+   cited. An unreferenced alias is not given a further listing, but a
+   referenced alias will be listed with its own citations.
+
+   Release 2.0.2 fixed a problem with identification of data names within
+   quoted strings. In this release, the first blank after the initial
+   underscore terminates the search for the end of the token.
+
+   Release 2.0.1 differed from release 2.0 in having the format of the REPORT
+   output cleaned up for better column alignment and some missing parameters
+   on some of the cerr calls corrected.
+
+  SIMPLIFIED OPERATION
+
+   See PROGRAM OPERATION, above, for the full cyclops command line. However,
+   for routine use, an approach very similar to that followed with CYCLOPS
+   may still be followed. This simple script file 'cyclops.sh' might be
+   useful to execute CYCLOPS on Unix machines.
+
+   *** ===>>>Note the change in line 12 from the same example in earlier
+   versions of 'cyclops.sh' <<<=== ***
+
+      #! /bin/sh
+      DICT=/usr1/syd/cif
+      EXT=cif_core.dic
+      if [ $# -eq 2 ]; then
+        EXT=$2
+      fi
+      DICT=$DICT/$EXT
+      rm STARCHEK
+      rm STARDICT
+      echo "#DICT" > STARDICT
+      echo $DICT >> STARDICT
+      cyclops $1 STARCHEK
+      rm STARDICT
+      vi STARCHEK
+
+   As a first test, after compiling and linking cyclops.f to create cyclops,
+   use the above script to check 'cif_core.dic' itself.
+
+   Enter:
+
+      cyclops.sh cif_core.dic
+
+   Note that the two "extra" data names detected in the dictionary arose from
+   an appendix and an example. Use the listed line numbers to check this in
+   the dictionary file.
+
+   If you have a CIF that you wish to validate against the IUCr core
+   dictionary, enter:
+
+      cyclops.sh
+
+   If you have a CIF that you wish to validate against another dictionary
+   (say, cifdic.P92), enter:
+
+      cyclops.sh  cifdic.P92
+
+     ----------------------------------------------------------------------
+
+   Updated 29 November 2009
+
+    yaya@bernstein-plus-sons.com

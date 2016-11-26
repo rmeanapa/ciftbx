@@ -1,0 +1,243 @@
+
+
+                    CYCLOPS Check List
+                    ------------------
+
+
+                Dictionary data names  = 4665
+                New data names in text =    4
+                [1]  Dictionary cif_core.dic 2.3.1 data names =   775
+                [2]  Dictionary mmcif_pdbx.dic 1.019 data names =  3890
+
+
+ Data names NOT in Dictionary                         Line Numbers
+
+ _blat1  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    640   642   751   753
+                                              1473  1475  1606  1612  1618  1624
+                                              1630
+ _blat2  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    644   646   755   757
+                                              1477  1479  1603  1609  1615  1621
+                                              1627
+ _dummy_test   . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    636   638   747   749
+                                              1469  1471  1517
+ _rubish_here  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   1747
+
+
+
+ [1]  Dictionary cif_core.dic 2.3.1
+ [2]  Dictionary mmcif_pdbx.dic 1.019
+                                                      Line Numbers
+
+ [2] _atom_site.calc_attached_atom   . . . . . . . . . . . . . . . . . . . . . . .   1729
+ [1] = _atom_site_calc_attached_atom                                                 1728
+ [2] _atom_site.calc_flag  . . . . . . . . . . . . . . . . . . . . . . . . . . . .   1726
+ [1] = _atom_site_calc_flag                                                          1725
+ [2] _atom_site.fract_x  . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    693   699   705  1706
+ [1] = _atom_site_fract_x                                                            1705
+ [2] _atom_site.fract_y  . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    694   700   706  1710
+ [1] = _atom_site_fract_y                                                            1709
+ [2] _atom_site.fract_z  . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    695   701   707  1714
+ [1] = _atom_site_fract_z                                                            1713
+ [2] _atom_site.id   . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    692   698   704  1702
+ [1] = _atom_site_label                                                              1701
+ [2] _atom_site.label_alt_id   . . . . . . . . . . . . . . . . . . . . . . . . . .    660   771  1493
+ [2] _atom_site.label_asym_id  . . . . . . . . . . . . . . . . . . . . . . . . . .    662   773  1495
+ [2] _atom_site.label_atom_id  . . . . . . . . . . . . . . . . . . . . . . . . . .    664   775  1497
+ [2] _atom_site.label_comp_id  . . . . . . . . . . . . . . . . . . . . . . . . . .    666   777  1499
+ [2] _atom_site.label_entity_id  . . . . . . . . . . . . . . . . . . . . . . . . .    668   779  1501
+ [2] _atom_site.label_seq_id   . . . . . . . . . . . . . . . . . . . . . . . . . .    670   781  1503
+ [2] _atom_site.thermal_displace_type  . . . . . . . . . . . . . . . . . . . . . .   1722
+ [1] = _atom_site_thermal_displace_type                                              1721
+ [2] _atom_site.type_symbol  . . . . . . . . . . . . . . . . . . . . . . . . . . .   1732  1736  1740  1744
+                                              1750  1754  1758  1766  1770  1774
+                                              1778
+ [1] = _atom_site_type_symbol                                                        1731  1735  1739  1743
+                                              1749  1753  1757  1765  1769  1773
+                                              1777
+ [2] _atom_site.U_iso_or_equiv   . . . . . . . . . . . . . . . . . . . . . . . . .    696   702   708  1718
+ [1] = _atom_site_U_iso_or_equiv                                                     1717
+ [1] _atom_site_aniso_label  . . . . . . . . . . . . . . . . . . . . . . . . . . .   1783
+ [2] = _atom_site_anisotrop.id                                                       1784
+ [1] _atom_site_aniso_type_symbol  . . . . . . . . . . . . . . . . . . . . . . . .   1811
+ [2] = _atom_site_anisotrop.type_symbol                                              1812
+ [1] _atom_site_aniso_U_11   . . . . . . . . . . . . . . . . . . . . . . . . . . .    787   787   788   832
+                                               832   833   833  1787
+ [2] = _atom_site_anisotrop.U[1][1]                                                   787   788   788  1788
+ [1] _atom_site_aniso_U_12   . . . . . . . . . . . . . . . . . . . . . . . . . . .   1799  1815  1819  1823
+ [2] = _atom_site_anisotrop.U[1][2]                                                  1800  1816  1820  1824
+ [1] _atom_site_aniso_U_13   . . . . . . . . . . . . . . . . . . . . . . . . . . .   1803
+ [2] = _atom_site_anisotrop.U[1][3]                                                  1804
+ [1] _atom_site_aniso_U_22   . . . . . . . . . . . . . . . . . . . . . . . . . . .   1791
+ [2] = _atom_site_anisotrop.U[2][2]                                                  1792
+ [1] _atom_site_aniso_U_23   . . . . . . . . . . . . . . . . . . . . . . . . . . .   1807
+ [2] = _atom_site_anisotrop.U[2][3]                                                  1808
+ [1] _atom_site_aniso_U_33   . . . . . . . . . . . . . . . . . . . . . . . . . . .   1795
+ [2] = _atom_site_anisotrop.U[3][3]                                                  1796
+ [2] _atom_site_anisotrop.id   . . . . . . . . . . . . . . . . . . . . . . . . . .   1784
+ [1] = _atom_site_aniso_label                                                        1783
+ [2] _atom_site_anisotrop.type_symbol  . . . . . . . . . . . . . . . . . . . . . .   1812
+ [1] = _atom_site_aniso_type_symbol                                                  1811
+ [2] _atom_site_anisotrop.U[1][1]  . . . . . . . . . . . . . . . . . . . . . . . .    787   788   788  1788
+ [1] = _atom_site_aniso_U_11                                                          787   787   788   832
+                                               832   833   833  1787
+ [2] _atom_site_anisotrop.U[1][2]  . . . . . . . . . . . . . . . . . . . . . . . .   1800  1816  1820  1824
+ [1] = _atom_site_aniso_U_12                                                         1799  1815  1819  1823
+ [2] _atom_site_anisotrop.U[1][3]  . . . . . . . . . . . . . . . . . . . . . . . .   1804
+ [1] = _atom_site_aniso_U_13                                                         1803
+ [2] _atom_site_anisotrop.U[2][2]  . . . . . . . . . . . . . . . . . . . . . . . .   1792
+ [1] = _atom_site_aniso_U_22                                                         1791
+ [2] _atom_site_anisotrop.U[2][3]  . . . . . . . . . . . . . . . . . . . . . . . .   1808
+ [1] = _atom_site_aniso_U_23                                                         1807
+ [2] _atom_site_anisotrop.U[3][3]  . . . . . . . . . . . . . . . . . . . . . . . .   1796
+ [1] = _atom_site_aniso_U_33                                                         1795
+ [1] _atom_site_calc_attached_atom   . . . . . . . . . . . . . . . . . . . . . . .   1728
+ [2] = _atom_site.calc_attached_atom                                                 1729
+ [1] _atom_site_calc_flag  . . . . . . . . . . . . . . . . . . . . . . . . . . . .   1725
+ [2] = _atom_site.calc_flag                                                          1726
+ [1] _atom_site_fract_x  . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   1705
+ [2] = _atom_site.fract_x                                                             693   699   705  1706
+ [1] _atom_site_fract_y  . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   1709
+ [2] = _atom_site.fract_y                                                             694   700   706  1710
+ [1] _atom_site_fract_z  . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   1713
+ [2] = _atom_site.fract_z                                                             695   701   707  1714
+ [1] _atom_site_label  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   1701
+ [2] = _atom_site.id                                                                  692   698   704  1702
+ [1] _atom_site_thermal_displace_type  . . . . . . . . . . . . . . . . . . . . . .   1721
+ [2] = _atom_site.thermal_displace_type                                              1722
+ [1] _atom_site_type_symbol  . . . . . . . . . . . . . . . . . . . . . . . . . . .   1731  1735  1739  1743
+                                              1749  1753  1757  1765  1769  1773
+                                              1777
+ [2] = _atom_site.type_symbol                                                        1732  1736  1740  1744
+                                              1750  1754  1758  1766  1770  1774
+                                              1778
+ [1] _atom_site_U_iso_or_equiv   . . . . . . . . . . . . . . . . . . . . . . . . .   1717
+ [2] = _atom_site.U_iso_or_equiv                                                      696   702   708  1718
+ [2] _atom_type.number_in_cell   . . . . . . . . . . . . . . . . . . . . . . . . .   1658  1682  1686
+ [1] = _atom_type_number_in_cell                                                     1657  1681  1685
+ [2] _atom_type.oxidation_number   . . . . . . . . . . . . . . . . . . . . . . . .   1654  1678  1690
+ [1] = _atom_type_oxidation_number                                                   1653  1677  1689
+ [2] _atom_type.scat_dispersion_imag   . . . . . . . . . . . . . . . . . . . . . .   1666
+ [1] = _atom_type_scat_dispersion_imag                                               1665
+ [2] _atom_type.scat_dispersion_real   . . . . . . . . . . . . . . . . . . . . . .   1662  1694
+ [1] = _atom_type_scat_dispersion_real                                               1661  1693
+ [2] _atom_type.scat_source  . . . . . . . . . . . . . . . . . . . . . . . . . . .   1670
+ [1] = _atom_type_scat_source                                                        1669
+ [2] _atom_type.symbol   . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   1650  1674
+ [1] = _atom_type_symbol                                                              681  1649  1673
+ [1] _atom_type_number_in_cell   . . . . . . . . . . . . . . . . . . . . . . . . .   1657  1681  1685
+ [2] = _atom_type.number_in_cell                                                     1658  1682  1686
+ [1] _atom_type_oxidation_number   . . . . . . . . . . . . . . . . . . . . . . . .   1653  1677  1689
+ [2] = _atom_type.oxidation_number                                                   1654  1678  1690
+ [1] _atom_type_scat_dispersion_imag   . . . . . . . . . . . . . . . . . . . . . .   1665
+ [2] = _atom_type.scat_dispersion_imag                                               1666
+ [1] _atom_type_scat_dispersion_real   . . . . . . . . . . . . . . . . . . . . . .   1661  1693
+ [2] = _atom_type.scat_dispersion_real                                               1662  1694
+ [1] _atom_type_scat_source  . . . . . . . . . . . . . . . . . . . . . . . . . . .   1669
+ [2] = _atom_type.scat_source                                                        1670
+ [1] _atom_type_symbol   . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    681  1649  1673
+ [2] = _atom_type.symbol                                                             1650  1674
+ [2] _audit.creation_date  . . . . . . . . . . . . . . . . . . . . . . . . . . . .   1521
+ [1] = _audit_creation_date                                                          1520
+ [2] _audit.creation_method  . . . . . . . . . . . . . . . . . . . . . . . . . . .   1525
+ [1] = _audit_creation_method                                                        1524
+ [2] _audit.revision_id  . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    648   759  1481
+ [2] _audit.update_record  . . . . . . . . . . . . . . . . . . . . . . . . . . . .   1529
+ [1] = _audit_update_record                                                          1528
+ [1] _audit_creation_date  . . . . . . . . . . . . . . . . . . . . . . . . . . . .   1520
+ [2] = _audit.creation_date                                                          1521
+ [1] _audit_creation_method  . . . . . . . . . . . . . . . . . . . . . . . . . . .   1524
+ [2] = _audit.creation_method                                                        1525
+ [1] _audit_update_record  . . . . . . . . . . . . . . . . . . . . . . . . . . . .   1528
+ [2] = _audit.update_record                                                          1529
+ [2] _cell.angle_alpha   . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   1566
+ [1] = _cell_angle_alpha                                                             1565
+ [2] _cell.angle_beta  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   1570
+ [1] = _cell_angle_beta                                                              1569
+ [2] _cell.angle_gamma   . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   1574
+ [1] = _cell_angle_gamma                                                             1573
+ [2] _cell.entry_id  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    654   765  1487
+ [2] _cell.formula_units_Z   . . . . . . . . . . . . . . . . . . . . . . . . . . .   1582
+ [1] = _cell_formula_units_Z                                                         1581
+ [2] _cell.length_a  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   1555
+ [1] = _cell_length_a                                                                1554
+ [2] _cell.length_b  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   1558
+ [1] = _cell_length_b                                                                1557
+ [2] _cell.length_c  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   1562
+ [1] = _cell_length_c                                                                1561
+ [2] _cell.volume  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   1578
+ [1] = _cell_volume                                                                  1577
+ [1] _cell_angle_alpha   . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   1565
+ [2] = _cell.angle_alpha                                                             1566
+ [1] _cell_angle_beta  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   1569
+ [2] = _cell.angle_beta                                                              1570
+ [1] _cell_angle_gamma   . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   1573
+ [2] = _cell.angle_gamma                                                             1574
+ [1] _cell_formula_units_Z   . . . . . . . . . . . . . . . . . . . . . . . . . . .   1581
+ [2] = _cell.formula_units_Z                                                         1582
+ [1] _cell_length_a  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   1554
+ [2] = _cell.length_a                                                                1555
+ [1] _cell_length_b  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   1557
+ [2] = _cell.length_b                                                                1558
+ [1] _cell_length_c  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   1561
+ [2] = _cell.length_c                                                                1562
+ [2] _cell_measurement.entry_id  . . . . . . . . . . . . . . . . . . . . . . . . .    656   767  1489
+ [2] _cell_measurement.reflns_used   . . . . . . . . . . . . . . . . . . . . . . .   1590
+ [1] = _cell_measurement_reflns_used                                                 1589
+ [2] _cell_measurement.temp  . . . . . . . . . . . . . . . . . . . . . . . . . . .   1586
+ [1] = _cell_measurement_temperature                                                 1585
+ [2] _cell_measurement.theta_max   . . . . . . . . . . . . . . . . . . . . . . . .   1598
+ [1] = _cell_measurement_theta_max                                                   1597
+ [2] _cell_measurement.theta_min   . . . . . . . . . . . . . . . . . . . . . . . .   1594
+ [1] = _cell_measurement_theta_min                                                   1593
+ [1] _cell_measurement_reflns_used   . . . . . . . . . . . . . . . . . . . . . . .   1589
+ [2] = _cell_measurement.reflns_used                                                 1590
+ [1] _cell_measurement_temperature   . . . . . . . . . . . . . . . . . . . . . . .   1585
+ [2] = _cell_measurement.temp                                                        1586
+ [1] _cell_measurement_theta_max   . . . . . . . . . . . . . . . . . . . . . . . .   1597
+ [2] = _cell_measurement.theta_max                                                   1598
+ [1] _cell_measurement_theta_min   . . . . . . . . . . . . . . . . . . . . . . . .   1593
+ [2] = _cell_measurement.theta_min                                                   1594
+ [1] _cell_volume  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   1577
+ [2] = _cell.volume                                                                  1578
+ [2] _chemical.entry_id  . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    650   761  1483
+ [2] _chemical.melting_point   . . . . . . . . . . . . . . . . . . . . . . . . . .   1552
+ [1] = _chemical_melting_point                                                       1551
+ [2] _chemical.name_systematic   . . . . . . . . . . . . . . . . . . . . . . . . .   1536
+ [1] = _chemical_name_systematic                                                     1535
+ [2] _chemical_formula.entry_id  . . . . . . . . . . . . . . . . . . . . . . . . .    652   763  1485
+ [2] _chemical_formula.moiety  . . . . . . . . . . . . . . . . . . . . . . . . . .   1540
+ [1] = _chemical_formula_moiety                                                      1539
+ [2] _chemical_formula.sum   . . . . . . . . . . . . . . . . . . . . . . . . . . .   1544
+ [1] = _chemical_formula_sum                                                         1543
+ [2] _chemical_formula.weight  . . . . . . . . . . . . . . . . . . . . . . . . . .   1548
+ [1] = _chemical_formula_weight                                                      1547
+ [1] _chemical_formula_moiety  . . . . . . . . . . . . . . . . . . . . . . . . . .   1539
+ [2] = _chemical_formula.moiety                                                      1540
+ [1] _chemical_formula_sum   . . . . . . . . . . . . . . . . . . . . . . . . . . .   1543
+ [2] = _chemical_formula.sum                                                         1544
+ [1] _chemical_formula_weight  . . . . . . . . . . . . . . . . . . . . . . . . . .   1547
+ [2] = _chemical_formula.weight                                                      1548
+ [1] _chemical_melting_point   . . . . . . . . . . . . . . . . . . . . . . . . . .   1551
+ [2] = _chemical.melting_point                                                       1552
+ [1] _chemical_name_systematic   . . . . . . . . . . . . . . . . . . . . . . . . .   1535
+ [2] = _chemical.name_systematic                                                     1536
+ [2] _pdbx_feature_monomer.auth_asym_id  . . . . . . . . . . . . . . . . . . . . .    620  1451
+ [2] _pdbx_feature_monomer.auth_comp_id  . . . . . . . . . . . . . . . . . . . . .    625  1456
+ [2] _pdbx_feature_monomer.auth_seq_id   . . . . . . . . . . . . . . . . . . . . .    630  1461
+ [2] _pdbx_feature_monomer.label_alt_id  . . . . . . . . . . . . . . . . . . . . .    600  1431
+ [2] _pdbx_feature_monomer.label_asym_id   . . . . . . . . . . . . . . . . . . . .    605  1436
+ [2] _pdbx_feature_monomer.label_comp_id   . . . . . . . . . . . . . . . . . . . .    610  1441
+ [2] _pdbx_feature_monomer.label_seq_id  . . . . . . . . . . . . . . . . . . . . .    615  1446
+ [2] _symmetry.cell_setting  . . . . . . . . . . . . . . . . . . . . . . . . . . .   1636
+ [1] = _symmetry_cell_setting                                                        1635
+ [2] _symmetry.entry_id  . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    658   769  1491
+ [2] _symmetry.space_group_name_H-M  . . . . . . . . . . . . . . . . . . . . . . .   1640
+ [1] = _symmetry_space_group_name_H-M                                                1639
+ [2] _symmetry.space_group_name_Hall   . . . . . . . . . . . . . . . . . . . . . .   1644  1762
+ [1] = _symmetry_space_group_name_Hall                                               1643  1761
+ [1] _symmetry_cell_setting  . . . . . . . . . . . . . . . . . . . . . . . . . . .   1635
+ [2] = _symmetry.cell_setting                                                        1636
+ [1] _symmetry_space_group_name_H-M  . . . . . . . . . . . . . . . . . . . . . . .   1639
+ [2] = _symmetry.space_group_name_H-M                                                1640
+ [1] _symmetry_space_group_name_Hall   . . . . . . . . . . . . . . . . . . . . . .   1643  1761
+ [2] = _symmetry.space_group_name_Hall                                               1644  1762

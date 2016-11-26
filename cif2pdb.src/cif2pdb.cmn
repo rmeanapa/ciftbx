@@ -1,0 +1,62 @@
+C
+C     cif2pdb.cmn -- common blocks for cif2pdb
+C
+C
+C      Herbert J. Bernstein, Bernstein+Sons, Bellport, NY 11713
+C      yaya@bernstein-plus-sons.com
+C
+C
+       integer NUMSTR, NUMHSH
+       parameter (NUMSTR = 10000)
+       parameter (NUMHSH = 53)
+C      inpcif -- name of input cif dataset
+C      outent -- name of output pseudo-PDB entry
+C      ckdict -- name of dictionary to use for checking
+C
+       include 'ciftbx.cmv'
+       character*80 mapstr(NUMSTR)
+       character*10 chain_list(2048)
+       character*33 entity_list(2048)
+       integer num_chains
+       integer mapchain(NUMSTR),mapto(NUMSTR),mhash(NUMHSH)
+       character*6 pdbent,pdbrec
+       character*3 hetl(500),aa_list(23),na_list(12),shet(3)
+       character*256 inpcif,ckdict,outent
+	   character*2048 cstr(1024)
+	   integer lcstr(1024)
+       character*2049 tmparg
+	   character*132 tcsbuf
+       character*15 myentry
+       character*1 type_code
+       character*3 wide_code
+	   character*18 sfmt_orig, sfmt_cont
+       integer linpcif,lckdict,loutent,numhetl,pdbline,
+     *  iunpdb,iuninp,iunout,iundac,iunerr,num_aa,num_na,
+     *  nmap
+       integer numRemark,numFtnote,numHet,numHelix,numSheet,
+     *  numTurn,numSite,numXform,numCoord,numTer,numConect,numSeq,
+     *  numTitle,numCompound,numSource,numCaveat
+       logical result
+       real*8 cell_a,cell_b,cell_c,
+     *  cell_alpha,cell_beta,cell_gamma,cell_vol,
+     *  matf2o(3,3),vecf2o(3),mato2f(3,3),veco2f(3)
+C
+       common /cif2pdb_cfs/inpcif,ckdict,outent,hetl,pdbent,pdbrec,
+     *   myentry,mapstr,aa_list,na_list,shet,type_code,cstr,
+     *   chain_list,entity_list,tmparg,wide_code,
+     *   sfmt_orig, sfmt_cont, tcsbuf
+       common /cif2pdb_cfi/linpcif,lckdict,loutent,numhetl,
+     *  numRemark,numFtnote,numHet,numHelix,numSheet,
+     *  numTurn,numSite,numXform,numCoord,numTer,numConect,numSeq,
+     *  numTitle,numCompound,numSource,numCaveat,
+     *  pdbline,iunpdb,iuninp,iunout,iundac,iunerr,mapchain,mapto,
+     *  num_aa,num_na,nmap,mhash,num_chains,lcstr
+       common /cif2pdb_cfl/result
+       common /cif2pdb_cfd/cell_a,cell_b,cell_c,
+     *  cell_alpha,cell_beta,cell_gamma,cell_vol,
+     *  matf2o, vecf2o, mato2f, veco2f
+       logical pdbstr,pdbint,pdbreal
+       character*2048 tbxxupcs,nounder,typeset
+
+       external tbxxupcs
+       external nounder

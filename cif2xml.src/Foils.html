@@ -1,0 +1,636 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="Microsoft Word 97/98">
+<TITLE>Foils ACA 98.msw</TITLE>
+</HEAD>
+<BODY>
+
+<FONT FACE="Helvetica"><P ALIGN="CENTER"><IMG SRC="Image1.gif" WIDTH=347 HEIGHT=190></P>
+</FONT><B><FONT FACE="Helvetica" SIZE=4><P ALIGN="CENTER"></P>
+</FONT><FONT FACE="Helvetica" SIZE=7><P ALIGN="CENTER">xmlCIF: A Proposal for Faithful Translation between XML and Extended CIF</P>
+<P ALIGN="CENTER"></P>
+</FONT><FONT FACE="Helvetica" SIZE=5><P ALIGN="CENTER">by</P>
+</B><P ALIGN="CENTER"></P>
+</FONT><B><FONT FACE="Helvetica" SIZE=6><P ALIGN="CENTER">Herbert J. Bernstein and Frances C. Bernstein</P>
+</FONT><FONT FACE="Helvetica" SIZE=5><P ALIGN="CENTER">Bernstein + Sons, 5 Brewster Lane, Bellport, NY 11713-2803, USA</P>
+</B>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Helvetica" SIZE=6><P>The Extensible Markup Language (XML) is "a subset of SGML ... Its goal is to enable generic SGML to be served, received, and processed on the Web in the way that is now possible with HTML. XML has been designed for ease of implementation and for interoperability with both SGML and HTML." -- Bray, Paoli, Sperberg-McQueen, 1998 </P>
+
+<P>The Crystallographic Information File (CIF) is "the standard crystallographic data exchange prescribed by the International Union of Crystallography." -- Hall, Allen, Brown, 1991 </P>
+
+<P>Use of CIF in crystallography is well-established.  Use of XML is being widely discussed.  Translation between the two representations is an important issue.  As we shall see, translation from CIF to XML is relatively simple.  Translation from XML to CIF is not.  A preliminary version of cif2xml is ready for testing.  Design of xml2cif is in progress.</P>
+
+<P>Scientific papers, as well as data, can be written in CIF format, and it is common practice to include text formatted according to various standards within CIFs. We propose extensions to the definition of CIF, creating Extended CIF (xCIF), to allow for the inclusion of XML documents within CIF data sets without the loss of any of the information contained within the XML document. This should facilitate exchange of tools and documents between the XML and CIF communities, hopefully enriching both. </P>
+
+<P>xCIF documents are intended to be parsable character string values and parsable text values within CIF documents. The syntax rules for xCIF are similar to those for CIF, but they allow for optional nested recursive parsing of values and for the optional order-dependence required to represent XML documents. In most cases, the resulting xCIF document has a simpler, cleaner appearance than the corresponding XML document. </P>
+
+<P>The changes proposed to get from CIF to xCIF are minimal, and the resulting outer level documents conform to the existing CIF standard. This is simply a "strawman" put forward for discussion, and no endorsement or approval by the IUCr or by COMCIFS should be inferred. </P>
+</B><P ALIGN="CENTER"></P>
+</FONT><B><FONT FACE="Helvetica" SIZE=7><P ALIGN="CENTER">The Basics of XML</P>
+</B>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Helvetica" SIZE=6><P>The full definition of XML is given in [Bray, Paoli, Sperberg-McQueen 98]. We present a simplified description of some of the features of XML to assist in understanding the mappings to and from extended CIF.   An XML document consists of character data intermingled with "markup". The ampersand ("&amp;"), percent ("%"), and angle brackets ("&lt;" and "&gt;") are highly significant in XML and are used to help distinguish the character data of the document from its markup. </P>
+
+<P>XML Markup consists of: </P>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=779>
+<TR><TD WIDTH="18%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>start-tags</B></FONT></TD>
+<TD WIDTH="35%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>&lt;name&gt;</P>
+<P>&lt;name attribute=value attribute=value ...&gt; </B></FONT></TD>
+<TD WIDTH="47%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>-- marks the beginning of an XML element. The attribute-value pairs are optional and no attribute may appear more than once </P>
+</B></FONT></TD>
+</TR>
+<TR><TD WIDTH="18%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>end-tags</B></FONT></TD>
+<TD WIDTH="35%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>&lt;/name&gt; </B></FONT></TD>
+<TD WIDTH="47%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>-- marks the end of the XML element begun by the start-tag with a matching name </P>
+</B></FONT></TD>
+</TR>
+<TR><TD WIDTH="18%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>empty-element </P>
+<P>  tags </B></FONT></TD>
+<TD WIDTH="35%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>&lt;name/&gt;</P>
+<P>&lt;name attribute=value attribute=value ... /&gt; </P>
+</B></FONT></TD>
+<TD WIDTH="47%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>-- this is a special form equivalent to &lt;name&gt;&lt;/name&gt; or &lt;name attribute=value attribute=value ...&gt;&lt;/name&gt; which is used when a tag has no content </P>
+</B></FONT></TD>
+</TR>
+<TR><TD WIDTH="18%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>entity references</B></FONT></TD>
+<TD WIDTH="35%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>&amp;name;</P>
+<P>%name; </P>
+</B></FONT></TD>
+<TD WIDTH="47%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>-- entity references refer to objects by name. The symbols "&amp;", "&lt;", "&gt;", "'", and the double quote are represented by "&amp;amp;", "&amp;lt;", "&amp;gt;", "&amp;apos;", "&amp;quot;" respectively. </B></FONT></TD>
+</TR>
+<TR><TD WIDTH="18%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>character </P>
+<P>  references </B></FONT></TD>
+<TD WIDTH="35%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>&amp;#nnn; </P>
+</B></FONT></TD>
+<TD WIDTH="47%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>-- specifies a character with decimal unicode value nnn </P>
+</B></FONT></TD>
+</TR>
+<TR><TD WIDTH="18%" VALIGN="TOP">&nbsp;</TD>
+<TD WIDTH="35%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>&amp;#xhhh; </B></FONT></TD>
+<TD WIDTH="47%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>-- specifies a character with hexadecimal unicode value hhh </P>
+</B></FONT></TD>
+</TR>
+<TR><TD WIDTH="18%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>comments</B></FONT></TD>
+<TD WIDTH="35%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>&lt;!-- comment --&gt; </B></FONT></TD>
+<TD WIDTH="47%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>-- this special markup is used to include comment text </P>
+</B></FONT></TD>
+</TR>
+<TR><TD WIDTH="18%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>CDATA sections</B></FONT></TD>
+<TD WIDTH="35%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>&lt;![CDATA[ character_data ]]&gt;</B></FONT></TD>
+<TD WIDTH="47%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>-- this special markup is used to embed text which might otherwise be interpreted as markup. </P>
+</B></FONT></TD>
+</TR>
+<TR><TD WIDTH="18%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>document type </P>
+<P>  declarations </B></FONT></TD>
+<TD WIDTH="35%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>&lt;?xml version="1.0"?&gt;</B></FONT></TD>
+<TD WIDTH="47%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>-- this optional special markup unambiguously identifies an XML document.</P>
+</B></FONT></TD>
+</TR>
+<TR><TD WIDTH="18%" VALIGN="TOP">&nbsp;</TD>
+<TD WIDTH="35%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>&lt;!DOCTYPE name ... &gt;</B></FONT></TD>
+<TD WIDTH="47%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>-- this optional special markup provides information on the markup declarations that define the grammar of the document.</P>
+</B></FONT></TD>
+</TR>
+<TR><TD WIDTH="18%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>element type </P>
+<P>  declarations </B></FONT></TD>
+<TD WIDTH="35%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>&lt;!ELEMENT name contents&gt; </B></FONT></TD>
+<TD WIDTH="47%" VALIGN="TOP">&nbsp;</TD>
+</TR>
+<TR><TD WIDTH="18%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>attribute list </P>
+<P>  declarations </B></FONT></TD>
+<TD WIDTH="35%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>&lt;!ATTLIST name elementname type default ... &gt; </P>
+</B></FONT></TD>
+<TD WIDTH="47%" VALIGN="TOP">&nbsp;</TD>
+</TR>
+<TR><TD WIDTH="18%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>entity declarations </B></FONT></TD>
+<TD WIDTH="35%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>&lt;!ENTITY name entity_definition &gt;</P>
+<P>&lt;!ENTITY % name parsed_entity_definition &gt; </P>
+</B></FONT></TD>
+<TD WIDTH="47%" VALIGN="TOP">&nbsp;</TD>
+</TR>
+<TR><TD WIDTH="18%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>notation </P>
+<P>  declarations </P>
+</B></FONT></TD>
+<TD WIDTH="35%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>&lt;!NOTATION name id &gt; </P>
+</B></FONT></TD>
+<TD WIDTH="47%" VALIGN="TOP">&nbsp;</TD>
+</TR>
+<TR><TD WIDTH="18%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>processing </P>
+<P>  instructions </B></FONT></TD>
+<TD WIDTH="35%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>&lt;?program_name parameters ?&gt;</B></FONT></TD>
+<TD WIDTH="47%" VALIGN="TOP">&nbsp;</TD>
+</TR>
+</TABLE>
+
+<FONT FACE="Helvetica"><P> </P>
+</FONT><B><FONT FACE="Helvetica" SIZE=5><P>The term "whitespace" in XML (as well as in CIF) refers to any non-empty sequence of spaces, tabs or line-terminators. </P>
+
+<P>An XML name is a string beginning with a letter, underscore ("_") or colon (":") and consisting of letters, digits, hyphens, underscores, colons or periods ("."). Names beginning with "xml" (case-insensitive) and names containing the colon are reserved. They should be accepted by parsers, but authors of documents should not generate such names except for the reserved purposes. </P>
+</FONT><FONT FACE="Helvetica" SIZE=1>
+</FONT><FONT FACE="Helvetica" SIZE=5><P>An XML "system" literal string is quoted either with single quote ("'") or a double quote, and may not contain the character chosen as the quote mark. There are other literals which have additional restrictions on the characters that may be included in those literal strings. In order to allow quote marks within strings, the special escape sequences "&amp;apos;" and "&amp;quot;" may be used to represent the single and double quotes within character data. </P>
+
+<P>XML has been used as a framework for definition of a Chemical Markup Language (CML) [Murray-Rust, Rzepa 99].  The program Jmol [Gezelter 99] is able to display CML datasets.   A typical fragment of a CML dataset presents atomic coordinates by columns, as seen in this example of methanol distributed as an example in the Jmol release:</P>
+</FONT><FONT FACE="Helvetica" SIZE=1><DIR>
+<DIR>
+
+</FONT><FONT FACE="Helvetica" SIZE=5><P>&lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;</P>
+<P>&lt;!DOCTYPE molecule SYSTEM "cml.dtd" []&gt;</P>
+<P>&lt;molecule id="METHANOL"&gt;</P>
+<P>  &lt;atomArray&gt;</P>
+<P>     &lt;stringArray builtin="id"&gt;a1 a2 a3 a4 a5 a6&lt;/stringArray&gt;</P>
+<P>     &lt;stringArray builtin="elementType"&gt;C O H H H H&lt;/stringArray&gt;</P>
+<P>     &lt;floatArray builtin="x3" units="pm"&gt;-0.748 0.558 -1.293 -1.263 -0.699 0.716</P>
+<P>&lt;/floatArray&gt;</P>
+<P>     &lt;floatArray builtin="y3" units="pm"&gt;-0.015 0.420 0.202 0.754 -0.934 1.404&lt;/</P>
+<P>floatArray&gt;</P>
+<P>     &lt;floatArray builtin="z3" units="pm"&gt;0.024 -0.278 -0.901 0.600 0.609 0.137&lt;/</P>
+<P>floatArray&gt;</P>
+<P>  &lt;/atomArray&gt;</P>
+<P>&lt;/molecule&gt;</P>
+</FONT><FONT FACE="Helvetica" SIZE=6>
+</FONT><FONT FACE="Helvetica" SIZE=7><P ALIGN="CENTER">&nbsp;</P></DIR>
+</DIR>
+
+<P ALIGN="CENTER">The Basics of CIF</P>
+</B>
+</FONT><B><FONT FACE="Helvetica" SIZE=6><P>The full definition of CIF is given in [Hall, Allen, Brown 91]. In simplified terms, a CIF is a collection of data blocks. Each data contains data names (tags) and their values. Whitespace (in the same sense as with XML) is used to delimit the tokens of the language.  Tags are marked with a leading underscore ("_") to distinguish them from values.  Values which might be confused with data names or which contain whitespace are quoted in one of three ways:  with single or double quotes or with semicolon as the first character of a line.  An unusual aspect of CIF is that a terminal quote mark is not meaningful unless followed by whitespace. The single and double quote may only be used to quote strings that are confined to a single line.  In addition to the underscore, and the three quote marks, three other characters have special meaning: the period ("."), the question mark ("?") and the hash mark ("#"). The period is used when no value is specified.  The question mark is used when a value is desired but not available.  The hash mark indicates that the remaining characters on a line are part of a comment. </P>
+
+<P>There are a small number of reserved words: "global_", "data_", "loop_", "stop_", and "save_".  The last two reserved words are not used by CIF but are reserved to prevent conflict with the language from which CIF is derived (STAR). "global_" and "data_" mark the start of a data block. "data_" should be followed immediately with the name of the block, without intervening whitespace. If "loop_" appears, it is followed by a sequence of tags without intervening data values.  Those tags are considered as the column headings of a table.  These are followed by rows of data values corresponding to those column headings. Outside of a table, tags and data values appear in simple alternation. </P>
+
+<P>Within a data block a given tag may appear only once. The meaning of a CIF document is not altered by changing the order of presentation of data blocks nor is it altered by changing the order of presentation of tags within a block.  There are two styles of CIF in use for crystallography.</P>
+
+<P>This is a partial example of a small molecule coordinate list [Longridge 98]:</P>
+</B><DIR>
+<DIR>
+<DIR>
+<DIR>
+<DIR>
+
+</FONT><B><FONT FACE="Helvetica" SIZE=5><P>loop_</P>
+<P>    _atom_site_label</P>
+<P>    _atom_site_fract_x</P>
+<P>    _atom_site_fract_y</P>
+<P>    _atom_site_fract_z</P>
+<P>    _atom_site_U_iso_or_equiv</P>
+<P>    _atom_site_adp_type</P>
+<P>    _atom_site_calc_flag</P>
+<P>    _atom_site_refinement_flags</P>
+<P>    _atom_site_occupancy</P>
+<P>    _atom_site_disorder_assembly</P>
+<P>    _atom_site_disorder_group</P>
+<P>    _atom_site_type_symbol</P>
+<P>    Fe1 1 0 1  .0084(2) Uani d S 1 . . Fe</P>
+<P>    Na1  .50907(11)  .13980(8) 1.09450(9)  .0185(3) Uani d . 1 . . Na</P>
+<P>    Na2  .89904(10)  .37128(8) 1.21657(9)  .0171(3) Uani d . 1 . . Na</P>
+<P>    C1  .7997(2)  -.01740(18) 1.0419(2)  .0110(4) Uani d . 1 . . C</P>
+<P>    N1  .6788(2)  -.02885(18) 1.0696(2)  .0166(4) Uani d . 1 . . N</P>
+<P>    C2  .9306(3)  -.01004(16)  .8075(3)  .0130(4) Uani d . 1 . . C</P>
+<P>    N2  .8896(2)  -.01832(19)  .6897(2)  .0180(5) Uani d . 1 . . N</P>
+<P>    C3  .9777(2)  .1677(2)  .99877(17)  .0124(4) Uani d . 1 . . C</P>
+<P>    N3  .9687(3)  .26941(19) 1.00269(19)  .0202(4) Uani d . 1 . . N</P>
+<P>    O1  .8170(2)  .23149(18)  .6226(2)  .0353(5) Uani d D 1 . . O</P>
+<P>  ...</P>
+</FONT><FONT FACE="Helvetica" SIZE=6>
+<P>&nbsp;</P></DIR>
+</DIR>
+</DIR>
+</DIR>
+</DIR>
+
+<P>This is an example of a macromolecular CIF (1CRN) as converted to mmCIF by the program pdb2cif [Bernstein et al. 98]</P>
+<DIR>
+<DIR>
+<DIR>
+<DIR>
+
+</FONT><FONT FACE="Helvetica" SIZE=5><P>loop_</P>
+<P>_atom_site.label_seq_id</P>
+<P>_atom_site.group_PDB</P>
+<P>_atom_site.type_symbol</P>
+<P>_atom_site.label_atom_id</P>
+<P>_atom_site.label_comp_id</P>
+<P>_atom_site.label_asym_id</P>
+<P>_atom_site.auth_seq_id</P>
+<P>_atom_site.label_alt_id</P>
+<P>_atom_site.cartn_x</P>
+<P>_atom_site.cartn_y</P>
+<P>_atom_site.cartn_z</P>
+<P>_atom_site.occupancy</P>
+<P>_atom_site.B_iso_or_equiv</P>
+<P>_atom_site.footnote_id</P>
+<P>_atom_site.label_entity_id</P>
+<P>_atom_site.id</P>
+<P>1</P>
+<P>  ATOM  N  N    THR *    1  .  17.047  14.099   3.625  1.00 13.79  .    1      1</P>
+<P>1</P>
+<P>  ATOM  C  CA   THR *    1  .  16.967  12.784   4.338  1.00 10.80  .    1      2</P>
+<P>1</P>
+<P>  ATOM  C  C    THR *    1  .  15.685  12.755   5.133  1.00  9.19  .    1      3</P>
+<P>1</P>
+<P>  ...</P></DIR>
+</DIR>
+</DIR>
+</DIR>
+
+<P> </FONT><FONT FACE="Helvetica" SIZE=6>Note that in both cases the coordinates are presented by rows.</P>
+</FONT><FONT FACE="Helvetica" SIZE=7><P ALIGN="CENTER"></P>
+<P ALIGN="CENTER">Converting between CIF and XML</P>
+</FONT><FONT FACE="Helvetica" SIZE=6>
+<P>The conversion from CIF to XML is relatively simple.  Translation from XML to CIF is not.  The major differences are:</P>
+
+<P ALIGN="CENTER">CIF</P>
+</FONT><FONT FACE="Helvetica" SIZE=5><P>Table-oriented</P>
+<P>  &quot;naturally&quot; row-based</P>
+<P>Case-insensitive tags</P>
+<P>Two levels of nesting</P>
+<P>Order independent</P>
+<P>Dictionary-based tag parametrization</P>
+</FONT><FONT FACE="Helvetica" SIZE=6><P ALIGN="CENTER"></P>
+<P ALIGN="CENTER">XML</P>
+</FONT><FONT FACE="Helvetica" SIZE=5><P>Tree-oriented</P>
+<P>  &quot;naturally&quot; column-based</P>
+<P>Case-sensitive entity names</P>
+<P>Unlimited nesting</P>
+<P>Order dependent</P>
+<P>DTD and dynamic entity parameters</P>
+</FONT><FONT FACE="Helvetica" SIZE=6>
+<P>In addition, the rules for writing tag names in XML are slightly more restrictive than they are in CIF.  Quoted strings have slightly different syntax.</P>
+<P ALIGN="CENTER"></P>
+</B><P ALIGN="CENTER"><IMG SRC="Image2.gif" WIDTH=290 HEIGHT=136></P>
+</FONT><B><FONT FACE="Helvetica" SIZE=7>
+<P>cif2xml</FONT><FONT FACE="Helvetica" SIZE=6> is a program which converts from CIF to XML using the CIF toolbox, CIFtbx [Hall, Bernstein 96] .  The basic approach is to map categories into an outer level of XML tags and individual tags into the next level down the tree.  Three new dictionary tags are defined to allow for mapping of CIF categories and tags to XML entity names:</P>
+
+<P>&#9;_xml_mapping.token&#9;&#9;&#9;gives the CIF token to be mapped</P>
+<P>&#9;_xml_mapping.token_type&#9;gives the type of CIF token</P>
+<P>&#9;_xml_mapping.target&#9;&#9;&#9;gives the string to be used in xml</P>
+
+<P>The mapping is optionally by rows or by columns.  Mapping by columns is the default because it allows a much high density of data versus tags.</P>
+
+<P>Here is the beginning of the cell information from 1crn as mapped by cif2xml:</P>
+<DIR>
+<DIR>
+<DIR>
+<DIR>
+<DIR>
+
+</FONT><FONT FACE="Helvetica" SIZE=5><P>&lt;crystal&gt;</P>
+<P>&lt;cell.entry_id&gt;                 1CRN</P>
+<P>&lt;/cell.entry_id&gt;</P>
+<P>&lt;float builtin="acell"&gt;         40.96</P>
+<P>&lt;/float&gt;</P>
+<P>&lt;float builtin="bcell"&gt;         18.65</P>
+<P>&lt;/float&gt;</P>
+<P>&lt;float builtin="ccell"&gt;         22.52</P>
+<P>&lt;/float&gt;</P>
+<P>&lt;float builtin="alpha"&gt;         90.</P>
+<P>&lt;/float&gt;</P>
+<P>&lt;float builtin="beta"&gt;          90.77</P>
+<P>&lt;/float&gt;</P>
+<P>&lt;float builtin="gamma"&gt;         90.</P>
+<P>&lt;/float&gt;</P>
+<P>...</P>
+</FONT><FONT FACE="Helvetica" SIZE=7></DIR>
+</DIR>
+</DIR>
+</DIR>
+</DIR>
+
+</FONT><FONT FACE="Helvetica" SIZE=6><P>Note the non-CML tag cell.entry_id included.  cif2xml allows for request lists so that such tags may be excluded, but, for use with Jmol, there is no need to exclude them.</P>
+
+<P>The output of cif2xml when used to produce data by columns agrees with the output of the BioDOM program pdb2xml [Moore 99] for such non-looped data.  For coordinate lists the higher information density of the cif2xml output results in faster dataset reading and display when used with Jmol.</P>
+</B><P ALIGN="CENTER"><IMG SRC="Image1.jpg" WIDTH=703 HEIGHT=439></P>
+</FONT><B><FONT FACE="Helvetica" SIZE=7><P ALIGN="CENTER">The Proposed xCIF Format</P>
+</FONT><FONT FACE="Helvetica" SIZE=6>
+<P>We propose to extend the CIF syntax to create an extended CIF format to be used in parsing certain data values within a CIF. Each parsed data value is treated as an "xCIF" document. </P>
+
+<P>An xCIF document is a valid CIF document, within which certain tags are used which have values intended to be parsed according to xCIF syntax. We say that such values are either of "xCIF type" or are of other types and have the "xCIF attribute". We define two initial tags of type xCIF, _xCIF.doc and _xCIF.doc_params, which are used to bring xCIF documents into a CIF as values. If these tags are used within a loop, multiple xCIF documents may be included. In order to allow an ordering of these top-level included xCIF documents, and to allow for multiple instances of the same xCIF document, we define an additional tag, _xCIF.doc_ordinal to optionally specify an document ordinal. Each document is given as a value of _xCIF.doc. The corresponding value of _xCIF.doc_params specifies the top level parameters applicable to that document. </P>
+
+<P>Within an xCIF document, the following tags are defined: </P>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=779>
+<TR><TD WIDTH="24%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=6><P>_params</B></FONT></TD>
+<TD WIDTH="76%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>The value is a xCIF document assigning values to tags. In the context of xmlCIF, these are equivalent to assigning values to attributes for this block of character data, and, if order is being preserved, should appear first in the block.</P>
+</B></FONT></TD>
+</TR>
+<TR><TD WIDTH="24%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=6><P>_cmnt</B></FONT></TD>
+<TD WIDTH="76%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>The value is a comment. This is an alternative to "#" delimited comments.</P>
+</B></FONT></TD>
+</TR>
+<TR><TD WIDTH="24%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=6><P>_text</B></FONT></TD>
+<TD WIDTH="76%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>The value is a block of text exempt from nested parsing.</P>
+</FONT><FONT FACE="Helvetica" SIZE=1><P> </B></FONT></TD>
+</TR>
+<TR><TD WIDTH="24%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=6><P>_prog </P>
+<P>_prog_params </B></FONT></TD>
+<TD WIDTH="76%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>The value of _prog is the name of a program. The value of _prog_params is a string representing parameters for the "associated" _prog tag. If order is being preserved, the "associated" _prog tag must be the immediately preceding tag. If order is not preserved, a loop_ must be used to create the association. This pair of tags is used to represent the XML "&lt;?" constructs.</P>
+</FONT><FONT FACE="Helvetica" SIZE=1><P> </B></FONT></TD>
+</TR>
+<TR><TD WIDTH="24%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=6><P>_doctype </P>
+<P>_element </P>
+<P>_attlist </P>
+<P>_entity </P>
+<P>_notation</B></FONT></TD>
+<TD WIDTH="76%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>These tags are used to carry information from the equivalent XML "&lt;!" constructs </B></FONT></TD>
+</TR>
+</TABLE>
+
+<B><FONT FACE="Helvetica" SIZE=6><P ALIGN="CENTER"></P>
+</FONT><FONT FACE="Helvetica" SIZE=7><P ALIGN="CENTER">The Top Level Parameters</P>
+</FONT><FONT FACE="Helvetica" SIZE=1>
+</FONT><FONT FACE="Helvetica" SIZE=6><P>The parameters controlling the syntax and semantics of an xCIF document are specified in a character string (or text field) containing values for the following tags: </P>
+</FONT><FONT FACE="Helvetica" SIZE=1></B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=773>
+<TR><TD WIDTH="50%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=6><P>_xCIF_doc.parse_contents </B></FONT></TD>
+<TD WIDTH="50%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>  "yes" (the default) if the xCIF document is to be parsed, "no" if not. </P>
+</FONT><FONT FACE="Helvetica" SIZE=1><P> </B></FONT></TD>
+</TR>
+<TR><TD WIDTH="50%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=6><P>_xCIF_doc.preserve_spacing</B></FONT></TD>
+<TD WIDTH="50%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>  "yes" if white space within the xCIF document is significant, "no" (the default) if not. </P>
+</FONT><FONT FACE="Helvetica" SIZE=1><P> </B></FONT></TD>
+</TR>
+<TR><TD WIDTH="50%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=6><P>_xCIF_doc.preserve_order</B></FONT></TD>
+<TD WIDTH="50%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>  "yes" if the ordering of tags within the xCIF document is significant, "no" (the default) if not.</FONT><FONT FACE="Helvetica" SIZE=1> </P>
+</FONT><FONT FACE="Helvetica" SIZE=1><P> </B></FONT></TD>
+</TR>
+<TR><TD WIDTH="50%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=6><P>_xCIF_doc.repeat_tags</B></FONT></TD>
+<TD WIDTH="50%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>  "yes" if tags may be repeated, "no" (the default) if not.</FONT><FONT FACE="Helvetica" SIZE=1> </P>
+</FONT><FONT FACE="Helvetica" SIZE=1><P> </B></FONT></TD>
+</TR>
+<TR><TD WIDTH="50%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=6><P>_xCIF_doc.recursion</B></FONT></TD>
+<TD WIDTH="50%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>  "yes" (the default) if the values of parsed tags are themselves to be parsed, "no" if not. The combination of "_xCIF_doc.parse_contents no" and "_xCIF_doc.recursion yes" is not meaningful. </P>
+</FONT><FONT FACE="Helvetica" SIZE=1><P> </B></FONT></TD>
+</TR>
+<TR><TD WIDTH="50%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=6><P>_xCIF_doc.extensions</B></FONT></TD>
+<TD WIDTH="50%" VALIGN="TOP">
+<B><FONT FACE="Helvetica" SIZE=5><P>"yes" (the default) if the xCIF extensions to CIF parsing rules are to be enabled in parsing the xCIf document, "no" if not </B></FONT></TD>
+</TR>
+</TABLE>
+
+<B><FONT FACE="Helvetica" SIZE=6>
+<P>For example, a simple framework for specifying an xCIF document which is to be parsed for information to be used in creating an XML document might begin </P>
+<DIR>
+
+<P>data_xmlDATA  </P>
+<P>  </FONT><FONT FACE="Helvetica" SIZE=6 COLOR="#0000ff">_xCIF.doc_params</P>
+</FONT><FONT FACE="Helvetica" SIZE=6><P>  "_xCIF_doc.preserve_order no _xCIF_doc.repeat_tags yes"</P>
+<P>  </FONT><FONT FACE="Helvetica" SIZE=6 COLOR="#0000ff">_xCIF.doc</FONT><FONT FACE="Helvetica" SIZE=6>     </P>
+<P>; _prog xml </P>
+<P>  _prog_params "version=&amp;quot;1.0&amp;quot;"       </P>
+<P>  _doctype "html ..."       ...     </P>
+<P>; </P>
+
+<P ALIGN="CENTER">&nbsp;</P></DIR>
+
+</FONT><FONT FACE="Helvetica" SIZE=7><P ALIGN="CENTER">The Extended CIF Syntax</P>
+</FONT><FONT FACE="Helvetica" SIZE=2>
+<P>&nbsp;</P>
+</FONT><FONT FACE="Helvetica" SIZE=6><P>The parsing rules for xCIF are similar to those for CIF, with some added flexibility. An xCIF document consists of lines of text representing a continuous string of characters, from which the parser extracts substrings as tokens if parsing has been enabled.</P>
+</FONT><FONT FACE="Helvetica" SIZE=2>
+</FONT><FONT FACE="Helvetica" SIZE=6><P>The syntax is very similar to CIF. The body of the document consists of tags and values, either in directly associated pairs or in loops. Two constructs which are illegal in CIF outside of loops are permitted in xCIF: multiple tags in sequence and multiple values in sequence. Constructs of the form</P>
+</FONT><FONT FACE="Helvetica" SIZE=2><DIR>
+<DIR>
+<DIR>
+<DIR>
+<DIR>
+<DIR>
+
+</FONT><FONT FACE="Helvetica" SIZE=5 COLOR="#0000ff"><P>_tag1 _tag2 &#133; _tagn</FONT><FONT FACE="Helvetica" SIZE=5> value1 value2 &#133; valuem</P>
+</FONT><FONT FACE="Helvetica" SIZE=2></DIR>
+</DIR>
+</DIR>
+</DIR>
+</DIR>
+</DIR>
+
+</FONT><FONT FACE="Helvetica" SIZE=6><P>are equivalent to</P>
+</FONT><FONT FACE="Helvetica" SIZE=2><DIR>
+<DIR>
+<DIR>
+<DIR>
+<DIR>
+<DIR>
+
+</FONT><FONT FACE="Helvetica" SIZE=5 COLOR="#0000ff"><P>_tag1</P>
+</FONT><FONT FACE="Helvetica" SIZE=5><P>; </FONT><FONT FACE="Helvetica" SIZE=5 COLOR="#0000ff">_tag2</P>
+</FONT><FONT FACE="Helvetica" SIZE=5><P>\; &#133;</P>
+<P>\&#133;\;</FONT><FONT FACE="Helvetica" SIZE=5 COLOR="#0000ff">_tagn</FONT><FONT FACE="Helvetica" SIZE=5> " value1 value2 &#133; valuem"</P>
+<P>\&#133;\;</P>
+<P>\;</P>
+<P>;</P>
+</FONT><FONT FACE="Helvetica" SIZE=6></DIR>
+</DIR>
+</DIR>
+</DIR>
+</DIR>
+</DIR>
+
+<P>nesting the uses of the tags and concatenating the values. This convention does not change the ordinary CIF handling of loop headers and bodies.</P>
+<P>The ability to imply nesting by concatenating tags is supplemented with two additional special contructs. The tag "_" consisting of just an underscore may be used to return one or more levels of nesting or to function as a multiple level bracket. If the value associated with the "_" tag is a non-negative whole number, the parse returns that many levels of nesting. If the value associated with the "_" tag is symbolic and consists of "}" followed by a (possibly empty) string then the parse returns to the level at which it most recently encountered the "_" tag followed by a value beginning with "{" followed by the same string.  The combinations "_ 0" and "_ ." are no-ops for the parse.  To understand the impact of these extensions, consider the following HTML fragment:</P>
+<DIR>
+<DIR>
+<DIR>
+<DIR>
+<DIR>
+
+</FONT><FONT FACE="Helvetica" SIZE=5><P>&lt;CENTER&gt;</P>
+<P>&lt;TABLE BORDER="2" WIDTH="380"&gt;</P>
+<P>&lt;TR&gt;&lt;TD&gt;A&lt;/TD&gt;       &lt;TD&gt;26.4&lt;/TD&gt;&lt;/TR&gt;</P>
+<P>&lt;TR&gt;&lt;TD&gt;B&lt;/TD&gt;       &lt;TD&gt;38.9&lt;/TD&gt;&lt;/TR&gt;</P>
+<P>&lt;TR&gt;&lt;TD&gt;C&lt;/TD&gt;       &lt;TD&gt;34.7&lt;/TD&gt;&lt;/TR&gt;</P>
+<P>&lt;TR&gt;&lt;TD&gt;&amp;alpha;&lt;/TD&gt; &lt;TD&gt;88.0&lt;/TD&gt;&lt;/TR&gt;</P>
+<P>&lt;TR&gt;&lt;TD&gt;&amp;beta;&lt;/TD&gt;  &lt;TD&gt;108.0&lt;/TD&gt;&lt;/TR&gt;</P>
+<P>&lt;TR&gt;&lt;TD&gt;&amp;gamma;&lt;/TD&gt; &lt;TD&gt;111.0&lt;/TD&gt;&lt;/TR&gt;</P>
+<P>&lt;/TABLE&gt;</P>
+<P>&lt;/CENTER&gt;</P>
+</FONT><FONT FACE="Helvetica" SIZE=6>
+<P>&nbsp;</P></DIR>
+</DIR>
+</DIR>
+</DIR>
+</DIR>
+
+<P>This fragment might be translated as</P>
+</FONT><FONT FACE="Helvetica" SIZE=2><DIR>
+<DIR>
+<DIR>
+<DIR>
+<DIR>
+
+</FONT><FONT FACE="Helvetica" SIZE=6><P>_center _table</P>
+<P>_params "_border 2 _width 380"</P>
+<P>_tr _td A         _td 24.4     _ 1</P>
+<P>_tr _td B         _td 38.9     _ 1</P>
+<P>_tr _td C         _td 34.7     _ 1</P>
+<P>_tr _td &amp;alpha;   _td 88.0     _ 1</P>
+<P>_tr _td &amp;beta;    _td 108.0    _ 1</P>
+<P>_tr _td &amp;gamma;   _td 111.0    _ 1</P>
+</FONT><FONT FACE="Helvetica" SIZE=2>
+<P>&nbsp;</P></DIR>
+</DIR>
+</DIR>
+</DIR>
+</DIR>
+
+</FONT><FONT FACE="Helvetica" SIZE=6><P>or as </P>
+</FONT><FONT FACE="Helvetica" SIZE=2><DIR>
+<DIR>
+<DIR>
+<DIR>
+<DIR>
+
+</FONT><FONT FACE="Helvetica" SIZE=6><P>_center _table</P>
+<P>_params "_border 2 _width 380"</P>
+<P>_ { _tr _td A       _td 24.4      _ }</P>
+<P>_ { _tr _td B       _td 38.9      _ }</P>
+<P>_ { _tr _td C       _td 34.7      _ }</P>
+<P>_ { _tr _td &amp;alpha; _td 88.0      _ }</P>
+<P>_ { _tr _td &amp;beta;  _td 108.0     _ }</P>
+<P>_ { _tr _td &amp;gamma; _td 111.0     _ }</P>
+
+<P>&nbsp;</P></DIR>
+</DIR>
+</DIR>
+</DIR>
+</DIR>
+
+<P>both of which are equivalent to </P>
+<DIR>
+<DIR>
+<DIR>
+<DIR>
+<DIR>
+
+<P>_center</P>
+<P>; _table</P>
+<P>\;</P>
+<P>  _params '_border 2 _width 380'</P>
+<P>  _tr '_td A       _td 24.4'</P>
+<P>  _tr '_td B       _td 38.9'</P>
+<P>  _tr '_td C       _td 34.7'</P>
+<P>  _tr '_td &amp;alpha; _td 88.0'</P>
+<P>  _tr '_td &amp;beta;  _td 108.0'</P>
+<P>  _tr '_td &amp;gamma; _td 111.0'</P>
+<P>\;</P>
+<P>;</P>
+<P ALIGN="CENTER"></P>
+<P ALIGN="CENTER">&nbsp;</P>
+</FONT><FONT FACE="Helvetica" SIZE=7><P ALIGN="CENTER">&nbsp;</P></DIR>
+</DIR>
+</DIR>
+</DIR>
+</DIR>
+
+<P ALIGN="CENTER">Where to look for xmlCIF</P>
+</FONT><FONT FACE="Helvetica" SIZE=1>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+</FONT><FONT FACE="Helvetica" SIZE=5><P>The current draft is available from the authors: </P>
+
+</FONT><FONT FACE="Helvetica" SIZE=6 COLOR="#0000ff"><P>&#9;&#9;&#9;http://www.bernstein-plus-sons.com/software/xmlCIF/</P>
+<P>&#9;&#9;&#9;ftp://ftp.bernstein-plus-sons.com/software/xmlCIF/</P>
+</FONT><FONT FACE="Helvetica" SIZE=5>
+<P>&nbsp;</P>
+</FONT><FONT FACE="Helvetica" SIZE=7><P ALIGN="CENTER">Where to look for cif2xml</P>
+<P ALIGN="CENTER"></P>
+</FONT><FONT FACE="Helvetica" SIZE=6 COLOR="#0000ff"><P>&#9;&#9;&#9;http://www.bernstein-plus-sons.com/software/</P>
+<P>&#9;&#9;&#9;&#9;ciftbx_2.6.4/cif2xml.src/</P>
+<P>&#9;&#9;&#9;ftp://ftp.bernstein-plus-sons.com/software/</P>
+<P>&#9;&#9;&#9;&#9;ciftbx_2.6.4/cif2xml.src/</P>
+
+</FONT><FONT FACE="Helvetica" SIZE=7><P ALIGN="CENTER">Where to look for XML software</P>
+</FONT><FONT FACE="Helvetica" SIZE=5>
+</FONT><FONT FACE="Helvetica" SIZE=6 COLOR="#0000ff"><P>&#9;&#9;&#9;http://www.xml-cml.org/</P>
+<P>&#9;&#9;&#9;http://ala.vsms.nottingham.ac.uk/biodom/</P>
+<P>&#9;&#9;&#9;&#9;software/protsuite-user-dist/</P>
+<P ALIGN="CENTER"></P>
+</B></FONT><FONT FACE="Helvetica" SIZE=7><P ALIGN="CENTER">&nbsp;</P><DIR>
+<DIR>
+
+<B><P ALIGN="CENTER">References</B> </P>
+</FONT><B><FONT FACE="Helvetica" SIZE=1>
+</FONT><FONT FACE="Times" SIZE=5><P>[</FONT><FONT FACE="Helvetica" SIZE=5>Bernstein et al. 98] Bernstein, H.J.,Bernstein, F.C., Bourne, P.E. "pdb2cif: Translating PDB Entries into mmCIF Format," , J. Appl. Cryst., 31, pp. 282-295, 1998, software available from http://www.iucr.org/iucr-top/CIF and </FONT><FONT FACE="Helvetica" SIZE=5 COLOR="#0000ff">http://ndbserver.rutgers.edu</FONT><FONT FACE="Helvetica" SIZE=5>. </P>
+</FONT><FONT FACE="Helvetica" SIZE=1>
+</FONT><FONT FACE="Helvetica" SIZE=5><P>[Bray, Paoli, Sperberg-McQueen 98] Bray, T., Paoli, J., Sperberg, C. M.,  eds, "Extensible Markup Language (XML)", W3C Recommendation 10-Feb-98, REC-xml-19980210, </FONT><FONT FACE="Helvetica" SIZE=5 COLOR="#0000ff">http://www.w3.org/TR/1998/REC-xml-19980210 </P>
+</FONT><FONT FACE="Helvetica" SIZE=1>
+</FONT><FONT FACE="Helvetica" SIZE=5><P>[Fitzgerald et al. 96] Fitzgerald, P. M. D., Berman, H. M., Bourne, P. E., McMahon, B., Watenpaugh, K., Westbrook, J. "The mmCIF Dictionary: Community Review and Final Approval," 17th IUCR Congress and General Assembly, Seattle, Washington, USA, 8-17 August 1996, Abstract E1226. Version 0.8.02 available from </FONT><FONT FACE="Helvetica" SIZE=5 COLOR="#0000ff">http://ndbserver.rutgers.edu</FONT><FONT FACE="Helvetica" SIZE=5>.</P>
+</FONT><FONT FACE="Helvetica" SIZE=1>
+</B></FONT><FONT FACE="Helvetica" SIZE=5><P>[<B>Gezelter 99] Gezelter, D., &quot;Jmol&quot; and open source Java program.  See </FONT><FONT FACE="Helvetica" SIZE=5 COLOR="#0000ff">http://www.openscience.org/jmol</FONT><FONT FACE="Helvetica" SIZE=5>.</P>
+</FONT><FONT FACE="Helvetica" SIZE=1>
+</FONT><FONT FACE="Helvetica" SIZE=5><P>[Hall, Allen, Brown 91] Hall,S. R.  Allen, F. H., Brown, I. D., "The Crystallographic Information File (CIF): A New Standard Archive File for Crystallography", Acta Cryst. A47, 655-685 (1991), </FONT><FONT FACE="Helvetica" SIZE=5 COLOR="#0000ff">http://www.us.iucr.org/iucr-top/cif/standard/cifstd1.html</FONT><FONT FACE="Helvetica" SIZE=5> </P>
+</FONT><FONT FACE="Helvetica" SIZE=1>
+</FONT><FONT FACE="Helvetica" SIZE=5><P>[Hall, Bernstein 96] Hall, S.R., Bernstein, H.J., "CIFtbx2: Extended Tool Box for Manipulating CIFs," J. Appl. Cryst., 29, pp 598-603 (1996).</P>
+</FONT><FONT FACE="Helvetica" SIZE=1>
+</FONT><FONT FACE="Helvetica" SIZE=5><P>[Hendrickson, Teeter 81] Hendrickson, W. A., Teeter, M. M., &quot;Crambin&quot;, PDB Entry 1CRN.  See also Teeter, M. M., &quot;Water Structure Of A Hydrophobic Protein At Atomic Resolution. Pentagon Rings Of Water Molecules In Crystals Of Crambin&quot;, Proc. Nat. Acad. Sci., USA, 81, 6014 ff. (1984).</P>
+</FONT><FONT FACE="Helvetica" SIZE=1>
+</FONT><FONT FACE="Helvetica" SIZE=5><P>[Longridge 98] Longridge, J. J., "Tetrasodium Hexacyanoferrate(II) Decahydrate", Acta Cryst. C54, 1998, CIF-Access paper, IUCR9800028.cif.</P>
+</FONT><FONT FACE="Helvetica" SIZE=1>
+</FONT><FONT FACE="Helvetica" SIZE=5><P>[Moore 99] Moore, A., &quot;pdb2xml&quot;, March 1999, released as pdb2xml-protbot.pl on the BioDOM website, </FONT><FONT FACE="Helvetica" SIZE=5 COLOR="#0000ff">http://ala.vsms.nottingham.ac.uk/biodom/software/protsuite-user-dist/</P>
+</FONT><FONT FACE="Helvetica" SIZE=1>
+</FONT><FONT FACE="Helvetica" SIZE=5><P>[Murray-Rust, Rzepa 99] Murray-Rust, P., Rzepa, H., "Chemical markup, XML and the WWW, Part I: Basic principles," J. Chem. Inf . Comp. Sci, 39 No. 6, 928-942,(1999).  See </FONT><FONT FACE="Helvetica" SIZE=5 COLOR="#0000ff">http://www.xml-cml.org</FONT><FONT FACE="Helvetica" SIZE=5>.</P></DIR>
+</DIR>
+</B></FONT></BODY>
+</HTML>

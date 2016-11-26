@@ -1,0 +1,1029 @@
+<HTML>
+<HEAD>
+<TITLE>
+README.ciftbx
+</TITLE>
+</HEAD>
+<BODY BACKGROUND="../.logos/ciftbx_wallpaper.jpg">
+<a href="http://www.iucr.org/iucr-top/welcome.html">
+<img alt="[IUCr Home Page]" src="../.logos/iucrhome.jpg"></a>
+<a href="http://www.iucr.org/iucr-top/cif/home.html">
+<img alt="[CIF Home Page]" src="../.logos/cifhome.jpg"></a>
+<A HREF="../README.html"> <IMG SRC="../.logos/ciftbxHomeButton.jpg" ALT="[ciftbx home]"></A>
+<A HREF="../cyclops.src/README.cyclops.html"> <IMG SRC="../.logos/cyclopsButton.jpg" 
+ALT="[cyclops.src]"></A> 
+<A HREF="../cif2cif.src/README.cif2cif.html"> <IMG SRC="../.logos/cif2cifButton.jpg" 
+ALT="[cif2cif.src]"></A> 
+<hr>
+<CENTER>
+<IMG  SRC="../.logos/ciftbx.jpg" ALT="CIFtbx">
+</CENTER>
+<H2 ALIGN=CENTER>README.ciftbx</H2>
+<H3 ALIGN=CENTER>
+Information for CIFtbx 4.1.0 29 November 2009<BR>
+Updated 6 December 2009
+</H3>
+<HR>
+<H3 ALIGN=CENTER>
+Before using this software, please read the <BR>
+<A HREF = "../NOTICE.html"> <IMG SRC="../.logos/noticeButton.jpg" ALT="NOTICE"></A><BR>
+ and please read the IUCr<BR>
+<A HREF="../IUCR_POLICY.html"> <IMG SRC="../.logos/policyButton.jpg" ALT="Policy"></A><BR>
+ on the Use of the Crystallographic Information File (CIF)
+</H3> 
+<HR>
+<PRE>
+    \ | /            /##|    @@@@  @   @@@@@   |      |             @    @
+     \|/ STAR       /###|   @      @   @     __|__    |             @    @
+  ----*----        /####|  @       @   @@@@    |      |___  __  __  @@@@@@
+     /|\          /#####|   @      @   @       |      |   \   \/         @
+    / | \         |#####|    @@@@  @   @       \___/  \___/ __/\__       @
+                  |#####|_________________________________________________
+                 ||#####|                 ___________________             |
+        __/|_____||#####|________________|&&&&&&&&&&&&&&&&&&&||           |
+&lt;\\\\\\\\_ |_____________________________|&&& 29 Nov 2009 &&&||           |
+          \|     ||#####|________________|&&&&&&&&&&&&&&&&&&&||___________|
+                  |#####|
+                  |#####|                   Version 4.1.0
+                  |#####|
+                 /#######\ 
+                |#########|
+                    ====
+                     ||
+           An extended tool box of fortran routines for manipulating CIF data.
+                     ||
+                     ||  CIFtbx Version 4
+                     ||        by
+                     ||
+                     ||  Sydney R. Hall (syd@crystal.uwa.edu.au)
+                     ||  Crystallography Centre
+                     ||  University of Western Australia
+                     ||  Nedlands 6009, AUSTRALIA
+                     ||
+                     ||       and
+                     ||
+                     ||  Herbert J. Bernstein (yaya@bernstein-plus-sons.com)
+                     ||  Bernstein + Sons
+                     ||  5 Brewster Lane
+                     ||  Bellport, NY 11713, U.S.A.
+                     ||
+ The latest program source and information is available from:
+                     ||
+ Em: syd@crystal.uwa.edu.au       ,-_|\      Sydney R. Hall
+ sendcif@crystal.uwa.edu.au      /     \     Crystallography Centre
+ Fx: +61 9 380 1118  ||      --&gt; *_,-._/     University of Western Australia
+ Ph: +61 9 380 2725  ||               v      Nedlands 6009, AUSTRALIA
+                     ||
+                     ||
+_____________________||_____________________________________________________
+</PRE>
+<P>
+ This is a version of CIFtbx which has been extended to work with CIF2, DDlm
+ DDL 2 and mmCIF as well as with DDL 1.4 and core CIF dictionaries.  CIFtbx
+ version 1 was written by Sydney R. Hall (see Hall, S. R., 
+ &quot;CIF Applications
+ IV.  CIFtbx: a Tool Box for Manipulating CIFs&quot;, J. Appl. Cryst 
+(1993). 26,
+ 482-494.  The revisions for version 2 were done by Herbert J. Bernstein
+ and Sydney R. Hall (see Hall, S. R. and Bernstein, H. J., 
+ &quot;CIFtbx 2:
+ Extended Tool Box for Manipulating CIFs,&quot; J. Appl. Cryst. (1996). 29, 
+ 598-603.) 
+ The revisions for versions 3 and 4 were done by Herbert J. Bernstein, work
+ funded in part by the Internationa Union of Crsytallography
+<hr>
+<P>
+    This file contains the complete set of source decks and test data
+    needed to implement and test the CIFtbx Tool Box routines, Version
+    4.1.0
+<P>
+    This is a release of version 4 of the CIF Tool Box with the
+    necessary revisions to handle bracketed the bracketed constructs
+    used in DDLm, building on the release 3 changes to handle the long 
+    lines of the CIF 1.1 standard and use either DDL 1.4 or DDL 2.1.0 
+    Dictionaries.  It has been tried against cif_core.dic (version 2.0.1) 
+    and cif_mm.dic (version of 1.0.0).  As of this writing, CIF 2 is still
+    being defined and is subject to change.  As CIF 2 and DDLm change,
+    further releases of CIFtbx in this series will be made.  Use this
+    release with caution.
+
+<PRE>
+    *** ========================================================== ***
+    *** ========================================================== ***
+    *** ==&gt;&gt;&gt; The release kit has been reorganized.  The kits&lt;&lt;&lt;== ***
+    *** ==&gt;&gt;&gt; for CYCLOPS2 and cif2cif are now distributed   &lt;&lt;&lt;== ***
+    *** ==&gt;&gt;&gt; separately from ciftbx.  As of version 2.5.4   &lt;&lt;&lt;== ***
+    *** ==&gt;&gt;&gt; compressed versions of dictionaries are used   &lt;&lt;&lt;== ***
+    *** ========================================================== ***
+    *** ========================================================== ***
+</PRE>
+<P>
+    We have tested this code.  We believe this version is
+    reasonably stable and ready for use.  However, as with any major
+    revision to a subroutine library, there will be some problems and
+    bugs we have not found.  Please report any difficulties with this
+    version to either of the second author.
+<P>
+    See the section CHANGES, below, for a summary of the differences
+    between this version and earlier CIFtbx 2 and 3 versions as well 
+    as between CIFtbx 2 and the CIFtbx 1 version of 6 July 1995.
+
+
+
+<H3>
+    1.  INSTALLATION
+</H3>
+<P>
+    Here is the recommended procedure for implementing and testing this
+    version of ciftbx.
+<P>
+    1.0.  Before you try to install this version of CIFtbx
+<PRE>   
+    *** ========================================================== ***
+    *** ========================================================== ***
+    *** ==&gt;&gt;&gt; To test CIFtbx, you must have the dictionaries &lt;&lt;&lt;== ***
+    *** ==&gt;&gt;&gt; cif_core.dic.Z, cif_mm.dic.Z,                  &lt;&lt;&lt;== ***
+    *** ==&gt;&gt;&gt; cif_expanded_jun06.dic.Z in compressed         &lt;&lt;&lt;== ***
+    *** ==&gt;&gt;&gt; form installed in a directory named            &lt;&lt;&lt;== ***
+    *** ==&gt;&gt;&gt; dictionaries.                                  &lt;&lt;&lt;== ***
+    *** ========================================================== ***
+    *** ========================================================== ***
+</PRE>
+<P>    
+        The directory structure within which you will work is
+<PRE> 
+                      top level directory
+                      -------------------
+                               |
+                               |
+                       ----------------
+                       |              |
+                  dictionaries   ciftbx.src
+                  ------------   ----------
+</PRE>    
+                
+<P>
+       You may have acquired this package in one of several forms.
+       The most likely are as a &quot;C-shell Archive,&quot; a &quot;Shell Archive&quot;,
+       or as separate files.  The idea is to get to separate files,
+       all in the same directory, but let's start with the possibility
+       that you got the package as one big file, i.e. in one of
+       the archive file formats.  Place the archive in the top level
+       directory.  If you picked it up in compressed format, be certain
+       to uncompress it.
+<PRE>
+      *** ========================================================== ***
+      *** ========================================================== ***
+      *** ==&gt;&gt;&gt; The files in this kit will unpack into a       &lt;&lt;&lt;== ***
+      *** ==&gt;&gt;&gt; directory named ciftbx.src.  It is a good idea &lt;&lt;&lt;== ***
+      *** ==&gt;&gt;&gt; to save the current contents of ciftbx.src     &lt;&lt;&lt;== ***
+      *** ==&gt;&gt;&gt; and then to make the directory empty           &lt;&lt;&lt;== ***
+      *** ========================================================== ***
+      *** ========================================================== ***
+</PRE>
+<P>
+       If you are on a machine which does not provide a unix-like shell,
+       you will need to take apart the archive by hand using a text
+       editor.  We'll get to that in a moment.
+
+<P>
+       1.1.  ON A UNIX MACHINE
+<P>
+       If you have the shell archive on a unix machine, follow the
+       instructions at the front of the archive, i.e. save the
+       uncompressed archive file as &quot;file&quot;, then, if the archive 
+       is a &quot;Shell Archive&quot; execute &quot;sh file&quot;.  If the archive is 
+       a &quot;C-Shell Archive&quot; execute &quot;csh file&quot;.
+<P>
+       1.2. IF YOU DON'T HAVE UNIX
+<P>
+       If sh or csh are not available, then it is best to start with the
+       &quot;C-Shell Archive&quot; and do the steps that follow.  If you must
+       use the &quot;Shell Archive&quot; you should be aware that the lines
+       you want to extract have been prefixed with &quot;X&quot;, while most of
+       the lines you want to discard have not.  For a &quot;C-Shell Archive&quot;
+       such prefixes are rare and the file is easier to read.  Assume
+       you have a &quot;C-Shell Archive&quot;.
+<P>
+       Use your editor to separate the different parts of the file into
+       individual files in your workspace. Each part starts with
+       a lot of unixisms, then several blank lines and then two lines
+       which identify the file, and most importantly, contain the
+       text &quot;CUT_HERE_CUT_HERE_CUT_HERE&quot;  You can look at the line
+       before and the line after to see if you are at the head or
+       tail of a file.  Use your editor to search for the &quot;CUT_HERE&quot;
+       lines. Each part is carefully labeled and indicates the  
+       recommended filename for the separated file. On some machines
+       these filenames may need to be altered to suit the OS or compiler.
+       (e.g. on MS/DOS PC's you may want to change 'hash_funcs.f' to
+       something like 'hashfunc.for').  Even though this particular release
+       has no lines for which an &quot;X&quot; prefix is used within a file, be
+       warned that, in general, you should look for lines that start
+       with &quot;X&quot; and remove the &quot;X&quot;.
+<P>
+       1.3.  <A HREF="MANIFEST.html">MANIFEST</A>
+<P>
+       The partitions are as follows:
+<PRE>
+       part    filename                  description
+
+         1     <A HREF="../mkdecompln">mkdecompln</A>              decompression script used by Makefile
+         2     <A HREF="../rmdecompln">rmdecompln</A>              cleanup script used by Makefile
+         3     <A HREF="../COPYING">COPYING</A>                 GPL (GNU General Public License)
+         4     <A HREF="../NOTICE">NOTICE</A>                  Notices
+         5     <A HREF="README.ciftbx">ciftbx.src/README.ciftbx</A>
+                                       this file
+         6     <A HREF="MANIFEST">ciftbx.src/MANIFEST</A>     a list of files in the kit
+         7     <A HREF="Makefile">ciftbx.src/Makefile</A>     a control file for make to
+                                       compile the code
+         8     <A HREF="ciftbx.f">ciftbx.src/ciftbx.f</A>     CIFtbx fortran source
+         9     <A HREF="ciftbx.sys">ciftbx.src/ciftbx.sys</A>   CIFtbx common for inclusion into 
+                                       ciftbx.f
+        10     <A HREF="ciftbx.cmn">ciftbx.src/ciftbx.cmn</A>   CIFtbx common for inclusion into 
+                                       applications
+        11     <A HREF="ciftbx.cmf">ciftbx.src/ciftbx.cmf</A>   CIFtbx function definitions 
+                                       (included in .cmn)
+        12     <A HREF="ciftbx.cmv">ciftbx.src/ciftbx.cmv</A>   CIFtbx variable definitions 
+                                       (included in .cmn)
+        13     <A HREF="clearfp.f">ciftbx.src/clearfp.f</A>    dummy version of clearfp_sun.f
+        14     <A HREF="clearfp_sun.f">ciftbx.src/clearfp_sun.f</A>
+                                       SUN routine to clear floating 
+                                       point exceptions
+        15     <A HREF="hash_funcs.f">ciftbx.src/hash_funcs.f</A> hash-table control routines
+                                       used by CIFtbx
+        16     <A HREF="mtest.prt">ciftbx.src/mtest.prt</A>    print file output from tbx_exm.f 
+                                       run
+        17     <A HREF="mtest.out">ciftbx.src/mtest.out</A>    CIF output by the tbx_exm.f run
+        18     <A HREF="m3test.out">ciftbx.src/m3test.out</A> CIF output by the tbx_ex3.f run
+        19     <A HREF="m3test.prt">ciftbx.src/m3test.prt</A> print file output from tbx_ex3.f run
+        20     <A HREF="mtest.xml">ciftbx.src/mtest.xml</A>    XML output by the tbx_exm.f run
+        21     <A HREF="tbx_ex.f">ciftbx.src/tbx_ex.f</A>     example application used to test
+                                       ciftbx.f against cif_core.dic 
+                                       (get this from iucr)
+        22     <A HREF="tbx_exm.f">ciftbx.src/tbx_exm.f</A>    example application used to test
+                                       ciftbx.f against cif_mm.dic 
+        23     <A HREF="tbx_ex3.f">ciftbx.src/tbx_ex3.f</A>    example application used to test
+                                       ciftbx.f against cif_expanded.dic 
+        24     <A HREF="test.cif">ciftbx.src/test.cif</A>     example CIF used by tbx_ex.f
+        25     <A HREF="test.req">ciftbx.src/test.req</A>     example request file used by 
+                                       tbx_ex.f
+        26     <A HREF="test.prt">ciftbx.src/test.prt</A>     print file output from 
+                                       tbx_ex.f run
+        27     <A HREF="test.out">ciftbx.src/test.out</A>     CIF output by the tbx_ex.f run
+        28     <A HREF="testrle.f">ciftbx.src/testrle.f</A>    test program for RLE routines 
+        29     <A HREF="testrle.prt">ciftbx.src/testrle.prt</A> print file output from testrle run 
+</PRE>
+<H3>
+    2. MAKING LISTINGS
+</H3>
+       Once you have separated out these files, list 'ciftbx.f', 'Makefile',
+       'hash_funcs.f', 'tbx_exm.f', 'tbx_ex.f' and tbx_ex3.f in particular
+       (all if possible!) and carefully read the descriptions in the front
+       of these files. Remember that 'tbx_ex.f' and 'tbx_exm.f' are only
+       examples of CIF applications -- they show how some basic CIF 
+       operations can be performed, but they are not necessarily sensible
+       or typical of what an actual application would look like!
+<P>
+       WARNING -- if you are running on a SUN, or other system which
+       treats floating point underflows as an error, you may wish to
+       list 'clearfp_sun.f'
+
+
+<H3>
+    3. COMPILING AND EXECUTING
+</H3>
+       You are now ready to implement the tool box and the test application.
+       Here are the recommended steps for a UNIX system. Vary this according
+       to the requirements of your OS and compiler.  You will find it
+       simplest to work if you place the CIFtbx2 files together in a 
+       common subdirectory named 'ciftbx.src'.   Be very careful if you 
+       place them in a directory with other files, since some of the build 
+       and test instructions remove or overwrite existing files, especially 
+       with extensions such as '.o', '.lst', '.diff' or '.new'.
+<PRE>
+       *** ========================================================== ***
+       *** ========================================================== ***
+       *** ==&gt;&gt;&gt; If you are running on a SUN or similar system  &lt;&lt;&lt;== ***
+       *** ==&gt;&gt;&gt; which treats floating point underflow as an    &lt;&lt;&lt;== ***
+       *** ==&gt;&gt;&gt; error, you may need to use clearfp_sun.f       &lt;&lt;&lt;== ***
+       *** ==&gt;&gt;&gt; Please read the following paragraph carefully  &lt;&lt;&lt;== ***
+       *** ========================================================== ***
+       *** ========================================================== ***
+</PRE>
+<P>
+       Before building the code, you may wish to replace the file 'clearfp.f'
+       with code appropriate to your system.  The routine is called by
+       ciftbx to clear possible floating point underflows which may be
+       generated when the code attempts to find the number of digits of
+       precision supported on your system.  No special action is required
+       to clear an underflow on many systems, but on a SUN, for example,
+       execution of the code to test machine precision generates messages
+       about underflow and inexact arithmetic.  On a SUN, these messages
+       may be avoided by replacing 'clearfp.f' by 'clearfp_sun.f'.  On
+       other machines sensitive to underflow, you may have to use
+       other (usually similar) code.
+<P>
+       On a UNIX system, most of what you need to do to build and test
+       CIFtbx2 is laid out in Makefile.  *** Be sure to examine
+       and edit this file appropriately before using it.***  But, once
+       properly edited, all you should need to do is 'make clean' to
+       remove old object files, 'make all' to build new versions of
+       'ciftbx.o', etc., and 'make tests' to test what you have built. 
+       Note that the Makefile takes some initial action to force mkdecompln
+       and rmdecompln to be executable.  See the section marked postshar.
+<P>       
+       ***Note*** to execute the supplied example applications 'tbx_ex.f'
+       and 'tbx_exm.f' identically to the test outputs supplied, a copy of
+       the CIF Core Dictionary version 2.1beta5 'cif_core.dic' (for 'tbx_ex') and of the
+       macromolecular CIF dictionary version 1.0.00 'cif_mm.dic' must
+       be available in your work area. If they are not the tests will proceed
+       with a warning message but no validations checks will occur. A copy of 
+       the dictionary 'cif_core.dic' can be obtained from iucr.  A copy of
+       'cif_mm.dic' can be obtained from obtained from the mmCIF link on
+       'http://ndbserver.rutgers.edu/'.  Once you have both dictionaries,
+       compress them, and edit the definitions of MMDICPATH and COREDICPATH
+       in Makefile to agree with the permanent locations of the formerly
+       uncompressed dictionaries.  The Makefile will create local
+       soft links to temporary uncompressed copies of the dictionaries.
+       If you can afford the space for permanent uncompressed copies,
+       change the definition to EXPAND in Makefile to a non-temporary
+       directory, such as '.'  To exceute the new example program 'tbx_ex3.f'
+       identically to the test outputs supplied, a copy of the June 2006
+       version of the expanded version of the DDLm CIF core dictionary
+       is needed as cif_expanded.dic.
+<P>
+       If you don't wish to use the Makefile or can't, then here are
+       the essential steps to build CIFtbx:
+<P>
+<PRE>
+       *** ========================================================== ***
+       *** ========================================================== ***
+       *** ==&gt;&gt;&gt; If you are familiar with version of CIFtbx     &lt;&lt;&lt;== ***
+       *** ==&gt;&gt;&gt; released prior to version 2.6.4, read sections &lt;&lt;&lt;== ***
+       *** ==&gt;&gt;&gt; (aa)-(dd) below very carefully.  CIFtbx has    &lt;&lt;&lt;== ***
+       *** ==&gt;&gt;&gt; new internal cache and compression code.       &lt;&lt;&lt;== ***
+       *** ========================================================== ***
+       *** ========================================================== ***
+</PRE>
+<P>
+       (aa) compile 'testrle.f' [note that provided the fortran &quot;include&quot; 
+           function is available to you, the files 'ciftbx.f', 'ciftbx.sys'
+           'hash_funcs.f' and 'ciftbx.cmn' will be automatically opened and
+           processed by this single operation]
+<P>
+       (bb) link 'testrle.o' as the executable file 'testrle'
+<P>
+       (cc) execute 'testrle' so that 'cif_core.dic' is connected to
+            device 5 (stdin).  For a unix OS the command
+            will look like this: 'testrle &lt; cif_core.dic'
+<P>
+       (dd) check that no output is produced.  If any output is produced there
+       is a serious problem with one or more of the routines 'xxrle', 'xxrld',
+       'xxd2chr' or  'xxc2dig'.  These problems must be fixed before ciftbx will
+        work.  See the comments in 'xxd2chr' and  'xxc2dig'.
+<P>
+       (a) compile 'tbx_ex.f' [note that provided the fortran &quot;include&quot; 
+           function is available to you, the files 'ciftbx.f', 'ciftbx.sys'
+           'hash_funcs.f' and 'ciftbx.cmn' will be automatically opened and
+           processed by this single operation]
+<P>
+       (b) link 'tbx_ex.o' as the executable file 'tbx_ex'
+<P>
+       (c) execute 'tbx_ex' so that the list file 'test.lst' is connected to
+           device 6 (stdout). The input CIF 'test.cif' and the output CIF
+           'test.new' will be automatically opened. For a unix OS the command
+           will look like this: 'tbx_ex &gt; test.lst'
+<P>
+       (d) to check that the test has been successful, compare the files that
+           you have generated 'test.lst' with the supplied 'test.prt', and 
+           'test.new' with 'test.out'. They should be identical.
+<P>
+       (e) compile 'tbx_exm.f', 'ciftbx.f', and 'hash_funcs.f'
+<P>
+       (f) link 'tbx_exm.o', 'ciftbx.o' and 'hash_funcs.o' as the 
+           executable file 'tbx_exm'
+<P>
+       (g) execute 'tbx_exm' so that the list file 'mtest.lst' is connected
+           to device 6 (stdout). The input CIF 'test.cif' and the output CIF
+           'mtest.new' will be automatically opened. For a unix OS the
+           command will look like this: 'tbx_exm &gt; mtest.lst'
+<P>
+       (h) to check that the test has been successful, compare the files that
+           you have generated 'mtest.lst' with the supplied 'mtest.prt', and 
+           'mtest.new' with 'mtest.out'. They should be identical.
+<P>
+       (i) compile 'tbx_ex3.f' [note that provided the fortran &quot;include&quot; 
+           function is available to you, the files 'ciftbx.f', 'ciftbx.sys'
+           'hash_funcs.f' and 'ciftbx.cmn' will be automatically opened and
+           processed by this single operation]
+<P>
+       (j) link 'tbx_ex3.o' as the executable file 'tbx_ex3'
+<P>
+       (k) execute 'tbx_ex3' so that the list file 'test.lst' is connected to
+           device 6 (stdout). The input CIF 'test.cif' and the output CIF
+           'm3test.new' will be automatically opened. For a unix OS the command
+           will look like this: 'tbx_ex3 &gt; m3test.lst'
+<P>
+       (l) to check that the test has been successful, compare the files that
+           you have generated 'm3test.lst' with the supplied 'm3test.prt', and 
+           'm3test.new' with 'm3test.out'. They should be identical.
+<P>
+       (m) if you have any problems with this process please report them to
+           Herbert J. Bernstein [em: yaya@bernstein-plus-sons.com, 
+           ph: +1-631-286-1339, fax: +1-631-286-1999].
+
+<H3>
+    4. WHAT NEXT
+</H3>
+       You are now ready to implement CIFtbx for your software applications.
+       Note that it more efficient to compile 'ciftbx.f' separately and add
+       'ciftbx.o' at link time. Note that the line &quot;include 'ciftbx.cmn'&quot;
+       MUST appear at the start of any routine invoking the CIFtbx commands.
+<H3>
+    5. CHANGES
+</H3>
+<H3>
+       CHANGES FROM CIFTBX3 TO CIFTBX4
+</H3>
+<P>
+       The 4.1.0 release is the first stable release of CIFtbx 4.
+       The major changes in CIFtbx4 over CIFtbx 3 have been to
+       support reading and writing the bracketed constructs
+       of DDLm.  These are optionally supported in reading any cif 
+       by turning on the flags rdbkt_, rdbrc_ and rdprn_ for
+       recognitions of square brackets, braces and parentheses
+       respectively.  The CIF 2 behavior of not checking the
+       characters after a closing quote mark can also be turned
+       on with rdrcqt_.  Recognition of mutiline strings quoted
+       with treble quotes is under the control of rdtq_.  In
+       order to use CIF 2 tables in which elements of the
+       form "key":value are used, rdcolon_ must be turned on.
+       In order to ensure upwards compatability, all these features
+       default to being off.
+       
+       If all or some of brackets, braces or parentheses are enabled,
+       the bracketed constructs are read very much like text fields,
+       except that for a bracketed construct, in order to see if
+       more information may be available, you check depth_. rather
+       than text_.  depth_ is an integer variable which returns 0 when
+       not parsing a bracketed construct.  If it is non-zero then
+       additional calls to test_ or char_ or numb_ or numd_ will be
+       needed to see the next element.  If depth_ returns to 0 after
+       such a call, then there really was no next element.
+       See the cif2cif packages for detailed sample code of how to
+       read and write bracketed constructs.
+       
+           New routines have been added:
+<p>
+<PRE>
+               cotd_       extract comment or terminal delimiter
+               cotdb_      extract comment of terminal delimiter
+                           going back to the prior delimiter                     
+               delim_      extract a prior delimiter
+               pdelim_     output a delimiter
+</PRE>
+<P>
+           New variables have been added:
+<p>
+<PRE>
+        Flag to clip first character of text on input (true/false)
+               logical   clipt_
+        Flag to accept square brackets []
+               logical   rdbkt_
+        Flag tp accept curly braces    {}
+               logical   rdbrc_
+        Flag to accept parentheses     ()
+                logical   rdprn_
+        Flag to accept treble quotes   """..."""  '''...'''
+                logical   rdtq_
+        Flag to recognize closing quotes immediately without
+        checking for trailing whitespace
+                logical   rdrcqt_
+        Flag to accept colons as delimiters inside bracketed
+        constructs (needed for tables)
+                logical   rdcolon_
+        Flag to clip the  first character of text on output
+                logical   pclipt_
+        Depth of current list, array, tuple or table being read
+                integer   depth_
+        Index (from 1) in the list, array, tuple or table being
+        read
+                integer   index_
+        Depth of current list, array, tuple or table being read
+                integer   pdepth_
+        Character position of delimiter on read
+                integer   posdelim_
+        Character position of delimiter on write
+                integer   pposdelim_
+        List, array, tuple or table item type on read
+                charcater*4 ttype_
+
+</PRE>
+<p>
+       Additional internal routines have been renamed, new ones added
+       (marked "**new") and one (detab) removed
+<p>
+<PRE>
+                new name            former name
+                tbxxbtab            **new
+                tbxxcln             xmncln
+                tbxxcmsg            cifmsg
+                tbxxdck             dcheck
+                tbxxebkt            **new
+                tbxxelp             eoloop
+                tbxxeot             eotext
+                tbxxerr             err
+                tbxxetab            **new
+                tbxxgcat            procat
+                tbxxlocs            locase
+                tbxxnewd            newdent
+                tbxxnupc            nupcase
+                tbxxoldd            olddent
+                tbxxpnum            putnum
+                tbxxpstr            putstr
+                tbxxpxct            putxc
+                tbxxpxot            putxo
+                tbxxtsts            **new
+                tbxxttq             **new
+                tbxxupcs            upcase
+                tbxxxsub            dsbst
+                tbxxwarn            warn
+                
+</PRE> 
+<p>
+       After release of a first release candidate on 29 November 2009, and
+       and testing by Joe Krahn, a second release candidate was prepared
+       on 6 December 2009 to remove compiler warnings and uninitialized
+       variables.  The  result release should produce clean compilations
+       with g77 and g95 and with gfortran from gcc 4.4, as well as g77 and
+       g95 from gcc 4.4.  There is an undiagnosed segmentation fault with
+       gfortran from gcc 4.2.
+
+<H3>
+       CHANGES FROM CIFTBX2 to CIFTBX3
+</H3>
+       CIFtbx3 is being created from CIFtbx2 in response to the changes
+       in the CIF specification from the original 80 character line
+       CIF 1.0 specification to the new CIF 1.1 specification that
+       allows for lines of up to 2048 characters.  CIFtbx2 allowed
+       for lines longer than 80 characters, but suffered from performance
+       limitations when used with lines as long as 2048 characters.
+       CIFtbx3 addresses those problems, and adds code to support the
+       line folding anf unfolding conventions of CIF 1.1.  The
+       new control variables fold_, pfold_ and unfold_ have been
+       added.  If unfold_ is .false. (the default), processing if
+       an input CIF is as in CIFtbx2.  A folded comment or text field
+       will be presented to the application in its folded form.  As
+       a convenience to the application programmer when processing
+       text fields, the control variable fold_ will be set to true if
+       the text field started with the ';\' fold indicator.  If unfold_ 
+       is .true. then comments and text fields that have been folded 
+       in an input CIF will be presented to the application in
+       unfolded form.  Release 3.0.0 is a pre-release for community
+       testing of the long-line code.  Additional CIF integrity checks
+       are planned for future CIFtbx3 releases.
+<P>
+       The work on CIFtbx3 has been supported in part by funding from
+       the International Union of Crystallography.
+<H3>
+       CHANGES FROM CIFTBX to CIFTBX2
+</H3>
+       CIFtbx2 was created from CIFtbx in response to the development of the
+       Macromolecular CIF dictionary [Paula Fitzgerald, Helen Berman,
+       Phil Bourne, Brian McMahon, Keith Watenpaugh, John Westbrook, 
+       &quot;cifdic.m95&quot;, COMCIFS, 1995] and version 2.1.0 of the Dictionary
+       Description Language [John Westbrook, Sydney Hall, &quot;Draft DDL 
+       V 2.1.0&quot;, COMCIFS, 1995].  Since mmCIF and DDL 2.1.0 were carefully
+       designed to ease migration from the core CIF dictionaries and
+       DDL 1.4, very little in CIFtbx had to be changed, and the user
+       interface remains virtually identical.  The major issues that
+       had to be dealt with were the greatly increased size of the
+       dictionary, the rigorous use of categories to structure names, and
+       and new system of aliases to ensure compatibility with older
+       dictionaries.  The use of save-frames in dictionaries and the
+       presence of names longer than 32 characters also had to be dealt with.
+<P>
+       There were two issues to address in the changes in size of the
+       dictionary and of names:  allocating appropriate storage and
+       preserving efficiency of the code execution.  New parameters were
+       introduced for the size-dependent changes, so that future changes
+       can go more smoothly.  Efficiency is achieved by extensive use
+       of hash-table-controlled lists.  There had been a little use of
+       a hash table in prior CIFtbx versions.  All major lists of names
+       are now controlled by hash tables.  The routines used can be found
+       in 'hash_funcs.f'.  Ordinarily the user should not have to deal
+       directly with these routines.  The only change that might be made for
+       tuning would be to adjust the parameter &quot;NUMHASH&quot; in 'ciftbx.sys'.
+       This is presently set 53, which would mean, for up to 2500 names,
+       typical searches for name matches would look at sub-lists to less than
+       50 names.  Greater timing efficiency can be achieved at a slight 
+       expense in memory by increasing &quot;NUMHASH&quot; to some larger number.
+       It is recommended that a prime be used for best efficiency in
+       distribution of names among sub-lists.
+<P>
+       In addition to &quot;NUMHASH&quot;, the other size-control parameters in
+       'ciftbx.sys' are:
+<PRE>
+       NUMCHAR -- the maximum number of characters in a name (default 48)
+       NUMDICT -- the maximum number of names in all dictionaries
+                  (default 2500)  [Note:Increased to 3200 in Release 2.5.4]
+       NUMBLOCK - the maximum number of names in a data block (default 500)
+       NUMLOOP -- the maximum number of loops in a data block (default 50)
+       NUMITEM -- the maximum number of items in a loop (default 50)
+       MAXBUF  -- the maximum number of characters in a line (default 200)
+</PRE>
+<P>
+       The maximum number of categories is also controlled by NUMDICT,
+       but does not compete for space with ordinary names.
+<P>
+       ***** WARNING *****
+       IF YOU CHANGE NUMCHAR OR MAXBUF YOU MUST CHANGE THEM IN BOTH
+       'ciftbx.cmn' AND IN 'ciftbx.sys' IN ORDER TO MAINTAIN ALIGNMENT
+       OF COMMON BLOCKS [Note: Corrected in Release 2.4.5]
+<P>
+       Starting with release 2.5.5, two additional parameters control
+       the size of the memory cache for the direct access file:
+<PRE>
+       NUMPAGE -- the number of memory resident pages (default 10)
+       NUMCPP  -- the number of characters per page (default 16384)
+</PRE>
+<P>
+       The number of characters per page must be at least MAXBUF and,
+       normally should be much larger.
+<P>
+       Starting with the release of CIFtbx version 2.6.4, additional parameters for
+       control of compression by run length encoding (RLE) and for control of
+       caching are provided:
+<PRE>
+       XXFLAG  -- the flag character for RLE (default '`')
+       XXRADIX -- the radix for RLE digit encoding (default 64)
+       NUMCIP  -- the number of characters per index pointer (default 8)
+</PRE>
+
+<P>
+       The most extensive changes were made to the routine &quot;dict_&quot;, to
+       recognize categories and check dictionaries for consistency
+       among categories, save-frame or data-block names and item names.
+       We wanted to preserve the handling of older dictionaries.  This
+       led to some compromises with the most rigorous checking.  The
+       oldest dictionary in question, 'cifdic.c91' does not use
+       categories at all, and often names items as superstrings of
+       data-block names.  The most recent core dictionary, 'cif_core.dic'
+       uses categories, naming them explicitly.  In that case we can
+       expect an unlooped name in a block to start with the category.
+       The new mmCIF dictionary provides a clear break in item names
+       with a &quot;.&quot; between the category name and the rest of an item
+       name, a condition for which we can and do check.  We therefore
+       make the assumption that a dictionary for which no categories
+       were explicitly defined is one for which no categories need
+       be checked, but if a dictionary defines any categories explicitly,
+       we check each name to ensure that some category has been
+       explicitly or implicitly assigned.  Since the possibility exists
+       of many messages on mismatches, we have introduced &quot;ciftbx
+       warning&quot; messages similar to the &quot;ciftbx error&quot; message, but
+       which allow continued execution.  In the ALPHA version no further
+       checks of categories were done after the dictionary check.
+       In this version the names used in a loop are checked for
+       consistency, provided categories were defined at all.
+
+<H3>
+       CHANGES WITHIN CIFTBX3
+</H3>
+<P>
+       The 3.0.3 release tightened timing by making more
+	   use of counted character string segments.  In
+	   preparation for the 3.1 release, the names of
+	   many of the internal utility routines are being 
+	   changed to a uniform naming convention in which
+	   internal names for the library begin with tbxx.
+	   The new and old names are:
+	   <P>
+	   <PRE>
+		   tbxxc2dig        xxc2dig
+		   tbxxcat          excat
+		   tbxxclc          <new>
+		   tbxxd2chr        xxd2chr
+		   tbxxflin         xxflin
+		   tbxxpfs          xxpfs
+                   tbxxnlc          nlocase
+		   tbxxrld          xxrld
+		   tbxxrle          xxrle
+	   </PRE>
+	   <P>
+	   The number of memory resident pages was increased
+	   from 5 to 200 and the page size from 3072 to 8192
+	   characters per page.
+<P>
+       The 3.0.2 release corrected an error in the index
+       handling in dtype_ and added code for the additional
+       types from the PDB exchange dictionary.
+<P>
+
+       The 3.0.1 release added the function dtype_ to return the
+	   dictionary type of a data name, and allowed the variable
+	   quote_ to be returned from cmnt_ and used to control the
+	   behavior of pcmnt_.  Both changes were need for release
+	   1.0.1 of cif2cif.
+<P>
+
+<H3>
+       CHANGES WITHIN CIFTBX2
+</H3>
+<p>
+       The 2.6.4 release added new code for XML output and for run-length
+       encoding and cacheing.  The new logical variables xmlout_ and
+       xmlong_ control the use of XML output.  The default for xmlout_
+       is .false. to indicate normal CIF output.  If xmlout_ is set
+       .true. the output routines are changed to produce XML style
+       output.  The conversion of CIF tag names to XML is controlled
+       by xmlong_.  If xmlong_ is .true. (the default), the XML
+       tags are the CIF tags with the leading '_' removed.  Otherwise
+       and attempt is made to strip the leading category as well.
+       The logic for testing machine precision was changed to allow 
+       for higher single and double precision.  In addition, dictionaries
+       may contain _xml_mapping.token, .token_type and .target items
+       to provide for mapping of CIF tags to parametrized strings.
+       The logic of the test programs has been changed to initialize
+       standard deviations for numb_ to zero.  This corrects an error
+       in the test outputs on some machines.  In addition, in June
+       2002 the release was updated to correct an error introduced in
+       the 2.6.3 release in the handling of negative exponents.  Our
+       thanks to James Hester for the correction.
+<p>
+       The 2.6.3 release corrected an error processing some numbers
+       on input. 
+<p>
+       The 2.6.2 release corrected some typos the new code for
+       category key checking introduced in release 2.6.
+<p>
+       The 2.6.1 release suppressed the warning messages for the core
+       dictionary caused by data blocks for groups of tags with no data
+       type defined for the block name, but where the block name ends in
+       an underscore.
+
+       The 2.6 release added the variables esddig_ and pesddig_ to
+       monitor and control the number of esd digits when esdlim_ is
+       negative.  Processing of category key values has been added.
+<p>
+       The 2.5.5 release increased the speed of CIFtbx by creating a
+       large in-core cache for the direct access file.  The new
+       parameters NUMPAGE and NUMCPP control the cache size.  New 
+       variables append_, recbeg_ and recend_ were added.  Logic in dict_
+       was changed to suppress category warnings from cif_core.dic.  The
+       pdata_ logic was changed to allow duplicate data blocks to be
+       written.  The logic form numb_ and numd_ was modified to ensure
+       accurate handling of 90.000.
+<P>
+       The 2.5.4 release increased NUMDICT to 3200 to accomodate the
+       release 0.9.01 cif_mm.dic dictionary when loaded along with
+       cif_core.dic.  The definition of esdlim_ was extended to allow
+       for cases reported by John C.Bollinger &lt;jobollin@indiana.edu&gt; so that
+       a negative esdlim_ would permit esd's in the range [1,-esdlim_].
+       The new variables decp_, pdecp_, lzero_ and plzero_ were added
+       to allow finer control over the presentation of numbers.  All
+       test cases were updated to use the current dictionaries.  Some
+       of the control code logic in dict_ was corrected and new codes
+       'catck' and 'catno' were added to turn category checking on and
+       off.
+<P>
+
+       The 2.5.3 release added logic for minimal processing of &quot;global_&quot;.
+       The new variable &quot;glob_&quot; is set true when a global is encountered.
+       The variable &quot;globo_&quot; may be set try to force &quot;pdata_&quot; to output
+       a global section instead of a data block.  As with the save frame code,
+       the global section code is a minimal implementation sufficient to handle
+       dictionaries which use global sections.  This code is not intended
+       to support use of global sections within your CIFs.  A bug in the
+       processing of a text block with characters in the first line when the
+       text block was the first value in a loop was fixed.  The code to change
+       the quotation character on a string containing that character was
+       modified to test only for the case of a blank following the character.
+
+<P>
+       The 2.5.2 release fixed a string subscript error in putstr.  The
+       new variables nblank_ and nblanko_ were added to allow control
+       of the handling of quoted blank fields.  Logic was added to
+       avoid warning messages when the category_overview category is used 
+       in cifdic.c96.  Added the variable tbxver_ (the CIFtbx version and 
+       date in the form 'CIFtbx version N.N.N, DD MMM YY '.
+<P>
+       The 2.5.1 release added calls to the routine clearfp to allow
+       floating point exceptions to be cleared after testing for
+       machine precision.  In addition, the common blocks were
+       reorganized to avoid warning messages on systems sensitive
+       to unreferenced variables.  The file 'ciftbx.cmn' includes the
+       two new files 'ciftbx.cmv' for variable definitions and
+       'ciftbx.cmf' for function definitions, and 'ciftbx.sys'
+       includes 'ciftbx.cmv', but not 'ciftbx.cmf'.  For use on systems
+       with FreeBSD, the code in putnum was changed to allow for trailing
+       blanks in writes of floating point fields.
+<P>
+       The 2.5.0 release was a major change to CIFtbx.  New variables
+       were been added to allow controlled use of the horizontal
+       tab character in both input and output.  The user now has the
+       the option of processing tabs as recognizable characters or
+       to expand them to blanks on tab stops every 8 character positions.
+       Two new routines were added.  The command &quot;bkmrk_(mark)&quot; sets
+       or finds bookmarks in an input cif.  The command 
+       &quot;find_(name,type,string)&quot; searches an input cif.  The logic of
+       &quot;ploop_&quot; was changed to allow the &quot;loop_&quot; to be placed in
+       and output CIF without a data item name, so that comments may
+       follow.  The position of the &quot;loop_&quot; is now controlled by
+       &quot;pposval_&quot;, if given.  The recognition of columns of mixed numeric and
+       character data was changed.  Such columns are now treated as being
+       character data, even for the numeric data items.  The processing
+       of rows with mixed categories was changed to produce fewer
+       and clearer warning messages.  The command &quot;pchar_(string)&quot;
+       accepts a string consisting of &quot;char(0)&quot; as a command to terminate
+       the current output cif line.
+<P>
+       The 2.4.6 release fixed deficiencies and bugs found in
+       testing release 2.4.5 (esp. by SRH).  New variables
+       were added to allow precise position of output, and
+       the original upper/lower case versions of data item
+       names are now retained and returned.  A bug in
+       reporting dictionary validation errors  was fixed.
+<P>
+       The 2.4.5 release was a significant revision to CIFtbx2 to
+       support cif2cif.  The processing of numbers was extensively
+       revised and support for the reading and writing of comments
+       was provided.  The changes are as follows:
+<P>
+       New routines, numd_ and pnumd_ were provided to read and
+       write double precision numbers with esd's.  The new
+       variable esdlim_ controls the writing of esd's.  The processing
+       of numbers being read was expanded to allow scientific
+       notation with E, D, or Q.
+<P>
+       New routines, cmnt_ and pcmnt_ were provided to read and
+       write comments.  A new routine, prefx_ allows each line
+       of an output CIF to have characters prefixed.  A new variable,
+       tabl_ controls the use of tab stops in loop output.
+<P>
+       The logic of char_ was revised to allow &quot;.&quot; and &quot;?&quot; to be
+       read as character strings rather than type null, distinguishing
+       this case from unquoted period or question mark.  Text fields
+       which begin in the first line are now recognized.
+<P>
+       The logic of pchar_ was revised to ensure quotation of fields
+       which might be confused with numbers in scientific notation,
+       and to allow output of &quot;.&quot; and &quot;?&quot; per se.  When necessary,
+       the character data is converted to text.
+<P>
+       The behavior of the routine test_ was changed to force an
+       advance through a loop when the same field is tested
+       again.
+<P>
+       The internal routine putstr was revised to avoid excess
+       whitespace when flushing lines and to support the
+       variable tabl_ to force internal alignment of columns
+       in loops to tab stops determined by the column number.
+<P>
+       The common blocks were cleaned up and consolidated.
+       The parameter MAXTAB was defined to control the arrays
+       for non-loop tab stops.  The duplications between
+       ciftbx.sys and ciftbx.cmn were removed, and ciftbx.sys
+       call new forces and include of ciftbx.cmn.
+<P>
+       The 2.4.4 release corrects two bugs.  A mispositioning of
+       an input CIF occurred if the data values in a loop included two
+       consecutive text fields with no intervening blank.  This has
+       been corrected.  Also, the output routines failed to limit
+       output CIFs to 80 columns unless MAXBUF was set to 80.  The
+       meaning of line_ has now been extended to have effect as a
+       right margin for output as well as for input.  A warning
+       message is issued for the rare cases where an output string
+       which cannot be fit into the number of columns specified
+       by line_, even by starting a new line.  Finally, the internal
+       arrays used by the subroutine getitm to keep track of positions
+       within loops have been moved to a common block to facilitate
+       some changes now under consideration.  
+<P>
+       The 2.4.3 release includes two minor changes from the 2.4.2
+       release.  First, the two new data types, &quot;line&quot; and &quot;uline&quot;
+       introduced in the transition to cifdic.m96 version 0.8.0 are
+       recognized.  Second, a blank file name is permitted in
+       opening a cif, in which case a fortran &quot;open&quot; statement will
+       not be executed within CIFtbx for the file, so that the
+       open may be controlled by the calling routines.  This has
+       proven useful in writing filters.
+<P>
+       The 2.4.2 release includes minor cleanups to remove variables
+       which are no longer used and a suppression of a report of
+       conflicting types in loading multiple dictionaries when no
+       type checking is being done.  The Makefile has been improved
+       to include execution of tests with 'make tests', to allow
+       rebuilding of ciftbx.shar and ciftbx.cshar with 'make shars',
+       and to clean up the directory with 'make clean.'   The files
+       for CYCLOPS2 and related changes to the Makefile were
+       introduced.  See 'README.cyclops' and the comments in 'cyclops.f'.
+<P>
+       The 2.4.1 release includes a fix to work around the strict
+       interpretation of the ansi Fortran standard used by some compilers
+       in handling write statements with concatenation of strings with
+       inherited lengths.  This caused a compilation failure in cifmsg.
+<P>
+       With the 2.4 release, new arguments were added to dict_.  The
+       file name may be blank to allow calls which only set flags.  The
+       list of flags was extended to include 'reset' to turn off
+       previously set flags for validity or type checking and 'close'
+       to remove all dictionary information and reset the checking flags.
+       A new routine, purge_, was added to close an open input CIF
+       and clear all related data structures (but not the dictionary)
+<P>
+       With the 2.3 release the handling of aliases changed a
+       little.  The control of use of aliases was split between the
+       logical variables &quot;alias_&quot; (which when true allows routines
+       to recognize aliased names) and &quot;aliaso_&quot; which when true allows
+       the output routines to output the preferred aliases from the
+       dictionary chosen.  The variables &quot;tagname_&quot;, &quot;dicname_&quot;, &quot;diccat_&quot;
+       and &quot;dictype_&quot; were added to provide the CIF input tagname,
+       the preferred name, the category and the dictionary type.
+       In release 2.2 the last three were called &quot;dname_&quot;, &quot;dcat_&quot; and
+       &quot;dtype_&quot; (see below)
+<P>
+       With the 2.2 release, the variable, &quot;dcat_&quot; (now &quot;diccat_&quot;) was defined
+       in the common blocks in 'ciftbx.cmn' to hold the category of the
+       last data item processed by &quot;test_&quot;  The special category &quot;(none)&quot;
+       may be reported when no category can be found.
+<P>
+       The use of aliases in releases 2.0 and 2.1 was handled by adding 
+       lists of alias pointers for names.  There are two pointers:  &quot;alias&quot;
+       either holds a zero if there is no next alias, or a pointer to the
+       next alias, and &quot;aroot&quot; which is zero for the root definition or
+       a pointer to the root definition if this is an alias.  The new
+       logical &quot;aroot_&quot; (now &quot;aliaso_&quot;) controls output use of aliases.  
+       If &quot;aliaso_&quot; is true then when a request is made to output
+       a name, the preferred alias named provided by the dictionary,
+       if any, is substituted.  If &quot;aroot_&quot; is false, then the name given
+       by the user is used.  The default is the release is for &quot;aroot_&quot; to
+       be true.  If a change is needed, it is available in 'ciftbx.cmn'.
+       In addition, for the full 2.2 release, a new variable, &quot;daroot_&quot; was
+       added to the common blocks in 'ciftbx.cmn' which holds the name
+       of the data item of which the data item for which the last call
+       to &quot;test_&quot; is an alias.  This report is independent of the setting of
+       &quot;aroot_&quot; but does depend on the data item actually being present in
+       the CIF being processed, not just in the dictionary (which must, of
+       course, also be present).
+<P>
+       As of release 2.3, the default for &quot;aliaso_&quot; is false, and &quot;daroot_&quot;
+       has been renamed &quot;dicname&quot;.  In most cases, &quot;dicname&quot; will be
+       properly set in release 2.3, etc. even if the name is _not_ in the
+       input CIF.
+<P>
+       The use of save-frames was handled by including a logical &quot;save_&quot; to
+       flag a data block as being a save frame.  Minor changes were made
+       in the routine 'data_' to set &quot;save_&quot; true at the start of a save
+       frame (i.e. when a non-blank name is given), and to recognize the
+       end of a save frame (i.e. when the name is blank).  A warning is
+       issued if the start and end are not consistently used.
+<P>
+       The handling of long lines has been changed.  Prior versions of
+       CIFtbx clipped all lines at 80 characters.  The hard clipping is
+       now controlled by the parameter MAXBUF (default 200), with a
+       warning issued for lines longer than the number of characters
+       specified by the variable line_ (initially set to 80).  Characters
+       are processed even if they are in character positions after the
+       warning limit set by line_.  In some cases, text lines which were
+       returned by &quot;char_&quot; with a length of 80 will now be returned with
+       a different length.  The new code scans for the last non-blank
+       character on the line, searching as far as MAXBUF.  In most cases
+       the reported value will be less than in the past, reflecting the
+       length of the line with trailing blanks stripped.
+<P>
+       The mmCIF dictionary specifies a much wider range of item types than
+       had been the case in the past.  To ensure upward compatibility,
+       CIFtbx maps all of the known item types to one of the primitive
+       types:  char, numb, text or null.  With the 2.2 release, access
+       to the more precise type is provide by the variable &quot;dtype_&quot; in
+       the common blocks in 'ciftbx.cmn'  &quot;dtype_&quot; is set when &quot;test_&quot; is
+       called and the data item name is found in the CIF as well as in
+       the dictionary.
+<H3>
+       KNOWN PROBLEMS
+</H3>
+       There is no way to read a comment on a data name in a loop
+       data name list, or between the loop data names and the
+       first data item.
+<P>
+       There is no way to read data items within a data block after
+       the completion of embedded save frames.  Until this problem
+       is corrected, save frames should be placed last within a
+       data block and a new data block started for further information.
+<P>
+       The command pchar_ forces quote marks around any string
+       which might be confused with a number.
+<P>
+<HR>
+Updated 6 December 2009<P>
+<address>
+For further information contact Syd Hall 
+  <A HREF="mailto:syd@crystal.uwa.edu.au"> (syd@crystal.uwa.edu.au) </A>
+or Herbert Bernstein <A HREF="mailto:yaya@bernstein-plus-sons.com"> 
+     (yaya@bernstein-plus-sons.com) </A> or Herbert Bernstein's 
+<A HREF=
+  "http://www.bernstein-plus-sons.com/software/ciftbx/ciftbx_next_test_version">
+     latest sources </A>.
+</address>
+</BODY>
+</HTML>

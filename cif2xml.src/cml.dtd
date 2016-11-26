@@ -1,0 +1,429 @@
+<!-- Appendix A - CML DTD-1999-05-15 -->
+<!-- Authors:
+ÊP.Murray-Rust
+ÊH.Rzepa
+This DTD is fully described in Journal of Chemical Information
+Êand Computer Science, Vol xxx, 1999, pp. xxx
+-->
+
+<!-- =======================================================-->
+<!-- PARAMETER ENTITIES -->
+<!-- =======================================================-->
+
+<!-- ======attributes found on almost all elements ==========-->
+
+<!ENTITY % title 'title CDATA #IMPLIED'>
+<!ENTITY % id 'id CDATA #IMPLIED'>
+<!ENTITY % convention 'convention CDATA "CML"'>
+<!ENTITY % dictRef 'dictRef CDATA #IMPLIED'>
+
+<!-- ======linking information ==============================-->
+
+<!ENTITY % simpleLink 'href CDATA #REQUIRED'>
+
+<!-- ======quantifiers and constraints on some primitives ===-->
+
+<!ENTITY % count 'count CDATA "1"'>
+<!ENTITY % size 'size CDATA #IMPLIED'>
+<!ENTITY % rows 'rows CDATA #REQUIRED'>
+<!ENTITY % columns 'columns CDATA #REQUIRED'>
+
+<!-- ======constraints on some numeric data primitives ===-->
+
+<!ENTITY % min 'min CDATA #IMPLIED'>
+<!ENTITY % max 'max CDATA #IMPLIED'>
+<!ENTITY % units 'units CDATA #IMPLIED'>
+<!ENTITY % angleUnits 'units (degrees | radians) "degrees"'>
+<!ENTITY % unitsRef 'unitsRef CDATA #IMPLIED'>
+
+<!-- values which may be useful in min and max attributes -->
+<!ENTITY % integer.zero '0'>
+<!ENTITY % integer.max '2147483647'>
+<!ENTITY % integer.min '-2147483648'>
+<!ENTITY % float.zeroÊ '0.0'>
+<!ENTITY % float.max '8.98846567431158E307'>
+<!ENTITY % float.min '4.9E-324'>
+
+<!-- ======= builtin values for any element ================-->
+<!ENTITY %Ê builtinId 'id'>
+
+<!-- ======= builtin values for atoms ======================-->
+<!ENTITY %Ê elementType 'elementType'>
+<!ENTITY %Ê atomId 'atomId'>
+
+<!ENTITY %Ê x2Ê 'x2'>
+<!ENTITY %Ê y2 'y2'>
+<!ENTITY %Ê x3 'x3'>
+<!ENTITY %Ê y3 'y3'>
+<!ENTITY %Ê z3 'z3'>
+<!ENTITY %Ê xy2 'xy2'>
+<!ENTITY %Ê xyz3 'xyz3'>
+<!ENTITY %Ê xFract 'xFract'>
+<!ENTITY %Ê yFract 'yFract'>
+<!ENTITY %Ê zFract 'zFract'>
+<!ENTITY %Ê xyzFract 'xyzFract'>
+<!ENTITY %Ê occupancy 'occupancy'>
+<!ENTITY %Ê isotope 'isotope'>
+<!ENTITY %Ê formalCharge 'formalCharge'>
+<!ENTITY %Ê nonHydrogenCount 'nonHydrogenCount'>
+<!ENTITY %Ê hydrogenCount 'hydrogenCount'>
+<!ENTITY %Ê atomParity 'atomParity'>
+
+<!ENTITY %Ê residueType 'residueType'>
+<!ENTITY %Ê residueIdÊ 'residueId'>
+
+<!ENTITY %Ê atomStringBuiltin '
+Ê%elementType; | %atomId; |
+Ê%residueType; | %residueId;
+Ê'
+>
+<!ENTITY %Ê atomFloatBuiltin '
+Ê%x2; | %y2; |
+Ê%x3; | %y3; | %z3; |
+Ê%xFract; | %yFract; | %zFract; |
+Ê%occupancy; | %isotope; |
+Ê%formalCharge; | %hydrogenCount; | %nonHydrogenCount; |
+Ê%atomParity;
+Ê'
+>
+<!ENTITY %Ê atomIntegerBuiltin '
+Ê%isotope; |
+Ê%formalCharge; | %hydrogenCount; | %nonHydrogenCount; |
+Ê%atomParity;
+Ê'
+>
+<!ENTITY %Ê atomCoordinate2Builtin '
+Ê%xy2;
+Ê'
+>
+<!ENTITY %Ê atomCoordinate3Builtin '
+Ê%xyz3; | %xyzFract;
+Ê'
+>
+<!-- ======= builtin values for bonds ======================-->
+<!ENTITY %Ê atomRefÊ 'atomRef'>
+<!ENTITY %Ê builtinAtomRefs 'atomRefs'>
+<!ENTITY %Ê lengthÊ 'length'>
+<!ENTITY %Ê order 'order'>
+<!ENTITY %Ê stereo 'stereo'>
+<!ENTITY %Ê atomRefs 'atomRefs CDATA #IMPLIED'>
+
+<!ENTITY %Ê bondStringBuiltin '
+Ê%atomRef; | %builtinAtomRefs; |
+Ê%order; |
+Ê%stereo;
+Ê'
+>
+<!ENTITY %Ê bondFloatBuiltin '
+Ê%length;
+Ê'
+>
+<!ENTITY %Ê bondIntegerBuiltin ''
+>
+<!-- ======= builtin values for crystal ====================-->
+
+<!ENTITY %Ê acellÊ 'acell'>
+<!ENTITY %Ê bcellÊ 'bcell'>
+<!ENTITY %Ê ccellÊ 'ccell'>
+<!ENTITY %Ê alphaÊ 'alpha'>
+<!ENTITY %Ê betaÊ 'beta'>
+<!ENTITY %Ê gammaÊ 'gamma'>
+<!ENTITY %Ê zÊ 'z'>
+<!ENTITY %Ê spacegroupÊ 'spacegroup'>
+
+<!ENTITY %Ê crystalStringBuiltin '
+Ê%spacegroup;
+Ê'
+>
+<!ENTITY %Ê crystalFloatBuiltin '
+Ê%acell; | %bcell; | %ccell; |
+Ê%alpha; | %beta; | %gamma; |
+Ê%z;
+Ê'
+>
+<!ENTITY %Ê crystalIntegerBuiltin '
+Ê%z;
+Ê'
+>
+<!-- =======================================================-->
+<!ENTITY % stringBuiltin '
+Êbuiltin (
+Ê%builtinId; |
+Ê%atomStringBuiltin; |
+Ê%bondStringBuiltin; |
+Ê%crystalStringBuiltin;
+Ê) #IMPLIED '
+>
+<!ENTITY % floatBuiltin '
+Êbuiltin (
+Ê%atomFloatBuiltin; |
+Ê%bondFloatBuiltin; |
+Ê%crystalFloatBuiltin;
+Ê) #IMPLIED '
+>
+<!ENTITY % integerBuiltin '
+Êbuiltin (
+Ê%atomIntegerBuiltin; |
+Ê%crystalIntegerBuiltin;
+Ê) #IMPLIED '
+>
+<!ENTITY % coordinate2Builtin '
+Êbuiltin (
+Ê%atomCoordinate2Builtin;
+Ê) #IMPLIED '
+>
+<!ENTITY % coordinate3Builtin '
+Êbuiltin (
+Ê%atomCoordinate3Builtin;
+Ê) #IMPLIED '
+>
+
+<!-- =======================================================-->
+<!-- ELEMENTS for widely used data primitives -->
+<!-- =======================================================-->
+
+<!ELEMENT string (#PCDATA)>
+<!ATTLIST string
+Ê%title;
+Ê%id;
+Ê%stringBuiltin;
+Ê%dictRef;
+Ê%convention;
+>
+<!ELEMENT link (#PCDATA)>
+<!ATTLIST link
+Ê%title;
+Ê%id;
+Ê%simpleLink;
+Ê%convention;
+>
+<!ELEMENT float (#PCDATA)>
+<!ATTLIST float
+Ê%title;
+Ê%id;
+Ê%floatBuiltin;
+Ê%min;
+Ê%max;
+Ê%units;
+Ê%unitsRef;
+Ê%dictRef;
+Ê%convention;
+>
+<!ELEMENT integer (#PCDATA)>
+<!ATTLIST integer
+Ê%title;
+Ê%id;
+Ê%integerBuiltin;
+Ê%min;
+Ê%max;
+Ê%units;
+Ê%unitsRef;
+Ê%dictRef;
+Ê%convention;
+>
+<!ELEMENT stringArray (#PCDATA)>
+<!ATTLIST stringArray
+Ê%title;
+Ê%id;
+Ê%stringBuiltin;
+Ê%size;
+Ê%min;
+Ê%max;
+Êdelimiter CDATA #IMPLIED
+Ê%dictRef;
+Ê%convention;
+>
+<!ELEMENT floatArray (#PCDATA)>
+<!ATTLIST floatArray
+Ê%title;
+Ê%id;
+Ê%floatBuiltin;
+Ê%size;
+Ê%min;
+Ê%max;
+Ê%units;
+Ê%unitsRef;
+Ê%dictRef;
+Ê%convention;
+>
+<!ELEMENT integerArray (#PCDATA)>
+<!ATTLIST integerArray
+Ê%title;
+Ê%id;
+Ê%integerBuiltin;
+Ê%size;
+Ê%min;
+Ê%max;
+Ê%units;
+Ê%unitsRef;
+Ê%dictRef;
+Ê%convention;
+>
+<!ELEMENT floatMatrix (#PCDATA)>
+<!ATTLIST floatMatrix
+Ê%title;
+Ê%id;
+Ê%rows;
+Ê%columns;
+Ê%min;
+Ê%max;
+Ê%units;
+Ê%unitsRef;
+Ê%dictRef;
+Ê%convention;
+>
+
+<!ELEMENT coordinate2 (#PCDATA)>
+<!ATTLIST coordinate2
+Ê%title;
+Ê%id;
+Ê%coordinate2Builtin;
+Ê%unitsRef;
+Ê%dictRef;
+Ê%convention;
+>
+
+<!ELEMENT coordinate3 (#PCDATA)>
+<!ATTLIST coordinate3
+Ê%title;
+Ê%id;
+Ê%coordinate3Builtin;
+Ê%unitsRef;
+Ê%dictRef;
+Ê%convention;
+>
+<!ELEMENT angle (#PCDATA)>
+<!ATTLIST angle
+Ê%title;
+Ê%id;
+Ê%atomRefs;
+Ê%angleUnits;
+Ê%min;
+Ê%max;
+Ê%dictRef;
+Ê%convention;
+>
+
+<!ELEMENT torsion (#PCDATA)>
+<!ATTLIST torsion
+Ê%title;
+Ê%id;
+Ê%atomRefs;
+Ê%angleUnits;
+Ê%min;
+Ê%max;
+Ê%dictRef;
+Ê%convention;
+>
+
+<!ELEMENT list ANY>
+<!ATTLIST list
+Ê%title;
+Ê%id;
+>
+
+<!-- =======================================================-->
+<!-- ELEMENTS for chemical and crystallographic concepts -->
+<!-- =======================================================-->
+<!-- NOTE
+Êfor elements which have element-specific values for the
+Êbuiltin attribute, those values are already listed as
+Êentities
+-->
+<!-- =======================================================-->
+
+<!ELEMENT molecule ANY>
+<!ATTLIST molecule
+Ê%title;
+Ê%id;
+Ê%count;
+Ê%dictRef;
+Ê%dictRef;
+Ê%convention;
+>
+
+<!-- ========================================================-->
+<!ELEMENT formula ANY>
+<!ATTLIST formula
+Ê%title;
+Ê%id;
+Ê%count;
+Ê%dictRef;
+Ê%convention;
+>
+
+<!-- ========================================================-->
+<!ELEMENT atom ANY>
+<!ATTLIST atom
+Ê%title;
+Ê%id;
+Ê%count;
+Ê %dictRef;
+Ê%convention;
+>
+
+<!-- .......................................................-->
+<!ELEMENT atomArray ANY>
+<!ATTLIST atomArray
+Ê%title;
+Ê%id;
+Ê%dictRef;
+Ê%convention;
+>
+
+<!-- ========================================================-->
+<!ELEMENT bond ANY>
+<!ATTLIST bond
+Ê%id;
+Ê%atomRefs;
+Ê%dictRef;
+Ê%convention;
+>
+
+<!-- ========================================================-->
+<!ELEMENT bondArray ANY>
+<!ATTLIST bondArray
+Ê%id;
+Ê%dictRef;
+Ê%convention;
+>
+<!-- ========================================================-->
+<!ELEMENT electron ANY>
+<!ATTLIST electron
+Ê%id;
+Ê%count;
+Ê%dictRef;
+Ê%convention;
+>
+<!-- ========================================================-->
+<!ELEMENT reaction ANY>
+<!ATTLIST reaction
+Ê%id;
+Ê%dictRef;
+Ê%convention;
+>
+<!-- ======================================================= -->
+<!ELEMENT crystal ANY>
+<!ATTLIST crystal
+Ê%title;
+Ê%id;
+Ê%dictRef;
+Ê%convention;
+>
+<!-- ======================================================= -->
+<!ELEMENT sequence ANY>
+<!ATTLIST sequence
+Ê%title;
+Ê%id;
+Ê%dictRef;
+Ê%convention;
+>
+
+<!-- ======================================================= -->
+<!ELEMENT feature ANY>
+<!ATTLIST feature
+Ê%title;
+Ê%id;
+Ê%dictRef;
+Ê%convention;
+>
