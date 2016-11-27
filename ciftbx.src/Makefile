@@ -32,10 +32,9 @@ EXPAND		= .
 SHELL		= /bin/sh
 #
 # provide flags for fortran compilations here
-#FFLAGS		= -g -O0 -fbounds-check -Wall -Wno-unused-variable -Wimplicit
-#FFLAGS		= -g -O0 -fbounds-check -Wall -Wno-unused-variable
-#FFLAGS		= -g -O2 -fbounds-check -Wall -Wno-unused-variable  -Wuninitialized
-FFLAGS		= -g -O0
+FC		?=  gfortran
+FFLAGS		?= -g -O2 -fbounds-check -Wall -Wno-unused-variable  -Wuninitialized
+LDFLAGS		?= -lgfortran -lm
 #
 # provide the name for the command timer here
 TIMER		= time
@@ -66,16 +65,16 @@ testrle.o:      testrle.f ciftbx.cmn ciftbx.f ciftbx.cmf ciftbx.cmf \
 
 tbx_exm:	ciftbx.o hash_funcs.o tbx_exm.o ciftbx.cmn ciftbx.cmf \
 		ciftbx.cmv
-		$(FC) $(FFLAGS) tbx_exm.o ciftbx.o hash_funcs.o -o tbx_exm
+		$(FC) $(FFLAGS) tbx_exm.o ciftbx.o hash_funcs.o -o tbx_exm $(LDFLAGS)
 
 tbx_ex:		tbx_ex.o
-		$(FC) $(FFLAGS) tbx_ex.o  -o tbx_ex
+		$(FC) $(FFLAGS) tbx_ex.o  -o tbx_ex $(LDFLAGS)
 
 tbx_ex3:	tbx_ex3.o
-		$(FC) $(FFLAGS) tbx_ex3.o  -o tbx_ex3
+		$(FC) $(FFLAGS) tbx_ex3.o  -o tbx_ex3 $(LDFLAGS)
 
 testrle:	testrle.o
-		$(FC) $(FFLAGS) testrle.o  -o testrle
+		$(FC) $(FFLAGS) testrle.o  -o testrle $(LDFLAGS)
 
 clean:		
 		-rm -f *.o

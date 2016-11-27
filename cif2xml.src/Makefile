@@ -46,8 +46,10 @@ TBXPATH		=	../ciftbx.src
 #  provide a path to the shell sh here
 SHELL		=	/bin/sh
 #
-#  Add any necessary compilation flags on the next line
-FFLAGS		= -g -O2
+#  Add any necessary compilation flags on the next lines
+FC	?= gfortran
+FFLAGS	?= -g -O2
+LDFLAGS	?= -lgfortran -lm
 #
 all:	cif2xml postshar
 #
@@ -77,7 +79,7 @@ README.cif2xml.html:	 README.cif2xml.html.m4 Makefile
 
 cif2xml:	cif2xml.o $(TBXPATH)/hash_funcs.o $(TBXPATH)/ciftbx.o
 		$(FC) $(FFLAGS) cif2xml.o \
-		$(TBXPATH)/ciftbx.o $(TBXPATH)/hash_funcs.o \
+		$(TBXPATH)/ciftbx.o $(TBXPATH)/hash_funcs.o $(LDFLAGS) \
 		-o cif2xml
 
 ciftbx.sys:	$(TBXPATH)/ciftbx.sys

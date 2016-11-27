@@ -52,9 +52,9 @@ TBXPATH		=	../ciftbx.src
 SHELL		=	/bin/sh
 #
 #  Add any necessary compilation flags on the next line
-#FFLAGS		=  -g -Wall
-#FFLAGS = -g -O2 -fbounds-check -Wall -Wno-unused-variable  -Wuninitialized
-FFLAGS = -g -O2
+FC	?= gfortran 
+FFLAGS	?= -g -O2 -fbounds-check -Wall -Wno-unused-variable  -Wuninitialized
+LDFLAGS	?= -lgfortran -lm
 #
 all:	cif2cif postshar
 #
@@ -84,7 +84,7 @@ README.cif2cif.html:	 README.cif2cif.html.m4 Makefile
 
 cif2cif:	cif2cif.o $(TBXPATH)/hash_funcs.o $(TBXPATH)/ciftbx.o
 		$(FC) $(FFLAGS) cif2cif.o \
-		$(TBXPATH)/ciftbx.o $(TBXPATH)/hash_funcs.o \
+		$(TBXPATH)/ciftbx.o $(TBXPATH)/hash_funcs.o $(LDFLAGS) \
 		-o cif2cif
 
 ciftbx.sys:	$(TBXPATH)/ciftbx.sys

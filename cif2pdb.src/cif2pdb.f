@@ -4382,7 +4382,7 @@ C      with underscores replaced by blanks, except when
 C      an underscore follows an underscore, in which case
 C      the single underscore in included.
 C
-       character*255 nounder
+       character*2048 nounder
        character*(*) str
        ll = nblen(str)
        lp = ll

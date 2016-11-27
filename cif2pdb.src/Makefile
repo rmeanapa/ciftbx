@@ -65,8 +65,10 @@ MMDICPATH	=	../dictionaries/cif_mm_cif2pdb.dic
 #  provide a path to the shell sh here
 SHELL           =       /bin/sh
 #
-#  Add any necessary compilation flags on the next line
-FFLAGS          = -g
+#  Add any necessary compilation flags on the next lines
+FC	?= gfortran
+FFLAGS	?= -g -O2
+LDFLAGS	?= -lgfortran -lm
 #
 #  On some systems, csh is broken, and tcsh should be used.  In
 #  that case, uncomment the next line
@@ -342,7 +344,7 @@ cif2pdb.o:	cif2pdb.f cif2pdb.cmn ciftbx.sys ciftbx.cmn ciftbx.cmf \
 
 cif2pdb:	cif2pdb.o $(TBXPATH)/hash_funcs.o $(TBXPATH)/ciftbx.o cif2pdb.o
 		$(FC) $(FFLAGS) cif2pdb.o $(TBXPATH)/ciftbx.o \
-		$(TBXPATH)/hash_funcs.o -o cif2pdb
+		$(TBXPATH)/hash_funcs.o $(LDFLAGS) -o cif2pdb
 
 
 postshar:
