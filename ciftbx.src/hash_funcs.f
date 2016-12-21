@@ -110,6 +110,8 @@ C          hash_table  -- the initial hashed pointers
 C          hash_length -- the size of the hash table
 C
            integer list_length
+           integer idummy
+           character cdummy
            character*(*) name_list(list_length)
            integer hash_length,num_list,i
            integer chain_list(list_length)
@@ -118,6 +120,10 @@ C
            do i = 1,hash_length
            hash_table(i)=0
            enddo
+           cdummy = name_list(1)
+           idummy = chain_list(1)
+           idummy = list_length
+           idummy = numlist
            return
            end          
 
@@ -144,6 +150,7 @@ C
            integer hash_value
            integer ifind,num_list,ih,ip
            integer lastnb
+           integer idummy
            ifind=0
            ih=hash_value(name,hash_length)
            ip=hash_table(ih)
@@ -156,6 +163,7 @@ C
              ip=chain_list(ip)
              go to 100
            endif
+           idummy = num_list
            end
            
         subroutine
@@ -184,6 +192,7 @@ C
            integer ifind,num_list,ih,ip
            integer lastnb
            integer icurr
+           integer idummy
            
            ifind=0
            if (icurr.eq.0) then
@@ -201,6 +210,7 @@ C
              ip=chain_list(ip)
              go to 100
            endif
+           idummy = num_list
            end
 
         subroutine

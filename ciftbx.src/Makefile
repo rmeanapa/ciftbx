@@ -37,6 +37,7 @@ FFLAGS		?= -g -O2 -fbounds-check -Wall -Wno-unused-variable  -Wuninitialized
 LDFLAGS		?= -lgfortran -lm
 #
 # provide the name for the command timer here
+SHELL		= bash
 TIMER		= time
 
 

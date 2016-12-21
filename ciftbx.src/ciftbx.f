@@ -6621,7 +6621,7 @@ C
          sdev=0.D0
          ccnt=0
          mant=0.D0
-         expn=0.
+         expn=0
          msin=+1
          esin=+1
          ndec=0

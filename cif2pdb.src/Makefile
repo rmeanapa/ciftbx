@@ -78,6 +78,7 @@ LDFLAGS	?= -lgfortran -lm
 #
 #  If no timer is desired, comment out the next line and uncomment
 #  the one after
+SHELL		= bash
 TIMER		= time
 #TIMER		=
 
@@ -244,7 +245,8 @@ FFLAGS		= -g -O2
 #
 #  The path to utilities such as sed
 #
-BINPATH		= /usr/bin/
+#BINPATH		= /usr/bin/
+BINPATH			= /bin/
 
 .cif.pdb:
 	$(TIMER) $(CIF2PDB) -d cif_mm.dic -p $* < $< | \
