@@ -6,6 +6,8 @@
 #     make README.html      rebuilds README.html from README.html.m4
 #     make MANIFEST.html    rebuilds MANIFEST.html from MANIFEST.html.m4
 #     make expanded         creates local expanded files
+#     make all              makes all .src kits
+#     make alltests         test all .src kits
 #
 #===============  The following definitions may need to be modified for
 #===============  your system
@@ -51,18 +53,45 @@ README.html:	README.html.m4 Makefile
 		-DZPATH=$(ZPATH) -DDECOMP=$(DECOMP) < README.html.m4 \
 		> README.html
 
-expanded:	cif2cif.cshar.Z cif2cif.shar.Z \
+ciftbx.src:	expanded
+		sh ciftbx.shar
+
+cyclops.src:	expanded
+		sh cyclops.shar
+
+cif2cif.src:	expanded
+		sh cif2cif.shar
+
+cif2pdb.src:	expanded
+		sh cif2pdb.shar
+
+cif2xml.src:	expanded
+		sh cif2xml.shar
+		
+all:		ciftbx.src cyclops.src cif2cif.src cif2pdb.src cif2xml.src
+		(cd ciftbx.src; make all)
+		(cd cyclops.src; make all)
+		(cd cif2cif.src; make all)
+		(cf cif2pdb.src; make all)
+		(cd cif2xml.src; make all)
+
+alltests:	all
+		(cd ciftbx.src; make tests)
+		(cd cyclops.src; make tests)
+		(cd cif2cif.src; make tests)
+		(cf cif2pdb.src; make tests)
+		(cd cif2xml.src; make tests)
+
+
+expanded:	cif2cif.shar.Z \
 		cif_core.dic.Z cif_mm.dic.Z \
-		ciftbx.cshar.Z ciftbx.shar.Z \
-		cyclops.cshar.Z cyclops.shar.Z \
-		cif2xml.cshar.Z cif2xml.shar.Z
-		$(MKDECOMPLN) cif2cif.cshar .
+		ciftbx.shar.Z \
+		cyclops.shar.Z \
+		cif2xml.shar.Z
 		$(MKDECOMPLN) cif2cif.shar .
 		$(MKDECOMPLN) cif_core.dic .
 		$(MKDECOMPLN) cif_mm.dic .
-		$(MKDECOMPLN) ciftbx.cshar .
 		$(MKDECOMPLN) ciftbx.shar .
-		$(MKDECOMPLN) cyclops.cshar .
 		$(MKDECOMPLN) cyclops.shar .
-		$(MKDECOMPLN) cif2xml.cshar .
 		$(MKDECOMPLN) cif2xml.shar .
+		touch expanded
