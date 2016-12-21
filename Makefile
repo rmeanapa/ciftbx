@@ -72,26 +72,38 @@ all:		ciftbx.src cyclops.src cif2cif.src cif2pdb.src cif2xml.src
 		(cd ciftbx.src; make all)
 		(cd cyclops.src; make all)
 		(cd cif2cif.src; make all)
-		(cf cif2pdb.src; make all)
+		(cd cif2pdb.src; make all)
 		(cd cif2xml.src; make all)
 
 alltests:	all
 		(cd ciftbx.src; make tests)
 		(cd cyclops.src; make tests)
 		(cd cif2cif.src; make tests)
-		(cf cif2pdb.src; make tests)
+		(cd cif2pdb.src; make tests)
 		(cd cif2xml.src; make tests)
 
+clean:
+		-@(cd ciftbx.src; make clean)
+		-@(cd cyclops.src; make clean)
+		-@(cd cif2cif.src; make clean)
+		-@(cd cif2pdb.src; make clean)
+		-@(cd cif2xml.src; make clean)
+		-@rm expanded
+		-@rm *.uZ
+		-@rm *shar
+		
 
 expanded:	cif2cif.shar.Z \
-		cif_core.dic.Z cif_mm.dic.Z \
+		dictionaries/cif_core.dic.Z dictionaries/cif_mm.dic.Z \
 		ciftbx.shar.Z \
 		cyclops.shar.Z \
+		cif2pdb.shar.Z \
 		cif2xml.shar.Z
 		$(MKDECOMPLN) cif2cif.shar .
-		$(MKDECOMPLN) cif_core.dic .
-		$(MKDECOMPLN) cif_mm.dic .
+		(cd dictionaries; ../$(MKDECOMPLN) cif_core.dic . )
+		(cd dictionaries; ../$(MKDECOMPLN) cif_mm.dic . )
 		$(MKDECOMPLN) ciftbx.shar .
 		$(MKDECOMPLN) cyclops.shar .
 		$(MKDECOMPLN) cif2xml.shar .
+		$(MKDECOMPLN) cif2pdb.shar .
 		touch expanded
