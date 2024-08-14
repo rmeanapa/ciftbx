@@ -4,8 +4,8 @@ C    \ | /      \ | /
 C     \|/        \|/ 
 C    -- -->>>>>>-- --               c i f 2 c i f  ...... CIF COPY PROGRAM
 C     /|\        /|\
-C    / | \      / | \                          Version 2.0.0
-C                                               29 Nov 2009
+C    / | \      / | \                          Version 2.0.1
+C                                               22 Jan 2024
 C
 C
 C
@@ -15,15 +15,17 @@ C -------  input to an equivalent CIF on standard output, while checking
 C          data names against dictionaries and reformating numbers with
 C          esd's to conform to the rule of 19.  A quasar-style request
 C          list may be specified, otherwise the entire CIF is copied.
+C          The output CIF may optionally be formatted as an HTML web
+C          page.  The default is as plain text.
 C
 C           cif2cif
 C                  by
 C
-C                  Copyright (C) 1997, 1998, 2000, 2009
-C                  Herbert J. Bernstein (yaya@bernstein-plus-sons.com)
+C                  Copyright (C) 1997, 1998, 2000, 2009, 2024
+C                  Herbert J. Bernstein (yayahjb@gmail.com)
 C                  Bernstein + Sons
-C                  5 Brewster Lane
-C                  Bellport, NY 11713, U.S.A.
+C                  11 Riverside Drive Apt 5UE
+C                  New York, NY 10023-1317, U.S.A.
 C
 C           based on a suggestion by
 C
@@ -48,7 +50,7 @@ C device 5). An optional STAR data name dictionary (in DDL format) is opened.
 C A reformatted copy of the input CIF is written to standard output (device 6).
 C Messages are output to the standard error device (normally device 0).
 C Note that the PARAMETER 'MAXBUF' should contain the maximum number of char-
-C acters contained on a single text line. The default value is 200.
+C acters contained on a single text line. The default value is 2048.
 C If a request list (a file listing data_ block names and tags) is provided
 C that list controls the ordering and selection of tags and values to copy.
 C Otherwise the entire CIF is copied in the order presented
@@ -57,8 +59,8 @@ C In a unix-like environment, the program is run as:
 C
 C cif2cif [-i input_cif] [-o output_cif] [-d dictionary] [-a aliaso_]\
 C         [-c catck] [-e esdlim_] [-f command_file] [-g guess_type]\
-C         [-m maxline] [-p prefix] [-q request_list] [-t tabl_]\
-C         [-u unfold] [-w wrap] [-B read|cif2read] \
+C         [-h htmlt] [-m maxline] [-n numasst] [-p prefix] \
+C         [-q request_list] [-t tabl_] [-u unfold] [-w wrap] [-B read|cif2read] \
 C         [input_cif [output_cif [dictionary [request_list]]]] 
 C
 C where:
@@ -73,7 +75,9 @@ C         -a has values of t or 1 or y vs. f or 0 or n
 C         -c has values of t or 1 or y vs. f or 0 or n
 C         -e has integer values (e.g. 9, 19(default) o 29)
 C         -g has values of t or 1 or y vs. f or 0 or n, default t
+C         -h has values of t or 1 or y vs. f or 0 or n, default f
 C         -m has values from 80 to 2048 for a maximum line width
+C         -n has values of t or 1 or y vs. f or 0 or n, default f
 C         -p has string values in which "_" is replaced by blank
 C         -t has values of t or 1 or y vs. f or 0 or n, default f
 C         -u has values of t or 1 or y vs. f or 0 or n (default f)
@@ -152,9 +156,10 @@ C
       integer nblen,kkp,krr,krrl,jpsave
       integer kfold, kprevpos, knextpos, krord
       integer basedepth,ndepth,pposdlm,recdlm
+
       double precision dpn,dpesd
 C
-      VERS='2.0.0 (29 Nov 2009)'
+      VERS='2.0.1 (22 Jan 2024)'
 C
 C     Initialization of variables
 C
@@ -174,6 +179,8 @@ C
       ptabx_ = .false.
       pdecp_ = .false.
       plzero_ = .false.
+      htmlt = .false.
+      numasst = .false.
       guesst = .true.
       kbstrt = -1
       kprevpos = 0
@@ -183,6 +190,7 @@ C
       krr = 0
       result = init_(iuninp,iunout,iundac,iunerr)
       call getfiles
+      phtml_=htmlt
       kfold = line_
       if (pfold_.gt.0 .and. pfold_.lt.line_) 
      * kfold = min(line_,max(20,pfold_))
@@ -261,11 +269,13 @@ C
 C     open output CIF
 C
       if (outcif(1:loutcif).eq.'-')  outcif = ' '
+      phtml_=htmlt
       result=pfile_(outcif(1:loutcif))
       if(.not.result) then
         call c2cerr(
      *  ' failed to open '//outcif(1:loutcif))
       endif
+      pquote_ = char(0)
       result=pcmnt_(' CIF Copied by cif2cif, version '// VERS)
       result=find_(' ','head',string)
       ipsave=0
@@ -1316,6 +1326,36 @@ C
             end if
           end if
         end if
+        if (iwant.eq.16) then
+          if(temp(1:ll).eq.'F' .or. temp(1:ll).eq.'f' .or.
+     *      temp(1:ll).eq.'0' .or. temp(1:ll).eq.'N' .or.
+     *      temp(1:ll).eq.'n') then
+            htmlt = .false.
+          else
+            if(temp(1:ll).eq.'T.' .or. temp(1:ll).eq.'t' .or.
+     *      temp(1:ll).eq.'1' .or. temp(1:ll).eq.'Y' .or.
+     *      temp(1:ll).eq.'y') then
+              htmlt = .true.
+            else
+              go to 900
+            endif
+          endif
+        endif
+        if (iwant.eq.17) then
+          if(temp(1:ll).eq.'F' .or. temp(1:ll).eq.'f' .or.
+     *      temp(1:ll).eq.'0' .or. temp(1:ll).eq.'N' .or.
+     *      temp(1:ll).eq.'n') then
+            numasst = .false.
+          else
+            if(temp(1:ll).eq.'T.' .or. temp(1:ll).eq.'t' .or.
+     *      temp(1:ll).eq.'1' .or. temp(1:ll).eq.'Y' .or.
+     *      temp(1:ll).eq.'y') then
+              numasst = .true.
+            else
+              go to 900
+            endif
+          endif 
+        endif 
         iwant = 0
       else
         if (temp(1:1).eq.'-') then
@@ -1374,6 +1414,8 @@ C
           if (temp(2:2).eq.'m') iwant = 13
           if (temp(2:2).eq.'g') iwant = 14
           if (temp(2:2).eq.'B') iwant = 15
+          if (temp(2:2).eq.'h') iwant = 16
+          if (temp(2:2).eq.'n') iwant = 17
           if (iwant.eq.0) go to 900
         else
           ifound = ifound+1
@@ -1422,11 +1464,12 @@ C
      *  ' cif2cif [-i input_cif] [-o output_cif] '//
      *           '[-d dictionary] [-c catck]',
      *  '         [-a aliaso_] [-e esdlim_] [-f command_file] '//
-     *           '[-g guess_type] [-m maxline] [-p prefix]',
-     *  '         [-q request_list] [-t tabl_]  [-u unfold] '//
-     *           '[-w wrap] [-B read|cif2read] ',
-     *  '         [input_cif [output_cif '//
-     *           '[dictionary [request_list]]]]'
+     *           '[-g guess_type] [-h html] [-m maxline]',
+     *  '         [-n numasst] [-q request_list] [-p prefix] '//
+     *           '[-q request_list] [-t tabl_] [-u unfold]',
+     *  '         [-w wrap] [-B read|cif2read] '//
+     *           '[input_cif [output_cif ',
+     *  '         [dictionary [request_list]]]]'
        write(iunerr,'(a)')
      * ' input_cif defaults to $CIF2CIF_INPUT_CIF or stdin',
      * ' output_cif defaults to $CIF2CIF_OUTPUT_CIF or stdout',
@@ -1440,7 +1483,9 @@ C
      * ' -c has values of t or 1 or y vs. f or 0 or n,',
      * ' -e has integer values (e.g. 9, 19(default) or 29),',
      * ' -g has values of t, 1 or y vs. f, 0 or n (default t),',
+     * ' -h has values of t, 1 or y vs. f, 0 or n (default f),',
      * ' -m has values from 80 to 2048 for a maximum line width',
+     * ' -n has values of t, 1 or y vs. f, 0 or n (default f),',
      * ' -p has a string value in which "_" is replaced by blank,',
      * ' -t has values of t, 1 or y vs. f, 0 or n (default f),',
      * ' -u has values of t, 1 or y vs. f, 0 or n (default f),',

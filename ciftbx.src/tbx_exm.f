@@ -67,7 +67,7 @@ C
 C
 C
          logical       f1,f2,f3
-         character*75  name
+         character*(NUMCHAR)  name
          character*80  line
          character*4   label(6)
          character*26  alpha
@@ -229,8 +229,9 @@ C
          f2 = numb_('_atom_site_fract_x',  xf(nsite), sx)
          f2 = numb_('_atom_site_fract_y',  yf(nsite), sy)
          f2 = numb_('_atom_site_fract_z',  zf(nsite), sz)
-         do 250 i=1,6
-250      uij(nsite,i)=0.0
+         do i=1,6
+           uij(nsite,i)=0.0
+         enddo
          if(loop_) goto 240
 C
 C....... Read the Uij loop and store in the site list
@@ -438,36 +439,39 @@ C
          f1 = ploop_('_atom_type_oxidation_number')
          f1 = ploop_('_atom_type_number_in_cell_double')
          f1 = ploop_('_atom_type_number_in_cell_single')
-         do 470 i=1,10
-         f1 = pchar_(' ',alpha(1:i))
-         f1 = pnumb_(' ',float(i),float(i)*0.1)
-         f1 = pnumd_(' ',dfloat(i)*8.64523D0,0.D0)
-         f1 = pnumb_(' ',float(i)*8.64523,0.)
-         f1 = pchar_(' ',alpha(1:i)//'_again')
-         f1 = pnumb_(' ',float(i),float(i)*0.1)
-         f1 = pnumd_(' ',-1.d0**i*dfloat(i)*8.64523D-1,0.D0)
-         f1 = pnumb_(' ',-1.**i*float(i)*8.64523E-1,0.)
-         f1 = pchar_(' ',alpha(1:i)//'_again')
-         f1 = pnumb_(' ',float(i),float(i)*0.1)
-         f1 = pnumd_(' ',-1.d0**i*dfloat(i)*8.64523D5,0.D0)
-470      f1 = pnumb_(' ',-1.**i*float(i)*8.64523E5,0.)
+         do i=1,10
+           f1 = pchar_(' ',alpha(1:i))
+           f1 = pnumb_(' ',float(i),float(i)*0.1)
+           f1 = pnumd_(' ',dfloat(i)*8.64523D0,0.D0)
+           f1 = pnumb_(' ',float(i)*8.64523,0.)
+           f1 = pchar_(' ',alpha(1:i)//'_again')
+           f1 = pnumb_(' ',float(i),float(i)*0.1)
+           f1 = pnumd_(' ',-1.d0**i*dfloat(i)*8.64523D-1,0.D0)
+           f1 = pnumb_(' ',-1.**i*float(i)*8.64523E-1,0.)
+           f1 = pchar_(' ',alpha(1:i)//'_again')
+           f1 = pnumb_(' ',float(i),float(i)*0.1)
+           f1 = pnumd_(' ',-1.d0**i*dfloat(i)*8.64523D5,0.D0)
+           f1 = pnumb_(' ',-1.**i*float(i)*8.64523E5,0.)
+         enddo
 C
 C....... Do it again but as contiguous data with text data
 C
          f1 = ploop_('_atom_type_symbol')
          f1 = ploop_('_atom_type_oxidation_number')
          f1 = ploop_('_some_silly_text')
-         do 480 i=1,3
-         f1 = pchar_(' ',alpha(1:i))
-         f1 = pnumb_(' ',float(i),float(i)*0.1)
-480      f1 = ptext_(' ','Hi Ho the diddly oh!')
+         do i=1,3
+           f1 = pchar_(' ',alpha(1:i))
+           f1 = pnumb_(' ',float(i),float(i)*0.1)
+           f1 = ptext_(' ','Hi Ho the diddly oh!')
+         enddo
 C
 C....... Test the handling of line_
 C
          line_ = 20
          f1 = ploop_('_atom_type_symbol')
-         do 490 i=19,21
-490      f1 = pchar_(' ',alpha(1:i))
+         do i=19,21
+           f1 = pchar_(' ',alpha(1:i))
+         enddo
 C
          call close_
 C
@@ -539,36 +543,39 @@ C
          f1 = ploop_('_atom_type_oxidation_number')
          f1 = ploop_('_atom_type_number_in_cell_double')
          f1 = ploop_('_atom_type_number_in_cell_single')
-         do 670 i=1,10
-         f1 = pchar_(' ',alpha(1:i))
-         f1 = pnumb_(' ',float(i),float(i)*0.1)
-         f1 = pnumd_(' ',dfloat(i)*8.64523D0,0.D0)
-         f1 = pnumb_(' ',float(i)*8.64523,0.)
-         f1 = pchar_(' ',alpha(1:i)//'_again')
-         f1 = pnumb_(' ',float(i),float(i)*0.1)
-         f1 = pnumd_(' ',-1.d0**i*dfloat(i)*8.64523D-1,0.D0)
-         f1 = pnumb_(' ',-1.**i*float(i)*8.64523E-1,0.)
-         f1 = pchar_(' ',alpha(1:i)//'_again')
-         f1 = pnumb_(' ',float(i),float(i)*0.1)
-         f1 = pnumd_(' ',-1.d0**i*dfloat(i)*8.64523D5,0.D0)
-670      f1 = pnumb_(' ',-1.**i*float(i)*8.64523E5,0.)
+         do i=1,10
+           f1 = pchar_(' ',alpha(1:i))
+           f1 = pnumb_(' ',float(i),float(i)*0.1)
+           f1 = pnumd_(' ',dfloat(i)*8.64523D0,0.D0)
+           f1 = pnumb_(' ',float(i)*8.64523,0.)
+           f1 = pchar_(' ',alpha(1:i)//'_again')
+           f1 = pnumb_(' ',float(i),float(i)*0.1)
+           f1 = pnumd_(' ',-1.d0**i*dfloat(i)*8.64523D-1,0.D0)
+           f1 = pnumb_(' ',-1.**i*float(i)*8.64523E-1,0.)
+           f1 = pchar_(' ',alpha(1:i)//'_again')
+           f1 = pnumb_(' ',float(i),float(i)*0.1)
+           f1 = pnumd_(' ',-1.d0**i*dfloat(i)*8.64523D5,0.D0)
+           f1 = pnumb_(' ',-1.**i*float(i)*8.64523E5,0.)
+         enddo
 C
 C....... Do it again but as contiguous data with text data
 C
          f1 = ploop_('_atom_type_symbol')
          f1 = ploop_('_atom_type_oxidation_number')
          f1 = ploop_('_some_silly_text')
-         do 680 i=1,3
-         f1 = pchar_(' ',alpha(1:i))
-         f1 = pnumb_(' ',float(i),float(i)*0.1)
-680      f1 = ptext_(' ','Hi Ho the diddly oh!')
+         do i=1,3
+           f1 = pchar_(' ',alpha(1:i))
+           f1 = pnumb_(' ',float(i),float(i)*0.1)
+           f1 = ptext_(' ','Hi Ho the diddly oh!')
+         enddo
 C
 C....... Test the handling of line_
 C
          line_ = 20
          f1 = ploop_('_atom_type_symbol')
-         do 690 i=19,21
-690      f1 = pchar_(' ',alpha(1:i))
+         do i=19,21
+           f1 = pchar_(' ',alpha(1:i))
+         enddo
 C
 700      call close_
          stop

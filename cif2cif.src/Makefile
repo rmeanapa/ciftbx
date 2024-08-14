@@ -148,7 +148,8 @@ tests:	postshar cif_mm.dic \
 		./cif2cif -t y -d cif_mm.dic -p .._ < 4ins.cif > 4ins.new \
 			2> 4ins.lst
 		./cif2cif -gn -u -m2048 -i 4ins.cif > 4insuw.new 2> 4insuw.lst
-		./cif2cif -d cif_mm.dic -w 120 -i 4insuw.new > 4insw.new 2> 4insw.lst 
+		./cif2cif -d cif_mm.dic -d ddl2.dic -w 120 -i 4insuw.new > 4insw.new 2> 4insw.lst
+		./cif2cif -d cif_img.dic -d ddl2.dic -i cif_img.dic -h y -n y >  cif_img.html
 		./cif2cif  -e 99 -B read < cif_expanded.dic > cif_expanded.new
 		-@diff xtalt2.out xtalt2.new > xtalt2.diff
 		-@diff xttne9.out xttne9.new > xttne9.diff

@@ -8,10 +8,10 @@ C    / | \         |#####|    @@@@  @   @       \___/  \___/ __/\__       @
 C                  |#####|________________________________________________
 C                 ||#####|                 ___________________            |
 C        __/|_____||#####|________________|&&&&&&&&&&&&&&&&&&&||          |
-C<\\\\\\\\_ |_____________________________|&&& 29 Nov 2009  &&||          |
+C<\\\\\\\\_ |_____________________________|&&& 08 Mar 2024  &&||          |
 C          \|     ||#####|________________|&&&&&&&&&&&&&&&&&&&||__________|
 C                  |#####|
-C                  |#####|                Version 4.1.0 Release
+C                  |#####|                Version 4.1.1 Release
 C                  |#####|
 C                 /#######\
 C                |#########|
@@ -651,6 +651,9 @@ C                or equal to line_
 C
 C    list_       Integer variable: the loop block number (see test_).
 C
+C    logdnam_    Logical variable:  if set .true. each call to ocif_ will
+C                log data names to a hash table  The default is .false.
+C
 C    long_       Integer variable: the length of the data string in strg_.
 C
 C    longf_      Integer variable: the length of the filename in file_.
@@ -691,8 +694,12 @@ C                pfold_ less than 4 are not valid and will be reset to 4.
 C                Non-zero values of pfold_ less than 80 can cause conflict
 C                with the syntactic requirements of creating a valid CIF.
 C
+C    phtml_      Logical varible:  if set .true. then a pfile_ output file
+C                will be written as an HTML web oage, rather than as text.
+C                The default is .false.
+C
 C    plzero_     Logical variable: if set .true. then cif numeric output
-C                routines will insert a zero before a leading decimal point,
+C                routines will insert a zero before a leading decimal point.
 C                The default is .false.
 C
 C    pposdec_    Integer variable giving the position of the decimal point
@@ -2776,6 +2783,7 @@ C
          function ocif_(fname)
 C
          logical   ocif_
+         logical   tbxxdhsh
          integer   lastnb
          include  'ciftbx.sys'
          logical   test
@@ -2783,6 +2791,7 @@ C
          integer   lfname
          integer   case,i,kp,lp,mp
          integer   klen, mlen, lip, lppag, lipof, kip, ip, mip, mis
+         integer   ibook
 C
          save_=.false.
          glob_=.false.
@@ -2820,7 +2829,7 @@ C
          if (longf_.gt.0) then
            inquire(file=file_(1:longf_),exist=test)
            ocif_=test
-           if(.not.ocif_)      goto 200
+           if(.not.ocif_)      return
          else
            file_(1:1) = ' '
            longf_ = 1
@@ -2923,7 +2932,37 @@ C          write(dirdev,'(a)',rec=lp) pagebuf(kp)
          recn_=irecd
          recend_=nrecd
          if (file_(1:1).ne.' ') close(cifdev)
-200      return
+         if (logdnam_) ocif_=tbxxdhsh(ibook)
+         return
+         end
+C
+C
+C
+C
+C
+
+         function tbxxdhsh(ibook)
+         logical tbxxdhsh
+         logical bkmrk_
+         logical data_
+         logical find_
+         logical result
+         include 'ciftbx.sys'
+         character*(80) string
+         integer ibook
+         tbxxdhsh =.true.
+         ibook = 0
+         result = bkmrk_(ibook)
+         result = find_(' ','head',string)
+         call hash_init(datnam,datlst,NUMBLOCK,ndatlst,
+     *       dathtab,NUMHASH)
+         do while (data_(' ').and.tbxxdhsh)
+           call hash_snext(bloc_,datnam,datlst,NUMBLOCK,ndatlst,
+     *       dathtab,NUMHASH,ii,0)
+           if (ii.eq.0) tbxxdhsh=.false.
+CDBG       print *,'found block ', bloc_
+         end do
+         result = bkmrk_(ibook)
          end
 C
 C
@@ -2968,6 +3007,7 @@ C
          text_=.false.
          textfl='no '
          append_=.false.
+         logdnam_=.false.
          recbeg_=0
          recend_=0
          nivt = 0
@@ -5082,8 +5122,9 @@ C
          call getlin(flag)
          jchar=max(0,dchar(iname)-1)
 CDBG     if(jchar.lt.0) write(6,'(7H dchar ,i5)') jchar
-         do 220 i=1,nitem
-220      lloop(i+iname-iloop(iname))=0
+         do i=1,nitem
+           lloop(i+iname-iloop(iname))=0
+         enddo
          goto 240
 C
 C....... Read a packet of loop items
@@ -6152,8 +6193,9 @@ C
        im=0
        quoted=.false.
        quote_=' '
-       do 205 i=1,11
-205    jj(i)=0
+       do i=1,11
+         jj(i)=0
+       enddo
 210    ip = jchar
        do 250 i=jchar,lastch
          ip = i
@@ -6387,8 +6429,9 @@ C
 3200   type_='numb'
        im=0
        innerdepth = depth_
-       do 3205 i=1,11
-3205     jj(i)=0
+       do i=1,11
+         jj(i)=0
+       enddo
        ip = jchar
        do 3250 i=jchar,lastch
        ip = i
@@ -6983,6 +7026,34 @@ C
          plcat = ' '
          pdblok = ' '
          plhead(1) = ' '
+         if (phtml_) then
+           pposnam_=0
+           pchar=1
+           call tbxxpstr('<!doctype html>')
+           call tbxxpstr(char(0))
+           pposnam_=0
+           pchar=1
+           call tbxxpstr('<html lang="en">')
+           call tbxxpstr(char(0))
+           pposnam_=0
+           pchar=1
+           call tbxxpstr('<head>')
+           call tbxxpstr(char(0))
+           pposnam_=0 
+           pchar=1    
+           call tbxxpstr('<title>'//file_(1:lfname)//'</title>')
+           call tbxxpstr(char(0))
+           pposnam_=0 
+           pchar=1    
+           call tbxxpstr('</head>')
+           call tbxxpstr(char(0))
+           pposnam_=0 
+           pchar=1    
+           call tbxxpstr('<body><pre>')
+           call tbxxpstr(char(0))
+           pposnam_=0 
+           pchar=1    
+         endif
          if (xmlout_) then
            call tbxxpstr('<?xml version="1.0"?>')
          endif
@@ -7036,8 +7107,10 @@ C
          character name*(*),temp*(MAXBUF)
          character dbloc(100)*(NUMCHAR)
          character tbxxxsub*(MAXBUF)
-         integer   i
+         integer   i,ii
          integer   lastnb
+         integer   nbname
+         integer   nbtemp
 C
          pdata_=.true.
          if(ptextf.eq.'yes') call tbxxeot
@@ -7080,6 +7153,8 @@ C
 C....... Check for duplicate data name
 C
          temp=name
+         nbname=lastnb(temp)
+         nbtemp=nbname
          if(temp.eq.' ')        goto 200
          if(saveo_)             goto 130
          pdata_=.false.
@@ -7096,8 +7171,12 @@ C
          pdblok = temp(1:min(NUMCHAR,MAXBUF))
 130      pchar=-1
          temp='data_'//name
+         nbtemp=nbname+5
          if(saveo_) temp='save_'//name
-         if(globo_) temp='global_'
+         if(globo_) then
+           temp='global_'
+           nbtemp=nbname+7
+         endif
          psaveo=saveo_
 135      if(pposnam_.gt.0) then
            pchar=lprefx+1
@@ -7119,7 +7198,33 @@ C
              endif
            endif
          else
-           call tbxxpstr(temp(1:lastnb(temp)))
+           if (logdnam_) then
+             if (ndatlst.eq.0) then
+               call hash_init(datnam,datlst,NUMBLOCK,
+     *         ndatlst,dathtab,NUMHASH)
+             endif
+             call hash_find(name(1:nbname),datnam,datlst,NUMBLOCK,
+     *         ndatlst,dathtab,NUMHASH,ii)
+             if (ii.eq.0) then
+               call hash_store(name(1:nbname),datnam,datlst,NUMBLOCK,
+     *           ndatlst,dathtab,NUMHASH,ii)
+             endif
+             if (ii.gt.0.and.phtml_) then
+               call tbxxpstr('<a name="'//name(1:nbname)//'" />'//
+     *           temp(1:nbtemp))
+             endif
+           else if (phtml_.and.ndatlst.gt.0) then
+             call hash_find(name(1:nbname),datnam,datlst,NUMBLOCK,
+     *         ndatlst,dathtab,NUMHASH,ii)
+             if (ii.gt.0) then
+               call tbxxpstr('<a name="'//name(1:nbname)//'" />'//
+     *         temp(1:nbtemp))
+             else
+               call tbxxpstr(temp(1:nbtemp))
+             endif
+           else
+             call tbxxpstr(temp(1:nbtemp))
+           endif
          endif
          pchar=lprefx
          plcat = ' '
@@ -7236,11 +7341,13 @@ C
          double precision dnumb,dsdev,dprec
          integer    kmn
          integer    lastnb
+         integer    nbname
 C
          pnumb_=.true.
          flag  =.true.
          tflag =.true.
          temp=name
+         nbname=lastnb(temp)
          if(ptextf.eq.'yes') call tbxxeot
          if (pdepth_ .gt.0.and.name(1:1).ne.char(0))
      *     call tbxxebkt
@@ -7282,7 +7389,7 @@ C
            plhead(1) = item
            plxhead(1) = xitem
          else
-           call tbxxpstr(temp(1:lastnb(temp)))
+           call tbxxpstr(temp(1:nbname))
          endif
          go to 120
 C
@@ -7509,7 +7616,7 @@ C
            endif
          endif
          pchar=-1
-         if(pposnam_.gt.0) pchar=posnam_+lprefx
+         if(pposnam_.gt.0) pchar=pposnam_+lprefx
          if (xmlout_) then
            if ((plhead(1)(1:1).ne.' '.and.plhead(1).ne.item)
      *       .or. plcat.ne.mycat) then
@@ -7546,7 +7653,7 @@ C
          ploopf='no '
          i=1
          if (string(1:1).eq.char(0)) go to 210
-         if (xmlout_) then
+         if (xmlout_.or.phtml_) then
            do ic = 1,lstring
             if ( string(ic:ic).eq.'&'
      *        .or. string(ic:ic).eq.'<'
@@ -7623,7 +7730,11 @@ C
            if(pposval_.ne.0) then
              pchar=pposval_+lprefx
            endif
-           call tbxxpstr(strg(1:i))
+           if( phtml_) then
+              call tbxxphtm(strg(1:i))
+           else
+              call tbxxpstr(strg(1:i))
+           endif
            go to 210
          endif
          if(pqt.eq.'"' .or. pqt.eq.'"""')       go to 170
@@ -7667,7 +7778,11 @@ C
            endif
          endif
          ptextf='yes'
-         call tbxxpstr(strg(1:i))
+         if (phtml_) then
+           call tbxxphtm(strg(1:i))
+         else
+           call tbxxpstr(strg(1:i))
+         endif
          pchar=-1
          ptextf='no '
          if (pqt.eq.'('
@@ -7697,7 +7812,11 @@ C
            if(pstatestack(pdepth_).eq.2)
      *     tbxxrslt = pdelim_(',',.false.,0)
          end if
-         call tbxxpstr(strg(1:i))
+         if (phtml_) then
+           call tbxxphtm(strg(1:i))
+         else
+           call tbxxpstr(strg(1:i))
+         endif
          if (pdepth_.gt.0) pstatestack(pdepth_) = 2
 210      if(.not.flag) then
            pchar = pcharl+4
@@ -7831,7 +7950,11 @@ C
            else
              temp='#'//string
            endif
-           call tbxxpstr(temp(1:lastnb(temp)))
+           if (phtml_) then
+             call tbxxphtm(temp(1:lastnb(temp)))
+           else
+             call tbxxpstr(temp(1:lastnb(temp)))
+           endif
            call tbxxpstr(char(0))
            endif
          endif
@@ -8001,7 +8124,11 @@ C
          if (kfold .gt. 0) then
            call tbxxpfs(string,' ',kfold)
          else
-           call tbxxpstr(string(1:max(1,ll)))
+           if (phtml_) then
+             call tbxxphtm(string(1:max(1,ll)))
+           else
+             call tbxxpstr(string(1:max(1,ll)))
+           endif
          endif
          continue
          pchar=-1
@@ -8062,7 +8189,11 @@ C
              temp(1:kpref+khi-klow+2) = string(klow:khi)//slash
            endif
            pchar = -1
-           call tbxxpstr(temp(1:kpref+khi-klow+2))
+           if (phtml_) then
+             call tbxxphtm(temp(1:kpref+khi-klow+2))
+           else
+             call tbxxpstr(temp(1:kpref+khi-klow+2))
+           endif
            call tbxxpstr(char(0))
            klow = khi+1
            go to 100
@@ -8073,14 +8204,22 @@ C
                   temp(1:kpref+khi-klow+2) =
      *              prefix//string(klow:khi)//slash
                   pchar = -1
-                  call tbxxpstr(temp(1:kpref+khi-klow+2))
+                  if (phtml_) then
+                    call tbxxphtm(temp(1:kpref+khi-klow+2))
+                  else
+                    call tbxxpstr(temp(1:kpref+khi-klow+2))
+                  endif
                   call tbxxpstr(char(0))
                   pchar = -1
                   call tbxxpstr(prefix)
                 else
                   temp(1:khi-klow+2) = string(klow:khi)//slash
                   pchar = -1
-                  call tbxxpstr(temp(1:khi-klow+2))
+                  if (phtml_) then
+                    call tbxxphtm(temp(1:khi-klow+2))
+                  else
+                    call tbxxpstr(temp(1:khi-klow+2))
+                  endif
                   pchar = -1
                   call tbxxpstr(' ')
                 endif
@@ -8089,16 +8228,28 @@ C
                 if (kpref.gt.0) then
                   temp(1:kpref+khi-klow+1) = prefix//string(klow:khi)
                   pchar = -1
-                  call tbxxpstr(temp(1:kpref+khi-klow+1))
+                  if (phtml_) then
+                    call tbxxphtm(temp(1:kpref+khi-klow+1))
+                  else
+                    call tbxxpstr(temp(1:kpref+khi-klow+1))
+                  endif
                   call tbxxpstr(char(0))
                   temp(1:kpref+2) = prefix//slash//slash
                   pchar = -1
-                  call tbxxpstr(temp(1:kpref+2))
+                  if (phtml_) then
+                    call tbxxphtm(temp(1:kpref+2))
+                  else
+                    call tbxxpstr(temp(1:kpref+2))
+                  endif
                   call tbxxpstr(char(0))
                   call tbxxpstr(prefix)
                 else
                   pchar = -1
-                  call tbxxpstr(string(klow:khi))
+                  if (phtml_) then
+                    call tbxxphtm(string(klow:khi))
+                  else
+                    call tbxxpstr(string(klow:khi))
+                  endif
                   call tbxxpstr(char(0))
                   pchar = -1
                   call tbxxpstr(slash//slash)
@@ -8112,9 +8263,17 @@ C
              pchar = -1
              if (kpref.gt.0) then
                temp(1:kpref+khi-klow+1)=prefix//string(klow:khi)
-               call tbxxpstr(temp(1:kpref+khi-klow+1))
+               if (phtml_) then
+                 call tbxxphtm(temp(1:kpref+khi-klow+1))
+               else
+                 call tbxxpstr(temp(1:kpref+khi-klow+1))
+               endif
              else
-               call tbxxpstr(string(klow:khi))
+               if (phtml_) then
+                 call tbxxphtm(string(klow:khi))
+               else
+                 call tbxxpstr(string(klow:khi))
+               endif
              endif
              call tbxxpstr(char(0))
            endif
@@ -8428,6 +8587,20 @@ C
            pchar=-1
            call tbxxpstr(' ')
          endif
+         if(phtml_) then
+           call tbxxpstr(char(0))
+           pposnam_=0
+           pchar=1
+           call tbxxpstr('</pre></body>')
+           call tbxxpstr(char(0))
+           pposnam_=0
+           pchar=1
+           call tbxxpstr('</html>')
+           call tbxxpstr(char(0))
+           pposnam_=0
+           pchar=1
+           call tbxxpstr(' ')
+         endif
          if (file_(1:1) .ne. ' ') then
            file_(1:longf_) = ' '
            longf_ = 1
@@ -8560,6 +8733,190 @@ C
          return
          end
 
+C
+C
+C
+C
+C
+C >>>>>> Put the html string with data_ and save_ refs  into the output CIF buffer
+C
+C        The string is searched for occurances of entries in the datnam hash
+C        list, either tags beginning with '_' or categories  marked by
+C        the case-insensitive word 'category ' or datablocks marked by the
+C        case-insensitive work 'datablock '.
+C
+C        Instances of < > and &  are converted to entity references
+C
+         subroutine tbxxphtm(string)
+C
+         implicit none
+         integer    lastnb
+         include   'ciftbx.sys'
+         integer lstring
+         integer ipos, jpos, kpos, lxstr
+         logical prevblnk, prevcat, done, donedone
+         character*(MAXBUF+MAXBUF) newstr
+         character*(MAXBUF) xstr
+         character*(*) string
+         character*1 prevquot, nxchar
+         character*9 catprobe
+         character*10 datblkprobe
+         integer ii
+         SAVE
+C        prevblnk .true. if blank found
+C        prevcat .true. if 'category ' found
+C        prevquot is ' ' or '"' or "'" 
+         prevblnk = .true.
+         prevcat = .false.
+         donedone = .false.
+         prevquot=' '
+         if (phtml_) then
+           lstring = lastnb(string)
+           ipos = 1
+           kpos = 1
+           do while (ipos .le. lstring .and. (.not.donedone))
+C            convert '<' to '&lt;'
+             if (string(ipos:ipos).eq.'<') then
+               newstr(kpos:kpos+3)='&lt;'
+               kpos=kpos+4
+               prevblnk=.false.
+               ipos=ipos+1
+               go to 1000
+             endif
+C            convert '>' to '&gt;'
+             if (string(ipos:ipos).eq.'>') then
+               newstr(kpos:kpos+3)='&gt;'
+               kpos=kpos+4
+               prevblnk=.false.
+               ipos=ipos+1
+               go to 1000
+             endif
+C            convert '&' to 'amp;'
+             if (string(ipos:ipos).eq.'&') then
+               newstr(kpos:kpos+3)='&amp;'
+               kpos=kpos+5
+               prevblnk=.false.
+               ipos=ipos+1
+               go to 1000
+             endif
+C            absorb multiple blanks
+             if (prevblnk) then
+               if (string(ipos:ipos).eq.' ') then
+                 newstr(kpos:kpos)=' '
+                 ipos=ipos+1
+                 kpos=kpos+1
+                 go to 1000
+               endif
+             endif
+             if (prevblnk .and. (string(ipos:ipos).eq."'"
+     *          .or.string(ipos:ipos).eq.'"')) then
+               prevquot=string(ipos:ipos)
+               prevblnk=.false.
+               newstr(kpos:kpos)=string(ipos:ipos)
+               ipos=ipos+1
+               kpos=kpos+1
+               go to 1000
+             endif
+             if (.not. prevcat .and. lstring-ipos .gt. 11
+     *         .and.(string(ipos:ipos).eq.'c'
+     *           .or.string(ipos:ipos).eq.'C')) then
+               call tbxxnlc(catprobe,string(ipos:ipos+8))
+               if (catprobe.eq.'category ') then
+                 prevcat=.true.
+                 prevquot=' '
+                 prevblnk=.true.
+                 newstr(kpos:kpos+8)=string(ipos:ipos+8)
+                 ipos=ipos+9
+                 kpos=kpos+9
+                 go to 1000
+               endif
+             endif
+             if (.not. prevcat .and. lstring-ipos .gt. 12
+     *         .and.(string(ipos:ipos).eq.'d'
+     *           .or.string(ipos:ipos).eq.'D')) then
+               call tbxxnlc(datblkprobe,string(ipos:ipos+9))
+               if (datblkprobe.eq.'datablock ') then
+                 prevcat=.true.
+                 prevquot=' '
+                 prevblnk=.true.
+                 newstr(kpos:kpos+9)=string(ipos:ipos+9)
+                 ipos=ipos+10
+                 kpos=kpos+10
+                 go to 1000
+               endif
+             endif
+C            Extract the next token
+             jpos=ipos
+             done=.false.
+             do while (jpos .le. lstring .and. .not. done)
+               nxchar=' '
+               if(jpos.lt.lstring) then 
+                  nxchar=string(jpos+1:jpos+1)
+               else
+                  done=.true.
+               endif
+               if ((string(jpos:jpos).eq.prevquot.and.jpos.gt.ipos)
+     *           .or. string(jpos:jpos).eq.','
+     *           .or. (string(jpos:jpos).eq.'.'
+     *             .and. nxchar.eq.' ')
+     *           .or. (string(jpos:jpos).eq.'.'
+     *             .and. nxchar.eq.',')
+     *           .or. string(jpos:jpos).eq.' ') then
+                 done = .true.
+                 if(string(jpos:jpos).eq.prevquot
+     *             .and.jpos.gt.ipos) prevquot=' '
+               else
+                 jpos=jpos+1
+               endif
+             enddo
+             if (jpos .gt. lstring) jpos=lstring
+             print *, 'Token:',string(ipos:jpos)
+             if (prevcat .or. string(ipos:ipos).eq.'_') then
+               call hash_find(string(ipos:jpos),datnam,datlst,
+     *           NUMBLOCK,ndatlst,dathtab,NUMHASH,ii)
+               if (ii.gt.0) then
+                 xstr='<a href="#' // datnam(ii) // '">'
+     *           // string(ipos:jpos) // '"</a>'
+                 lxstr=len(xstr)
+                 newstr(kpos:kpos+lxstr-1)=xstr
+                 kpos=kpos+lxstr
+                 ipos=jpos+1
+                 if (ipos.gt.lstring) then
+                   ipos=lstring
+                   donedone = .true.
+                 endif
+               else
+                 newstr(kpos:kpos+jpos-ipos)=string(ipos:jpos)
+                 ipos=jpos+1
+                 if (ipos.gt.lstring) then
+                   ipos=lstring
+                   donedone=.true.
+                 endif
+                 kpos=kpos+jpos-ipos+1
+               endif
+             else
+               newstr(kpos:kpos+jpos-ipos)=string(ipos:jpos)
+               ipos=jpos+1
+               if (ipos.gt.lstring) then
+                 ipos=lstring
+                 donedone=.true.
+               endif
+               kpos=kpos+jpos-ipos+1
+             endif
+ 1000      continue
+           if (ipos.gt.lstring) then
+             kpos=kpos+lstring-ipos
+             ipos=lstring
+             donedone=.true.
+           endif
+           enddo
+           call tbxxpstr(newstr(1:kpos-1))
+           return
+         else
+           call tbxxpstr(string(1:lstring))
+           return
+         endif
+         end
 C
 C
 C
@@ -8761,7 +9118,7 @@ C
            endif
            if(ifree.ge.16.and.im.lt.4.and.
      *       (obuf(1+lprefx:1+lprefx).ne.'#'
-     *        .and.((.not.xmlout_).or.(
+     *        .and.((.not.xmlout_.and..not.phtml_).or.(
      *             obuf(1+lprefx:1+lprefx).ne.'<'
      *        .and.obuf(1+lprefx:1+lprefx).ne.']'))
      *        .and.obuf(1+lprefx:1+lprefx).ne.';'
@@ -9553,6 +9910,7 @@ C
          data tabx_      /.true./
          data ptabx_     /.true./
          data text_      /.false./
+         data logdnam_   /.false./
          data loop_      /.false./
          data ndcname    /0/
          data ncname     /0/
@@ -9576,6 +9934,7 @@ C
          data lzero_     /.false./
          data plzero_    /.false./
          data xmlout_    /.false./
+         data phtml_     /.false./
          data catkey     /NUMDICT*.false./
          data xmlong_    /.true./
          data dchash     /NUMHASH*0/
@@ -9600,7 +9959,7 @@ C
          data prefx      /' '/
          data file_      /' '/
          data longf_     /1/
-         data tbxver_    /'CIFtbx version 4.1.0 29 Nov 2009'/
+         data tbxver_    /'CIFtbx version 4.1.1 04 Feb 2024'/
          data lprefx     /0/
          data esdlim_    /19/
          data esddig_    /0/

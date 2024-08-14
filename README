@@ -1,165 +1,171 @@
+   [1][IUCr Home Page] [2][CIF Home Page] [3][ciftbx.src] [4][cyclops.src]
+   [5][cif2cif.src] [6][cif2xml.src] [7][cif2pdb.src]
+     __________________________________________________________________
 
-         CIFtbx, Cyclops, cif2cif, cif2xml, cif2pdb README FIRST Information
+     CIFtbx, Cyclops, cif2cif, cif2xml, cif2pdb README FIRST Information
 
-                     CIFtbx Version 4.1.0 Release, November 2009
-              Copyright (c) 2009 Sydney R. Hall and Herbert J. Bernstein
-                         Cyclops Version 2.1.5, November 2009
-              Copyright (c) 2009 Sydney R. Hall and Herbert J. Bernstein
-                         cif2cif Version 2.0.0, November 2009
-           Copyright (c) 1997, 1998, 2000, 2005, 2009 Herbert J. Bernstein
-                      cif2xml Version 0.1.1 beta, November 2009
-                    Copyright (c) 2000, 2009 Herbert J. Bernstein
-                         cif2pdb Version 2.0.3, November 2009
-     Copyright (c) 2000, 2005, 2009 Herbert J. Bernstein and Frances C. Bernstein
+                  CIFtbx Version 4.1.1 Release, March 2024
+          Copyright © 2024 Sydney R. Hall and Herbert J. Bernstein
+                    Cyclops Version 2.1.5, November 2009
+          Copyright © 2009 Sydney R. Hall and Herbert J. Bernstein
+                     cif2cif Version 2.0.1, January 2024
+    Copyright © 1997, 1998, 2000, 2005, 2009, 2024 Herbert J. Bernstein
+                  cif2xml Version 0.1.1 beta, November 2009
+                Copyright © 2000, 2009 Herbert J. Bernstein
+                    cif2pdb Version 2.0.3, November 2009
+      Copyright © 2000, 2005, 2009 Herbert J. Bernstein and Frances C.
+                                  Bernstein
 
-                                    Sydney R. Hall
-  Crystallography Centre, University of Western Australia, Nedlands 6009, Australia
-              Phone: +61 9 380 2725, e-mail: undefinedcrystal.uwa.edu.au
+                               Sydney R. Hall
+   Crystallography Centre, University of Western Australia, Nedlands 6009,
+                                  Australia
+            Phone: +61 9 380 2725, e-mail: syd@crystal.uwa.edu.au
 
-                                 Herbert J. Bernstein
-            Bernstein+Sons, 5 Brewster Lane, Bellport, NY 11713-2803, USA
-           Phone: 1-631-286-1339, e-mail: undefinedbernstein-plus-sons.com
+                            Herbert J. Bernstein
+       Bernstein+Sons, 11 Riverside Drive, Apt 5UE, NY 10023-1317, USA
+            Phone: 1-212-877-1686, e-mail: yayahjb@gmail.com.com
 
-                                 Frances C. Bernstein
-               Bernstein+Sons, 5 Brewster, Bellport, NY 11713-2803, USA
-           Phone: 1-631-286-1339, e-mail: undefinedbernstein-plus-sons.com
+                            Frances C. Bernstein
+       Bernstein+Sons, 11 Riverside Drive, Apt 5UE, NY 10023-1317, USA
+         Phone: 1-212-877-1686, e-mail: fcb@bernstein-plus-sons.com
+     __________________________________________________________________
 
-     ----------------------------------------------------------------------------
+   YOU MAY REDISTRIBUTE THE CBFLIB PACKAGE UNDER THE TERMS OF THE [8]GPL.
 
-   YOU MAY REDISTRIBUTE THE CBFLIB PACKAGE UNDER THE TERMS OF THE GPL.
+   ALTERNATIVELY YOU MAY REDISTRIBUTE THE CBFLIB API UNDER THE TERMS OF
+   THE [9]LGPL.
+     __________________________________________________________________
 
-   ALTERNATIVELY YOU MAY REDISTRIBUTE THE CBFLIB API UNDER THE TERMS OF THE LGPL.
+   Work on these programs has been supported by grants from various
+   government agencies and the IUCr. See the documentation of the
+   individual programs for further information.
 
-     ----------------------------------------------------------------------------
-
-   Work on these programs has been supported by grants from various government
-   agencies and the IUCr. See the documentation of the individual programs for
-   further information.
-
-   CIFtbx4, Cyclops, cif2cif, cif2xml and cif2pdb are free software; you can
-   redistribute this software and/or modify this software under the terms of the
-   GNU General Public License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
-
-   Alternatively you may reditribute and/or modify the CIFtbx API (but not the
-   programs) under the terms of the GNU Lesser General Public License as published
-   by the Free Software Foundation; either version 2.1 of the License, or (at your
+   CIFtbx4, Cyclops, cif2cif, cif2xml and cif2pdb are free software; you
+   can redistribute this software and/or modify this software under the
+   terms of the GNU General Public License as published by the Free
+   Software Foundation; either version 2 of the License, or (at your
    option) any later version.
 
-   This software is distributed in the hope that it will be useful, but WITHOUT ANY
-   WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-   PARTICULAR PURPOSE. See the GNU General Public License for more details.
+   Alternatively you may reditribute and/or modify the CIFtbx API (but not
+   the programs) under the terms of the GNU Lesser General Public License
+   as published by the Free Software Foundation; either version 2.1 of the
+   License, or (at your option) any later version.
 
-   You should have received a copy of the GNU General Public License along with
-   this software; if not, write to the Free Software Foundation, Inc., 59 Temple
-   Place, Suite 330, Boston, MA 02111-1307 USA
+   This software is distributed in the hope that it will be useful, but
+   WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+   General Public License for more details.
 
-   You should have received a copy of the GNU Lesser General Public License along
-   with this software; if not, write to the Free Software Foundation, Inc., 59
-   Temple Place, Suite 330, Boston, MA 02111-1307 USA
+   You should have received a copy of the GNU General Public License along
+   with this software; if not, write to the Free Software Foundation,
+   Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-                     Before using this software, please read the
-                                        NOTICE
-                               and please read the IUCr
-                                        Policy
-              on the Use of the Crystallographic Information File (CIF)
+   You should have received a copy of the GNU Lesser General Public
+   License along with this software; if not, write to the Free Software
+   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-     ----------------------------------------------------------------------------
+                 Before using this software, please read the
+                                 [10]NOTICE
+                          and please read the IUCr
+                                 [11]Policy
+          on the Use of the Crystallographic Information File (CIF)
+     __________________________________________________________________
 
- Compiled binaries for some architectures (ix86 Linux, Sun Sparc, SGI) are available
-                                       from the
- Accessible Retired Computers in Biology (ARCiB) project at http://arcib.dowling.edu
+   CIFtbx is a tool box of Fortran routines for manipulating CIF data.
+   CYCLOPS2, cif2cif, cif2xml and cif2pdb are open source Fortran programs
+   based on CIFtbx. CYCLOPS2 checks STAR data names against data name
+   dictionaries. cif2cif copies a CIF to a CIF while checking data names
+   against dictionaries and reformating numbers with esd's to conform to
+   the rule of 19. A request list may be specified. cif2xml is a variant
+   of cif2cif which produces XML output. cif2pdb converts mmCIF files to a
+   PDB or WPDB format.
 
-     ----------------------------------------------------------------------------
+   In order to ensure continuing availability of source code and
+   documentation most programs and documents on this site are subject to
+   copyright. This does not prevent you from using the programs, from
+   making copies and changes, but prevents the creation of "closed source"
+   versions out of the open source versions. See [12]NOTICE.
 
-   CIFtbx is a tool box of Fortran routines for manipulating CIF data. CYCLOPS2,
-   cif2cif, cif2xml and cif2pdb are open source Fortran programs based on CIFtbx.
-   CYCLOPS2 checks STAR data names against data name dictionaries. cif2cif copies a
-   CIF to a CIF while checking data names against dictionaries and reformating
-   numbers with esd's to conform to the rule of 19. A request list may be
-   specified. cif2xml is a variant of cif2cif which produces XML output. cif2pdb
-   converts mmCIF files to a PDB or WPDB format.
+   Science is best served when the tools we use are fully understood by
+   those who wield those tools and by those who make used of results
+   obtained with those tools. When a scientific tool exists as software,
+   access to source code is an important element in achieving full
+   understanding of that tool. As our field evolves and new versions of
+   software are required, access to source allows us to adapt our tools
+   quickly and effectively.
 
-   In order to ensure continuing availability of source code and documentation most
-   programs and documents on this site are subject to copyright. This does not
-   prevent you from using the programs, from making copies and changes, but
-   prevents the creation of "closed source" versions out of the open source
-   versions. See NOTICE.
+   In the early days of software development, most scientific software
+   source code was freely and openly shared with a minimum of formalities.
+   These days, it appears that carefully drawn legal documents are
+   necessary to protect free access to the source code of scientific
+   software. We are all deeply indebted to [13]Richard Stallman for
+   showing us how a creative combination of copyrights and seemingly
+   restrictive licenses could give us truly unfettered freedom to use
+   programs, to read their source code and to develop new versions. The
+   [14]GNU project, and the [15]Linux project have shown that an open
+   source approach works. We use the GNU General Public License (the
+   [16]"GPL") for our programs starting with the release of CIFtbx3. Older
+   versions use the license from [17]OpenRasmol. The OpenRasMol conditions
+   for use have correctly been called "GPL-like".
 
-   Science is best served when the tools we use are fully understood by those who
-   wield those tools and by those who make used of results obtained with those
-   tools. When a scientific tool exists as software, access to source code is an
-   important element in achieving full understanding of that tool. As our field
-   evolves and new versions of software are required, access to source allows us to
-   adapt our tools quickly and effectively.
+   If you are a user of these programs, you will find that the copyrights
+   and notices ask little more of you than that you avoid mistakes by
+   others by keeping the notices with copies, display scientific integrity
+   by citing your sources properly and treating this like other shared
+   scientific developments by not inferring a warranty. If you are a
+   software developer and wish to incorporate what you find here into new
+   code, or to pick up bits and pieces and use them in another context,
+   the situation becomes more complex. Read the notices carefully. You
+   will find that they are "infectious". Whatever you make from our Open
+   Source code must itself be offered as Open Source code. In addition, in
+   order to allow users to understand what has changed and to ensure
+   orderly development you have to describe your changes.
+     __________________________________________________________________
 
-   In the early days of software development, most scientific software source code
-   was freely and openly shared with a minimum of formalities. These days, it
-   appears that carefully drawn legal documents are necessary to protect free
-   access to the source code of scientific software. We are all deeply indebted to
-   Richard Stallman for showing us how a creative combination of copyrights and
-   seemingly restrictive licenses could give us truly unfettered freedom to use
-   programs, to read their source code and to develop new versions. The GNU
-   project, and the Linux project have shown that an open source approach works. We
-   use the GNU General Public License (the "GPL") for our programs starting with
-   the release of CIFtbx3. Older versions use the license from OpenRasmol. The
-   OpenRasMol conditions for use have correctly been called "GPL-like".
+   [18]CIFtbx Primer Plus (320K in PDF format) provides documentation on
+   CIFtbx.
+     __________________________________________________________________
 
-   If you are a user of these programs, you will find that the copyrights and
-   notices ask little more of you than that you avoid mistakes by others by keeping
-   the notices with copies, display scientific integrity by citing your sources
-   properly and treating this like other shared scientific developments by not
-   inferring a warranty. If you are a software developer and wish to incorporate
-   what you find here into new code, or to pick up bits and pieces and use them in
-   another context, the situation becomes more complex. Read the notices carefully.
-   You will find that they are "infectious". Whatever you make from our Open Source
-   code must itself be offered as Open Source code. In addition, in order to allow
-   users to understand what has changed and to ensure orderly development you have
-   to describe your changes.
+   In order to get a complete release of CIFtbx4, CYCLOPS2, cif2cif,
+   cif2xml you will need either a C-shell archive or a shell archive of
+   each package. That is, you need either
 
-     ----------------------------------------------------------------------------
+   [19]ciftbx.cshar.Z, [20]cyclops.cshar.Z, [21]cif2cif.cshar.Z,
+   [22]cif2xml.cshar.Z and [23]cif2pdb.cshar.Z or
 
-   CIFtbx Primer Plus (320K in PDF format) provides documentation on CIFtbx.
+   [24]ciftbx.shar.Z, [25]cyclops.shar.Z, [26]cif2cif.shar.Z,
+   [27]cif2xml.shar.Z and [28]cif2pdb.shar.Z
 
-     ----------------------------------------------------------------------------
-
-   In order to get a complete release of CIFtbx4, CYCLOPS2, cif2cif, cif2xml you
-   will need either a C-shell archive or a shell archive of each package. That is,
-   you need either
-
-   ciftbx.cshar.Z, cyclops.cshar.Z, cif2cif.cshar.Z, cif2xml.cshar.Z and
-   cif2pdb.cshar.Z or
-
-   ciftbx.shar.Z, cyclops.shar.Z, cif2cif.shar.Z, cif2xml.shar.Z and cif2pdb.shar.Z
-
-   You do not need both sets. If you cannot decompress files at your end, then you
-   may wish to have ciftbx.cshar, cyclops.cshar, cif2cif.cshar, cif2xml.cshar and
-   cif2pdb.cshar
+   You do not need both sets. If you cannot decompress files at your end,
+   then you may wish to have [29]ciftbx.cshar, [30]cyclops.cshar,
+   [31]cif2cif.cshar, [32]cif2xml.cshar and [33]cif2pdb.cshar
 
    In order to test the programs, you will need at least the following CIF
-   dictionaries: cif_core.dic.Z cif_mm.dic.Z and cif_mm_pdbx.dic.Z Check the IUCr
-   web page at http://www.iucr.org for latest versions.
+   dictionaries: [34]cif_core.dic.Z [35]cif_mm.dic.Z and
+   [36]cif_mm_pdbx.dic.Z Check the IUCr web page at
+   [37]http://www.iucr.org for latest versions.
 
    The directory structure within which you will work is
 
- 
-                                  top level directory
-                                  -------------------
-                                          |
-                                          |
-      --------------------------------------------------------------------------
-      |              |             |              |              |             |
- dictionaries   ciftbx.src     cyclops.src   cif2cif.src   cif2xml.src   cif2pdb.src
- ------------   ----------     -----------   -----------   -----------   -----------
+                                 top level directory
+                                 -------------------
+                                         |
+                                         |
+     --------------------------------------------------------------------------
+     |              |             |              |              |             |
+[38]dictionaries   [39]ciftbx.src     [40]cyclops.src   [41]cif2cif.src   [42]ci
+f2xml.src   [43]cif2pdb.src
+------------   ----------     -----------   -----------   -----------   --------
+---
 
-   In order to save space and transmission time, it is possible that each archive
-   will be compressed before you pick it up. Place the archives in the top level
-   directory and the dictionaries into the 'dictionaries' directory. Be sure to
-   uncompress the archives before trying to unpack them. If you are on a UNIX
-   system, leave the dictionaries compressed.
+   In order to save space and transmission time, it is possible that each
+   archive will be compressed before you pick it up. Place the archives in
+   the top level directory and the dictionaries into the 'dictionaries'
+   directory. Be sure to uncompress the archives before trying to unpack
+   them. If you are on a UNIX system, leave the dictionaries compressed.
 
-   Each archive contains a detailed README file for the package involved. Please do
-   read the README. The general approach is:
+   Each archive contains a detailed README file for the package involved.
+   Please do read the README. The general approach is:
 
    1. unpack the archive
 
@@ -167,25 +173,76 @@
 
    3. make tests
 
-   Since all this code depends on CIFtbx, you must install CIFtbx before installing
-   CYCLOPS2, cif2cif, cif2xml or cif2pdb. If you don't need CYCLOPS2 or cif2cif or
-   cif2xml or cif2pdb, you may leave them out, but they are good examples of
-   working CIFtbx applications, so we suggest taking a look at them if you are new
-   to CIFtbx.
+   Since all this code depends on CIFtbx, you must install CIFtbx before
+   installing CYCLOPS2, cif2cif, cif2xml or cif2pdb. If you don't need
+   CYCLOPS2 or cif2cif or cif2xml or cif2pdb, you may leave them out, but
+   they are good examples of working CIFtbx applications, so we suggest
+   taking a look at them if you are new to CIFtbx.
+     __________________________________________________________________
 
-     ----------------------------------------------------------------------------
 
-    For further information contact Syd Hall ( undefinedcrystal.uwa.edu.au ) or
-    Herbert Bernstein ( undefinedbernstein-plus-sons.com )
+    For further information contact Syd Hall ( syd@crystal.uwa.edu.au )
+    or Herbert Bernstein ( yayahjb@gmail.com )
+     __________________________________________________________________
 
-     ----------------------------------------------------------------------------
+        The CIFtbx site is provided courtesy of [44]Bernstein + Sons,
+                      Information Systems Consultants.
 
-    The CIFtbx site is provided courtesy of Bernstein + Sons, Information Systems
-                                     Consultants.
-   Portions (c) Copyright Herbert J. Bernstein 2000, 2005, 2009. All Rights
-   Reserved. Other copyrights apply. License to copy most pages on this site will
-   be granted if certain open source and other conditions are adhered to. See
-   http://www.bernstein-plus-sons.com/software/ciftbx_4.1.0/NOTICE.html. To request
-   permission to copy any elements from our pages, or to send comments about our
-   pages, please write to webmaster@bernstein-plus-sons.co m. If you establish a
-   link to one of our pages, please let us know! Updated 30 November 2009
+   Portions © Copyright Herbert J. Bernstein 2000, 2005, 2009, 2024. All
+   Rights Reserved. Other copyrights apply. License to copy most pages on
+   this site will be granted if certain open source and other conditions
+   are adhered to. See
+   [45]http://www.bernstein-plus-sons.com/software/ciftbx_4.1.0/NOTICE.htm
+   l. To request permission to copy any elements from our pages, or to
+   send comments about our pages, please write to
+   [46]webmaster@bernstein-plus-sons.co m. If you establish a link to one
+   of our pages, please let us know! Updated 14 August 2024
+
+References
+
+   1. http://www.iucr.org/iucr-top/welcome.html
+   2. http://www.iucr.org/iucr-top/cif/home.html
+   3. file:///home/yaya/cbf_imgcif_dictionary/ciftbx/ciftbx.src/README.ciftbx.html
+   4. file:///home/yaya/cbf_imgcif_dictionary/ciftbx/cyclops.src/README.cyclops.html
+   5. file:///home/yaya/cbf_imgcif_dictionary/ciftbx/cif2cif.src/README.cif2cif.html
+   6. file:///home/yaya/cbf_imgcif_dictionary/ciftbx/cif2xml.src/README.cif2xml.html
+   7. file:///home/yaya/cbf_imgcif_dictionary/ciftbx/cif2pdb.src/README.cif2pdb.html
+   8. file:///home/yaya/cbf_imgcif_dictionary/ciftbx/gpl.txt
+   9. file:///home/yaya/cbf_imgcif_dictionary/ciftbx/lgpl.txt
+  10. file:///home/yaya/cbf_imgcif_dictionary/ciftbx/NOTICE.html
+  11. file:///home/yaya/cbf_imgcif_dictionary/ciftbx/IUCR_POLICY.html
+  12. file:///home/yaya/cbf_imgcif_dictionary/ciftbx/NOTICE.html
+  13. http://www.stallman.org/
+  14. http://www.gnu.org/
+  15. http://www.linux.org/
+  16. http://www.gnu.org/copyleft/gpl.html
+  17. http://www.openrasmol.org/
+  18. file:///home/yaya/cbf_imgcif_dictionary/ciftbx/CIFtbx_Primer.pdf
+  19. file:///home/yaya/cbf_imgcif_dictionary/ciftbx/ciftbx.cshar.Z
+  20. file:///home/yaya/cbf_imgcif_dictionary/ciftbx/cyclops.cshar.Z
+  21. file:///home/yaya/cbf_imgcif_dictionary/ciftbx/cif2cif.cshar.Z
+  22. file:///home/yaya/cbf_imgcif_dictionary/ciftbx/cif2xml.cshar.Z
+  23. file:///home/yaya/cbf_imgcif_dictionary/ciftbx/cif2pdb.cshar.Z
+  24. file:///home/yaya/cbf_imgcif_dictionary/ciftbx/ciftbx.shar.Z
+  25. file:///home/yaya/cbf_imgcif_dictionary/ciftbx/cyclops.shar.Z
+  26. file:///home/yaya/cbf_imgcif_dictionary/ciftbx/cif2cif.shar.Z
+  27. file:///home/yaya/cbf_imgcif_dictionary/ciftbx/cif2xml.shar.Z
+  28. file:///home/yaya/cbf_imgcif_dictionary/ciftbx/cif2pdb.shar.Z
+  29. file:///cgi-bin/yaya/decomp.cgi/NDB/mmcif/software/ciftbx_4.1.0/ciftbx.cshar
+  30. file:///cgi-bin/yaya/decomp.cgi/NDB/mmcif/software/ciftbx_4.1.0/cyclops.cshar
+  31. file:///cgi-bin/yaya/decomp.cgi/NDB/mmcif/software/ciftbx_4.1.0/cif2cif.cshar
+  32. file:///cgi-bin/yaya/decomp.cgi/NDB/mmcif/software/ciftbx_4.1.0/cif2xml.cshar
+  33. file:///cgi-bin/yaya/decomp.cgi/NDB/mmcif/software/ciftbx_4.1.0/cif2pdb.cshar
+  34. file:///home/yaya/cbf_imgcif_dictionary/ciftbx/dictionaries/cif_core.dic.Z
+  35. file:///home/yaya/cbf_imgcif_dictionary/ciftbx/dictionaries/cif_mm.dic.Z
+  36. file:///home/yaya/cbf_imgcif_dictionary/ciftbx/dictionaries/cif_mm_pdbx.dic.Z
+  37. http://www.iucr.org/
+  38. file:///home/yaya/cbf_imgcif_dictionary/ciftbx/dictionaries
+  39. file:///home/yaya/cbf_imgcif_dictionary/ciftbx/ciftbx.src
+  40. file:///home/yaya/cbf_imgcif_dictionary/ciftbx/cyclops.src
+  41. file:///home/yaya/cbf_imgcif_dictionary/ciftbx/cif2cif.src
+  42. file:///home/yaya/cbf_imgcif_dictionary/ciftbx/cif2xml.src
+  43. file:///home/yaya/cbf_imgcif_dictionary/ciftbx/cif2pdb.src
+  44. http://www.bernstein-plus-sons.com/
+  45. http://www.bernstein-plus-sons.com/software/ciftbx_4.1.0/NOTICE.html
+  46. mailto:webmaster@bernstein-plus-sons.com

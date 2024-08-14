@@ -36,14 +36,14 @@ ALT="[cif2pdb.src]"></A>
 CIFtbx, Cyclops, cif2cif, cif2xml, cif2pdb README FIRST Information
 </H2>
 <center>
-<b>CIFtbx Version 4.1.0 Release, November 2009</b><br />
-<font size=-1>Copyright &#169; 2009
+<b>CIFtbx Version 4.1.1 Release, March 2024</b><br />
+<font size=-1>Copyright &#169; 2024
 Sydney R. Hall and Herbert J. Bernstein</font><br />
 <b>Cyclops Version 2.1.5, November 2009</b><br />
 <font size=-1>Copyright &#169; 2009 Sydney R. Hall and Herbert J.
 Bernstein</font><br />
-<b>cif2cif Version 2.0.0, November 2009</b><br />
-<font size=-1>Copyright &#169; 1997, 1998, 2000, 2005, 2009 Herbert J. Bernstein</font><br />
+<b>cif2cif Version 2.0.1, January 2024</b><br />
+<font size=-1>Copyright &#169; 1997, 1998, 2000, 2005, 2009, 2024 Herbert J. Bernstein</font><br />
 <b>cif2xml Version 0.1.1 beta, November 2009</b><br />
 <font size=-1>Copyright &#169; 2000, 2009 Herbert J. Bernstein</font><br />
 <b>cif2pdb Version 2.0.3, November 2009</b><br />
@@ -72,26 +72,26 @@ syd&#64;crystal.uwa&#46;edu.au
 <P>
 <CENTER>
 Herbert J. Bernstein<BR>
-Bernstein+Sons, 5 Brewster Lane, Bellport, NY 11713-2803, USA<BR>
-Phone: 1-631-286-1339, e-mail: 
+Bernstein+Sons, 11 Riverside Drive, Apt 5UE, NY 10023-1317, USA<BR>
+Phone: 1-212-877-1686, e-mail: 
 <script language="javascript" type="text/javascript">
 <!-- 
-      var name = "yaya@";
-      var domain = "bernstein-plus-sons";
+      var name = "yayahjb@";
+      var domain = "gmail";
       var domext = ".com";
       document.write ("<a href=\"mailto:" + name + domain + domext + "\">" + name + domain + domext+"</a>"); 
 // -->
 </script>
 <noscript>
-yaya&#64;bernstein-plus-sons&#46;com
+yayahjb&#64;gmail.com&#46;com
 </noscript>
 <BR>
 </CENTER>
 <P>
 <CENTER>
 Frances C. Bernstein<BR>
-Bernstein+Sons, 5 Brewster, Bellport, NY 11713-2803, USA<BR>
-Phone: 1-631-286-1339, e-mail: 
+Bernstein+Sons, 11 Riverside Drive, Apt 5UE, NY 10023-1317, USA<BR>
+Phone: 1-212-877-1686, e-mail: 
 <script language="javascript" type="text/javascript">
 <!-- 
       var name = "fcb@";
@@ -154,12 +154,6 @@ ALT="Policy"></A><BR>
 </CENTER>
 </B> 
 <HR>
-<h4 align="center">Compiled binaries for some architectures (ix86 Linux, 
-Sun Sparc, SGI)
-are available from the <br><a href="http://arcib.dowling.edu">Accessible 
-Retired 
-Computers in Biology (ARCiB) project at http://arcib.dowling.edu</a></h4>
-<hr>
 <P>
 CIFtbx is a tool box of Fortran routines for manipulating CIF data.
 CYCLOPS2, cif2cif, cif2xml and cif2pdb are open source Fortran programs based on
@@ -321,14 +315,14 @@ or Herbert Bernstein
 (
 <script language="javascript" type="text/javascript">
 <!-- 
-      var name = "yaya@";
-      var domain = "bernstein-plus-sons";
+      var name = "yayahjb@";
+      var domain = "gmail";
       var domext = ".com";
       document.write ("<a href=\"mailto:" + name + domain + domext + "\">" + name + domain + domext+"</a>"); 
 // -->
 </script>
 <noscript>
-yaya&#64;bernstein-plus-sons&#46;com
+yayahjb&#64;gmail&#46;com
 </noscript>
 )
 
@@ -341,7 +335,7 @@ href="http://www.bernstein-plus-sons.com">Bernstein + Sons,</a>
 Information
 Systems Consultants.
 </center>
-Portions &#169 Copyright Herbert J. Bernstein 2000, 2005, 2009.  All Rights
+Portions &#169 Copyright Herbert J. Bernstein 2000, 2005, 2009, 2024.  All Rights
 Reserved.  Other
 copyrights apply.  License to copy most pages on this site will be
 granted if certain open source and other conditions are adhered to.
@@ -355,7 +349,7 @@ comments about our pages, please write to <a
 href="mailto:webmaster@bernstein-plus-sons.com">webmaster@bernstein-plus-sons.co
 m</a>.
 If you establish a link to one of our pages,
-please let us know!  <i>Updated 30 November 2009</i>
+please let us know!  <i>Updated 14 August 2024</i>
 </FONT>
 
 </BODY>

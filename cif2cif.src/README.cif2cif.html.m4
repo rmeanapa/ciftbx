@@ -1,6 +1,6 @@
 <!doctype html public "-//IETF//DTD HTML 2.0//EN">
 <HTML>
-define(vnumb,`4.1.0')
+define(vnumb,`4.1.1')
 define(concat,`$1'`$2')
 ifelse(DECOMP(),`NODECOMP',
 `define(`XXPATH',)',
@@ -26,7 +26,7 @@ ALT="[ciftbx.src]"></A>
 </CENTER>
 <H2 ALIGN=CENTER>README.cif2cif</H2>
 <H3 ALIGN=CENTER>
-Information for cif2cif 2.0.0, 29 November 2009<BR>
+Information for cif2cif 2.0.1, 22 January 2024<BR>
 </H3>
 <HR>
 <H3 ALIGN=CENTER>
@@ -42,8 +42,8 @@ Before using this software, please read the <BR>
      \|/        \|/ 
     -- --&gt;&gt;&gt;&gt;&gt;&gt;-- --               c i f 2 c i f  ...... CIF COPY PROGRAM
      /|\        /|\
-    / | \      / | \                          Version 2.0.0
-                                            29 November 2009
+    / | \      / | \                          Version 2.0.1
+                                            22 January 2024
 
 
  cif2cif  is a fortran program using CIFtbx2 to copy a CIF on standard
@@ -55,11 +55,11 @@ Before using this software, please read the <BR>
            cif2cif
                   by
 
-                  Copyright &#169; 1997, 1998, 2000, 2005, 2009
-                  Herbert J. Bernstein (yaya@bernstein-plus-sons.com)
+                  Copyright &#169; 1997, 1998, 2000, 2005, 2009, 2024
+                  Herbert J. Bernstein (yayahjb@gmail.com)
                   Bernstein + Sons
-                  5 Brewster Lane
-                  Bellport, NY 11713, U.S.A.
+                  11 Riverside Drive Apt 5UE
+                  New York, NY 10023-1317, U.S.A.
 
            based on suggestions by
 
@@ -143,10 +143,10 @@ orderly development you have to describe your changes.
  In a unix-like environment, the program is run as:
 <PRE>
 			  
-      cif2cif [-i input_cif] [-o output_cif] [-d dictionary] [-c catck] \
-         [-a aliaso_] [-e esdlim_] [-f command_file] [-g guess_type] \
-         [-m maxline] [-p prefix] [-q request_list] [-t tabl_] \
-         [-u unfold] [-w wrap] [-B read|cif2read]
+      cif2cif [-i input_cif] [-o output_cif] [-d dictionary] [-a aliaso_] \
+         [-c catck] [-e esdlim_] [-f command_file] [-g guess_type] \
+         [-h htmlt] [-m maxline] [-n numasst] [-p prefix] \
+         [-q request_list] [-t tabl_] [-u unfold] [-w wrap] [-B read|cif2read] \
          [input_cif [output_cif [dictionary [request_list]]]]
       where:
                input_cif defaults to $CIF2CIF_INPUT_CIF or stdin
@@ -160,7 +160,9 @@ orderly development you have to describe your changes.
                -c has values of t or 1 or y vs. f or 0 or n,
                -e has integer values (e.g. 9, 19(default) or 29),
                -g has values of t, 1 or y vs. f, 0 or n (default t),
+               -h has values of t or 1 or y vs. f or 0 or n, default f
                -m has values from 80 to 2048 for a maximum line width
+               -n has values of t or 1 or y vs. f or 0 or n, default f
                -p has a string value in which "_" is replaced by blank,
                -t has values of t, 1 or y vs. f, 0 or n (default f),
                -u has values of t, 1 or y vs. f, 0 or n (default f),
@@ -191,7 +193,7 @@ version of cif2cif.
 <PRE>   
      *** ========================================================== ***
      *** ========================================================== ***
-     *** ==&gt;&gt;&gt; You must have ciftbx version 3.0.0 or greater  &lt;&lt;&lt;== ***
+     *** ==&gt;&gt;&gt; You must have ciftbx version 4.0.1 or greater  &lt;&lt;&lt;== ***
      *** ==&gt;&gt;&gt; installed in a directory named ciftbx.src.     &lt;&lt;&lt;== ***
      *** ==&gt;&gt;&gt; The scripts mkdecompln and rmdecompln, which   &lt;&lt;&lt;== ***
      *** ==&gt;&gt;&gt; come with ciftbx, must be installed in the     &lt;&lt;&lt;== ***
@@ -426,6 +428,9 @@ TEST files
 CHANGES
 </H3>
 <p>
+ Version 2.0.1 (22 January 2024) adds support for optional
+ html output.
+<p>
  Version 2.0.0 (29 November 2009) uses CIFtbx 4 support for
  the DDLm bracketed constructs to allow DDLm files to be
  copied when -B read is specified.  -B cif2read is provided
@@ -500,7 +505,7 @@ cif2cif does not copy white space exactly, and will reformat
 some data values.  Always compare the original to the output.
 <P>
 <HR>
-Updated 30 November 2009<P>
+Updated 14 August 2024<P>
 <address>
 <A HREF="mailto:yaya@bernstein-plus-sons.com">yaya@bernstein-plus-sons.com</A>
 </BODY>

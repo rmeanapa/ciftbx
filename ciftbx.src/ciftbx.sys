@@ -45,8 +45,6 @@ C                                 Number of items in a loop
          PARAMETER (NUMITEM=50)
 C                                 Derived value for loop arrays
          PARAMETER (NUMIP1=NUMITEM+1)
-
-
 C                                 Derived master index values per page
          PARAMETER (NUMMIP=(NUMCPP/NUMCIP)-1)
 C                                 Derived sub index values per page
@@ -74,6 +72,11 @@ C                                 Stack of actual bracket characters on read
          character*1 brackstack(MAXDEPTH)
 C                                 Stack of actual bracket characters on write
          character*1 pbrackstack(MAXDEPTH)
+C                                 Hash table of data blocks
+         integer dathtab(NUMHASH)
+C                                 Chain list of data blocks
+         integer datlst(NUMBLOCK)
+
 C                                 Stack of actual bracket character pos on read
          integer posbrkstk(MAXDEPTH)
 C                                 Stack of actual bracket character pos on write
@@ -82,6 +85,10 @@ C                                 Stack of delimiters before current item on rea
          character*1 delimstack(MAXDEPTH+1)
 C                                 Stack of delimiters before current item on write
          character*1 pdelimstack(MAXDEPTH+1)
+C                                 Length of chain list of data blocks
+         integer ldatlst
+C                                 Number of chain list of data blocks
+         integer ndatlst
 C                                 Stack of positions of delimiters on read
          integer posdlmstk(MAXDEPTH+1)
 C                                 Stack of record number of delimiters on read
@@ -140,6 +147,8 @@ C                                 Format for double precision esd's
          character*13 edpfmt
 C                                 Category names in use
          character*(NUMCHAR) cname(NUMBLOCK)
+C                                 Data block names
+         character*(NUMCHAR) datnam(NUMBLOCK)
 C                                 Dictionary category names
          character*(NUMCHAR) dcname(NUMDICT)
 C                                 Dictionary extended types
@@ -393,7 +402,7 @@ C                                              1 open range
 C                                   ivtsbp -  string buffer pointer for value
          integer   ivtsbp(NUMIVALS)
 C
-         common/tbxc/ buffer,dname,dtype,tab,dicnam,dictag,dictyp
+         common/tbxc/ buffer,dname,dtype,tab,dicnam,dictag,dictyp,datnam
 
          common/tbxc1/ dictfl,nametb
          
@@ -448,6 +457,7 @@ C
      *                ivtsbp,dmcode
          common/tbxi4/ itabp
          common/tbxi5/ loopch
+         common/tbxi6/ dathtab,datlst,ldatlst
 
 C
          common/tbxdp/numbtb,sdevtb,dpprc,dpmin

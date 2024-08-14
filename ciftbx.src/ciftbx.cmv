@@ -1,5 +1,5 @@
 C
-C >>>>>> Common declararations 'ciftbx.cmn' (variables)
+C >>>>>> Common declararations 'ciftbx.cmv' (variables)
 C
 C        These declarations must be included in ciftbx user
 C        applications.
@@ -10,7 +10,7 @@ C
 C                                 Maximum number of characters in
 C                                 data names
          integer NUMCHAR
-         PARAMETER (NUMCHAR=75)
+         PARAMETER (NUMCHAR=80)
 C                                 Maximum number of characters in
 C                                 a line
          integer MAXBUF
@@ -28,18 +28,18 @@ C                                 Clip first character of text on input (true/fa
          logical   clipt_
 C                                 Found decimal point on numeric input (true/false)
          logical   decp_
-C                                 Value validated
-         logical   valid_
 C                                 Folded text field (true/false)
          logical   fold_
-C                                 Loop active flag (true/false)
-         logical   loop_
-C                                 Found leading zero on numeric input (true/false)
-         logical   lzero_
 C                                 GlobaL block active flag (true/false)
          logical   glob_
 C                                 Global block output flag (true/false)
          logical   globo_
+C                                 Log data name flag (true/false)
+         logical   logdnam_
+C                                 Loop active flag (true/false)
+         logical   loop_
+C                                 Found leading zero on numeric input (true/false)
+         logical   lzero_
 C                                 No blank string flag (true/false)
          logical   nblank_
 C                                 No blank output string flag (true/false)
@@ -61,6 +61,8 @@ C                                 Clip first character of text on output (true/f
          logical   pclipt_
 C                                 Force decimal point on output (true/false)
          logical   pdecp_
+C                                 Make pfile_ output html rather than text
+         logical   phtml_
 C                                 Force leading zero on output (true/false)
          logical   plzero_
 C                                 Output tab expansion flag (true/false)
@@ -77,6 +79,8 @@ C                                 Text active flag (true/false)
          logical   text_                                 
 C                                 Unfold long input lines (true/false)
          logical   unfold_
+C                                 Value validated
+         logical   valid_
 C                                 Support xml style output
          logical   xmlout_
 C                                 Support long xml names
@@ -175,4 +179,4 @@ C
      *     tabl_,tabx_,ptabx_,nblank_,nblanko_,glob_,globo_,decp_,
      *     pdecp_,lzero_,plzero_,append_,xmlout_,xmlong_,unfold_,
      *     fold_,valid_,clipt_,pclipt_,rdbrc_,rdbkt_,rdprn_,rdtq_,
-     *     rdrcqt_, rdcolon_
+     *     rdrcqt_,rdcolon_,logdnam_,phtml_

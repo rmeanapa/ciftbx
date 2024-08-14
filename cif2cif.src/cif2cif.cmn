@@ -1,10 +1,10 @@
 C
-C     cif2cif.cmn -- common blocks for cif2pdb
+C     cif2cif.cmn -- common blocks for cif2cif
 C
 C
-C      Copyright (C) 2000
+C      Copyright (C) 2024
 C      Herbert J. Bernstein, Bernstein+Sons, Bellport, NY 11713
-C      yaya@bernstein-plus-sons.com
+C      yayahjb@gmail.com
 C
 C      This is a copyrighted open source program subject to the license
 C      conditions in the file NOTICE.html
@@ -16,7 +16,7 @@ C      ciftbx.sys
 C
        integer NUMREQ, NUMCHRR
        PARAMETER (NUMREQ = 3200)
-       PARAMETER (NUMCHRR = 54)
+       PARAMETER (NUMCHRR = 80)
 C
 C      inpcif -- name of input cif dataset
 C      outcif -- name of output cif
@@ -29,7 +29,7 @@ C
        integer linpcif,lckdict,loutcif,lreqlst,
      *  iuninp,iunout,iundac,iunerr,iunrql,numarg,nreqnam,
      *  irord(NUMREQ)
-       logical result,guesst
+       logical result,guesst,htmlt,numasst
 C
        common /cif2cif_cfs/inpcif,ckdict,outcif,reqlst,
      *  cstr,cats,reqnam
@@ -37,6 +37,6 @@ C
      *  iuninp,iunout,iundac,iunerr,iunrql,numarg,nreqnam,
      *  irord
 
-       common /cif2cif_cfl/result,guesst
+       common /cif2cif_cfl/result,guesst,htmlt,numasst
 
 

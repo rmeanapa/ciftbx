@@ -20,8 +20,8 @@ ALT="[cif2cif.src]"></A>
 </CENTER>
 <H2 ALIGN=CENTER>README.ciftbx</H2>
 <H3 ALIGN=CENTER>
-Information for CIFtbx 4.1.0 29 November 2009<BR>
-Updated 6 December 2009
+Information for CIFtbx 4.1.1 08 March 2024 2009<BR>
+Updated 14 August 2024
 </H3>
 <HR>
 <H3 ALIGN=CENTER>
@@ -41,10 +41,10 @@ Before using this software, please read the <BR>
                   |#####|_________________________________________________
                  ||#####|                 ___________________             |
         __/|_____||#####|________________|&&&&&&&&&&&&&&&&&&&||           |
-&lt;\\\\\\\\_ |_____________________________|&&& 29 Nov 2009 &&&||           |
+&lt;\\\\\\\\_ |_____________________________|&&& 08 Mar 2024 &&&||           |
           \|     ||#####|________________|&&&&&&&&&&&&&&&&&&&||___________|
                   |#####|
-                  |#####|                   Version 4.1.0
+                  |#####|                   Version 4.1.1
                   |#####|
                  /#######\ 
                 |#########|
@@ -64,10 +64,10 @@ Before using this software, please read the <BR>
                      ||
                      ||  Herbert J. Bernstein (yaya@bernstein-plus-sons.com)
                      ||  Bernstein + Sons
-                     ||  5 Brewster Lane
-                     ||  Bellport, NY 11713, U.S.A.
+                     ||  11 Riverside Drive, Apt 5UE
+                     ||  New York, NY 10023-1317, U.S.A.
                      ||
- The latest program source and information is available from:
+ The latest program source and information is available on GitHub as well as from:
                      ||
  Em: syd@crystal.uwa.edu.au       ,-_|\      Sydney R. Hall
  sendcif@crystal.uwa.edu.au      /     \     Crystallography Centre
@@ -90,18 +90,22 @@ _____________________||_____________________________________________________
  Extended Tool Box for Manipulating CIFs,&quot; J. Appl. Cryst. (1996). 29, 
  598-603.) 
  The revisions for versions 3 and 4 were done by Herbert J. Bernstein, work
- funded in part by the Internationa Union of Crsytallography
+ funded in part by the Internationa Union of Crystallography
 <hr>
 <P>
     This file contains the complete set of source decks and test data
     needed to implement and test the CIFtbx Tool Box routines, Version
-    4.1.0
+    4.1.1
 <P>
     This is a release of version 4 of the CIF Tool Box with the
     necessary revisions to handle bracketed the bracketed constructs
     used in DDLm, building on the release 3 changes to handle the long 
     lines of the CIF 1.1 standard and use either DDL 1.4 or DDL 2.1.0 
-    Dictionaries.  It has been tried against cif_core.dic (version 2.0.1) 
+    Dictionaries.  The change from version 4.1.0 to 4.1.1 is the addition
+    of support for html output from cif2cif to improve automation of 
+    the release of an updated CBF dictionary.
+
+    It has been tried against cif_core.dic (version 2.0.1) 
     and cif_mm.dic (version of 1.0.0).  As of this writing, CIF 2 is still
     being defined and is subject to change.  As CIF 2 and DDLm change,
     further releases of CIFtbx in this series will be made.  Use this
@@ -446,7 +450,8 @@ _____________________||_____________________________________________________
        CHANGES FROM CIFTBX3 TO CIFTBX4
 </H3>
 <P>
-       The 4.1.0 release is the first stable release of CIFtbx 4.
+       The 4.1.0 release was the first stable release of CIFtbx 4.
+       The 4.1.1 release added support for html output from cif2cif.
        The major changes in CIFtbx4 over CIFtbx 3 have been to
        support reading and writing the bracketed constructs
        of DDLm.  These are optionally supported in reading any cif 
@@ -469,7 +474,7 @@ _____________________||_____________________________________________________
        not parsing a bracketed construct.  If it is non-zero then
        additional calls to test_ or char_ or numb_ or numd_ will be
        needed to see the next element.  If depth_ returns to 0 after
-       such a call, then there really was no next element.
+       such a call, then there really was no next element.≈
        See the cif2cif packages for detailed sample code of how to
        read and write bracketed constructs.
        
@@ -486,8 +491,13 @@ _____________________||_____________________________________________________
            New variables have been added:
 <p>
 <PRE>
+        Flag to log data names in ocif_ in a hash table (true/false)
+               default .false. added in 4.1.1
+               logical logdnam_
         Flag to clip first character of text on input (true/false)
                logical   clipt_
+        Flag to write pfile_ output file as HTML (true/false)
+               default .false. added in  4.1.1
         Flag to accept square brackets []
                logical   rdbkt_
         Flag tp accept curly braces    {}
@@ -525,10 +535,14 @@ _____________________||_____________________________________________________
 <p>
 <PRE>
                 new name            former name
+                hash_lower          **new
+                                      return lower base version of a string
                 tbxxbtab            **new
                 tbxxcln             xmncln
                 tbxxcmsg            cifmsg
                 tbxxdck             dcheck
+                tbxxdhsh            **new 
+                                      support data name hash tables (added in  4.1.1)
                 tbxxebkt            **new
                 tbxxelp             eoloop
                 tbxxeot             eotext
@@ -539,6 +553,8 @@ _____________________||_____________________________________________________
                 tbxxnewd            newdent
                 tbxxnupc            nupcase
                 tbxxoldd            olddent
+                tbxxphtm            **new 
+                                      support html output strings (added in 4.1.1)
                 tbxxpnum            putnum
                 tbxxpstr            putstr
                 tbxxpxct            putxc
@@ -624,7 +640,7 @@ _____________________||_____________________________________________________
        In addition to &quot;NUMHASH&quot;, the other size-control parameters in
        'ciftbx.sys' are:
 <PRE>
-       NUMCHAR -- the maximum number of characters in a name (default 48)
+       NUMCHAR -- the maximum number of characters in a name (default 80)
        NUMDICT -- the maximum number of names in all dictionaries
                   (default 2500)  [Note:Increased to 3200 in Release 2.5.4]
        NUMBLOCK - the maximum number of names in a data block (default 500)
@@ -1015,15 +1031,12 @@ _____________________||_____________________________________________________
        which might be confused with a number.
 <P>
 <HR>
-Updated 6 December 2009<P>
+Updated 14 August 2024<P>
 <address>
 For further information contact Syd Hall 
   <A HREF="mailto:syd@crystal.uwa.edu.au"> (syd@crystal.uwa.edu.au) </A>
-or Herbert Bernstein <A HREF="mailto:yaya@bernstein-plus-sons.com"> 
-     (yaya@bernstein-plus-sons.com) </A> or Herbert Bernstein's 
-<A HREF=
-  "http://www.bernstein-plus-sons.com/software/ciftbx/ciftbx_next_test_version">
-     latest sources </A>.
+or Herbert Bernstein <A HREF="mailto:yayahjb@gmail.com"> 
+     (yaya@bernstein-plus-sons.com) </A> 
 </address>
 </BODY>
 </HTML>

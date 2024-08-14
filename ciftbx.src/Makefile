@@ -33,7 +33,8 @@ SHELL		= /bin/sh
 #
 # provide flags for fortran compilations here
 FC		?=  gfortran
-FFLAGS		?= -g -O2 -fbounds-check -Wall -Wno-unused-variable  -Wuninitialized
+#FFLAGS		?= -g -O2 -fbounds-check -Wall -Wno-unused-variable  -Wuninitialized
+FFLAGS          ?= -g -O0 -fbounds-check -Wall -Wno-unused-variable  -Wuninitialized
 LDFLAGS		?= -lgfortran -lm
 #
 # provide the name for the command timer here
@@ -41,7 +42,7 @@ SHELL		= bash
 TIMER		= time
 
 
-all:		ciftbx.o hash_funcs.o tbx_ex tbx_exm tbx_ex3 testrle postshar
+all:		ciftbx.o hash_funcs.o tbx_ex tbx_exm tbx_ex3 tbx_exh testrle postshar
 
 ciftbx.o:	ciftbx.f ciftbx.sys ciftbx.cmv clearfp.f
 		$(FC) $(FFLAGS) -c ciftbx.f
@@ -60,6 +61,10 @@ tbx_ex3.o:      tbx_ex3.f ciftbx.cmn ciftbx.f ciftbx.cmf ciftbx.cmf \
                 hash_funcs.f clearfp.f
 		$(FC) $(FFLAGS) -c tbx_ex3.f
 
+tbx_exh.o:      tbx_exh.f ciftbx.cmn ciftbx.f ciftbx.cmf ciftbx.cmf \
+                hash_funcs.f clearfp.f
+		$(FC) $(FFLAGS) -c tbx_exh.f
+
 testrle.o:      testrle.f ciftbx.cmn ciftbx.f ciftbx.cmf ciftbx.cmf \
                 hash_funcs.f clearfp.f
 		$(FC) $(FFLAGS) -c testrle.f
@@ -74,6 +79,9 @@ tbx_ex:		tbx_ex.o
 tbx_ex3:	tbx_ex3.o
 		$(FC) $(FFLAGS) tbx_ex3.o  -o tbx_ex3 $(LDFLAGS)
 
+tbx_exh:	tbx_exh.o
+		$(FC) $(FFLAGS) tbx_exh.o  -o tbx_exh $(LDFLAGS)
+
 testrle:	testrle.o
 		$(FC) $(FFLAGS) testrle.o  -o testrle $(LDFLAGS)
 
@@ -81,9 +89,12 @@ clean:
 		-rm -f *.o
 		-rm -f tbx_exm
 		-rm -f tbx_ex
+		-rm -f tbx_ex3
+		-rm -f tbx_exh
 		-rm -f testrle
 		-rm -f *.lst
 		-rm -f *.new
+		-rm -f *.htm
 		-rm -f *.diff
 		-rm -f *.BAK
 		-rm -f *.bak
@@ -115,7 +126,7 @@ shars:		MANIFEST Makefile README.ciftbx \
 testrle.prt:
 		touch testrle.prt
 
-tests:		tbx_ex tbx_exm tbx_ex3 \
+tests:		tbx_ex tbx_exm tbx_ex3 tbx_exh \
 		  cif_mm.dic cif_core.dic cif_expanded.dic \
 		  test.prt test.out mtest.prt mtest.out mtest.xml \
 		  testrle testrle.prt
@@ -126,6 +137,7 @@ tests:		tbx_ex tbx_exm tbx_ex3 \
 		$(TIMER) ./tbx_ex > test.lst
 		$(TIMER) ./tbx_exm > mtest.lst
 		$(TIMER) ./tbx_ex3 > m3test.lst
+		$(TIMER) ./tbx_exh > htmltest.lst
 		$(TIMER) ./testrle < cif_core.dic > testrle.lst
 		-diff -b -c test.prt test.lst > test_prt_lst.diff
 		-diff -b -c mtest.prt mtest.lst > mtest_prt_lst.diff

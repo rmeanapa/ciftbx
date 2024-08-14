@@ -223,8 +223,9 @@ C
          f2 = numb_('_atom_site_fract_x',  xf(nsite), sx)
          f2 = numb_('_atom_site_fract_y',  yf(nsite), sy)
          f2 = numb_('_atom_site_fract_z',  zf(nsite), sz)
-         do 250 i=1,6
-250      uij(nsite,i)=0.0
+         do i=1,6
+           uij(nsite,i)=0.0
+         enddo
          if(loop_) goto 240
 C
 C....... Read the Uij loop and store in the site list
@@ -342,20 +343,22 @@ C
          f1 = ploop_('_atom_type.symbol')
          f1 = ploop_('_atom_type.oxidation_number')
          f1 = ploop_('_atom_type.number_in_cell')
-         do 470 i=1,10
-         f1 = pchar_(' ',alpha(1:i))
-         f1 = pnumb_(' ',float(i),float(i)*0.1)
-470      f1 = pnumb_(' ',float(i)*8.64523,0.)
+         do i=1,10
+           f1 = pchar_(' ',alpha(1:i))
+           f1 = pnumb_(' ',float(i),float(i)*0.1)
+           f1 = pnumb_(' ',float(i)*8.64523,0.)
+         enddo
 C
 C....... Do it again but as contiguous data with text data
 C
          f1 = ploop_('_atom_type_symbol')
          f1 = ploop_('_atom_type_oxidation_number')
          f1 = ploop_('_some_silly_text')
-         do 480 i=1,3
-         f1 = pchar_(' ',alpha(1:i))
-         f1 = pnumb_(' ',float(i),float(i)*0.1)
-480      f1 = ptext_(' ',' Hi Ho the diddly oh!')
+         do i=1,3
+           f1 = pchar_(' ',alpha(1:i))
+           f1 = pnumb_(' ',float(i),float(i)*0.1)
+           f1 = ptext_(' ',' Hi Ho the diddly oh!')
+         enddo
 C
 C....... Now present some comments and various numeric and esd formats
 C

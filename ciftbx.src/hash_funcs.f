@@ -109,6 +109,7 @@ C          num_list    -- number of entries in the list
 C          hash_table  -- the initial hashed pointers
 C          hash_length -- the size of the hash table
 C
+           implicit none
            integer list_length
            integer idummy
            character cdummy
@@ -123,7 +124,7 @@ C
            cdummy = name_list(1)
            idummy = chain_list(1)
            idummy = list_length
-           idummy = numlist
+           idummy = num_list
            return
            end          
 
@@ -141,7 +142,9 @@ C          hash_table  -- the initial hashed pointers
 C          hash_length -- the size of the hash table
 C          ifind       -- returned index or 0
 C
+           implicit none
            character*(*) name
+           character*200 lcname
            integer list_length, hash_length
            integer lenn
            character*(*) name_list(list_length)
@@ -152,11 +155,12 @@ C
            integer lastnb
            integer idummy
            ifind=0
-           ih=hash_value(name,hash_length)
-           ip=hash_table(ih)
            lenn = lastnb(name)
+           call hash_lower(name(1:lenn),lcname(1:lenn))
+           ih=hash_value(lcname(1:lenn),hash_length)
+           ip=hash_table(ih)
  100       if (ip.eq.0) return
-           if (name_list(ip).eq.name(1:lenn)) then
+           if (name_list(ip).eq.lcname(1:lenn)) then
              ifind=ip
              return
            else
@@ -181,7 +185,9 @@ C          hash_length -- the size of the hash table
 C          ifind       -- returned index or 0
 C          icurr       -- current match or 0
 C
+           implicit none
            character*(*) name
+           character*200 lcname
            integer hash_length
            integer list_length
            integer lenn
@@ -194,16 +200,17 @@ C
            integer icurr
            integer idummy
            
+           lenn = lastnb(name)
+           call hash_lower(name(1:lenn),lcname(1:lenn))
            ifind=0
            if (icurr.eq.0) then
-             ih = hash_value(name,hash_length)
+             ih = hash_value(lcname(1:lenn),hash_length)
              ip = hash_table(ih)
            else
              ip = chain_list(icurr)
            endif
-           lenn = lastnb(name)
  100       if (ip.eq.0) return
-           if (name_list(ip).eq.name(1:lenn)) then
+           if (name_list(ip).eq.lcname(1:lenn)) then
              ifind=ip
              return
            else
@@ -227,8 +234,10 @@ C          hash_table  -- the initial hashed pointers
 C          hash_length -- the size of the hash table
 C          ifind       -- index of entry or 0 (table full)
 C
-           integer list_length
+           implicit none
            character*(*) name
+           character*200 lcname
+           integer list_length
            character*(*) name_list(list_length)
            integer hash_length
            integer lenn
@@ -238,13 +247,14 @@ C
            integer ifind,num_list,ih,ip,iq
            integer lastnb
 
+           lenn = lastnb(name)
+           call hash_lower(name(1:lenn),lcname(1:lenn))
            ifind=0
-           ih = hash_value(name,hash_length)
+           ih = hash_value(lcname(1:lenn),hash_length)
            ip=hash_table(ih)
            iq=0
-           lenn = lastnb(name)
  100       if (ip.eq.0) go to 200
-           if (name_list(ip).eq.name(1:lenn)) then
+           if (name_list(ip).eq.lcname(1:lenn)) then
              ifind=ip
              return
            else
@@ -254,7 +264,7 @@ C
            endif
  200       if (num_list.lt.list_length) then
              num_list=num_list+1
-             name_list(num_list)=name(1:lenn)
+             name_list(num_list)=lcname(1:lenn)
              chain_list(num_list)=0
              if (iq.eq.0) then
                hash_table(ih)=num_list
@@ -285,8 +295,10 @@ C          hash_length -- the size of the hash table
 C          ifind       -- index of entry or 0 (table full)
 C          icurr       -- current match or 0
 C
+           implicit none
            integer list_length
            character*(*) name
+           character*200 lcname
            character*(*) name_list(list_length)
            integer hash_length
            integer lenn
@@ -299,17 +311,18 @@ C
 
            ifind=0
            ih = 0
+           lenn = lastnb(name)
+           call hash_lower(name(1:lenn),lcname(1:lenn))
            if (icurr.eq.0) then
-             ih = hash_value(name,hash_length)
+             ih = hash_value(lcname,hash_length)
              ip=hash_table(ih)
              iq = 0
            else
              ip = chain_list(icurr)
              iq = icurr
            endif
-           lenn = lastnb(name)
  100       if (ip.eq.0) go to 200
-           if (name_list(ip).eq.name(1:lenn)) then
+           if (name_list(ip).eq.lcname(1:lenn)) then
              ifind=ip
              return
            else
@@ -319,7 +332,7 @@ C
            endif
  200       if (num_list.lt.list_length) then
              num_list=num_list+1
-             name_list(num_list)=name(1:lenn)
+             name_list(num_list)=lcname(1:lenn)
              chain_list(num_list)=0
              if (iq.eq.0) then
                hash_table(ih)=num_list
@@ -338,22 +351,51 @@ C
 C
 C     function to return a hash value of string name to fit
 C     a hash table of length hash_length
+      implicit none
       character*(*) name
+      character*200 lcname
       integer lastnb
       
       integer hash_length,id,ii,i,ic,lenn
       lenn = lastnb(name)
+      call hash_lower(name(1:lenn),lcname(1:lenn))
       hash_value=1
       id = 0
       do ii = 1,lenn
         i = 1+lenn-ii
-        ic = ichar(name(i:i))
-        if (ic.ge.65) then
-          hash_value=mod(hash_value*(ic-64),hash_length)+1
+        ic = ichar(lcname(i:i))
+        if (ic.ge.32) then
+          hash_value=mod(hash_value*(ic-32),hash_length)+1
           id = id+1
           if (id.gt.3) return
         endif
       enddo
       return
       end
-        
+       
+      subroutine hash_lower(string,lcstr)
+c
+c     function to return a lower case version of string in lcstr
+c
+      implicit none
+      character*(*) string
+      character*(*) lcstr
+      character*1 c
+      integer lastnb
+      integer lstring,llcstr,ipos,i,index
+      character*26 UC,lc
+      UC="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+      lc="abcdefghijklmnopqrstuvwxyz"
+      lstring = lastnb(string)
+      llcstr=len(lcstr)
+      if (llcstr<lstring) lstring=llcstr
+      if (lstring < llcstr) lcstr(lstring+1:llcstr)=' '
+      do ipos=1,lstring
+        c=string(ipos:ipos)
+        i=index(UC,c)
+        if(i.gt.0) c=lc(i:i)
+        lcstr(ipos:ipos)=c
+      enddo
+      return
+      end
+      
