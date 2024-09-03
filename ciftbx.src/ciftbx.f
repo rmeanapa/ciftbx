@@ -695,7 +695,7 @@ C                Non-zero values of pfold_ less than 80 can cause conflict
 C                with the syntactic requirements of creating a valid CIF.
 C
 C    phtml_      Logical varible:  if set .true. then a pfile_ output file
-C                will be written as an HTML web oage, rather than as text.
+C                will be written as an HTML web page, rather than as text.
 C                The default is .false.
 C
 C    plzero_     Logical variable: if set .true. then cif numeric output
