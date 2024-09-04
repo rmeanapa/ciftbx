@@ -57,7 +57,7 @@ The toolbox has already been used in the development of CIF manipulation program
 <a href="#Bernstein_Hall_1998">[Bernstein, Hall, 1998]</a>, 
 CIFIO <a href="#Hall_1993">[Hall, 1993], 
 CIF2CIF <a href="#Bernstein_1997">[Bernstein, 1997]</a>, 
-pdb2cif <a name="Bernstein_Bernstein_Bourne_1998">[Bernstein, Bernstein, Bourne, 1998]</a>
+pdb2cif <a href="Bernstein_Bernstein_Bourne_1998">[Bernstein, Bernstein, Bourne, 1998]</a>
 and cif2pdb <a href="#Bernstein_Bernstein_1996">[Bernstein, Bernstein, 1996]</a>. 
 Extracts from some of these applications are used herein to illustrate various programming approaches. 
 <p> 
@@ -171,7 +171,7 @@ and to construct CIF dictionaries.
 <p>
 <a href="#CHAPTER_7">7. Variables</a>
 <p>
-<a href="#CHAPTER_8. Error Message Glossary</a>
+<a href="#CHAPTER_8">8. Error Message Glossary</a>
 <ul>
 <li><a href="#Fatal_Errors">Fatal Errors</a>
 <ul>
@@ -181,41 +181,40 @@ and to construct CIF dictionaries.
 </ul></li>
 <li><a href="#Warnings">Warnings</a>
 <ul>
-<li><q href="#Output_Errors">Output Errors</a></li>
+<li><a href="#Output_Errors">Output Errors</a></li>
 <li><a href="#Dictionary_Checks">Dictionary Checks</a></li>
 </ul></li>
 </ul>
 <p>
 <a href="#Appendices">Appendices</a>
 <ul>
-<li><a href="#APPEnDIX_A">A. Usage Restrictions and Policy</a>
+<li><a href="#APPENDIX_A">A. Usage Restrictions and Policy</a>
 <ul>
 <li><a href="#GPL">GPL</a></li>
 <li><a href="#LGPL">LGPL</a></li>
 <li><a href="#RASLIC">RASLIC</a></li>
 <li><a href="#IUCR_POLICY">IUCr Policy</a></li>
 </ul></li>
-<li><a href="#App_B">B. Installation of <i>CIFtbx</i></a>
+<li><a href="#APPENDIX_B">B. Installation of <i>CIFtbx</i></a>
 <ul>
 <li>Quick Installation</li>
 <li>Detailed Installation Instructions</li>
 <li>Reporting Problems</li>
 </ul></li>
-<li><a href="#App_C">C. CYCLOPS2</a>
+<li><a href="#APPENDIX_C">C. CYCLOPS2</a>
 <ul>
 <li>CYCLOPS2 overview</li>
 <li>Error Message Glossary</li>
 </ul></li>
-<li><a href="#App_D">D. Syntax of a Star File</li>
-<li><a href="#App_E">E. Internals and Programming Style</li>
+<li><a href="#APPENDIX_D">D. Syntax of a Star File</li>
+<li><a href="#APPENDIX_E">E. Internals and Programming Style</li>
 </ul></li>
 <p> 
 <a href="References">References</a>
 <p>
 <a href="Index">Index</a>
 <p>
-<a name="Recent_History_and_Acknowledgements"></a>
-<h2 align="center">Recent History and Acknowledgements</h2> 
+<h2 id="Recent_History_and_Acknowledgements" align="center">Recent History and Acknowledgements</h2> 
 The CIF format was first adopted by the IUCr for journal submissions in 1990, following 
 the publication of the CIF core dictionary 
 <a href="#Hall_Allen_Brown_1991">[Hall, Allen, Brown, 1991]</a>.
@@ -237,7 +236,7 @@ way that this type of structural data will be handled in the future.
 One recent impetus for newer and more versatile versions of <i>CIFtbx</i> was to 
 assist one of us (HJB) in using CIF data derived 
 from Protein Data Bank files 
-<a href="#Bernstein_et_al_1977'>[Bernstein, <i>et al.</i>, 1977]</a>. In the 
+<a href="#Bernstein_et_al_1977">[Bernstein, <i>et al.</i>, 1977]</a>. In the 
 development of pdb2cif [Bernstein, Bernstein, Bourne 98], <i>CIFtbx</i>2 enabled hundreds of CIF 
 data names, embedded in existing software, 
 to be mapped into the DDL2 format, and for the existence of these items to be checked. 
@@ -254,14 +253,13 @@ of our colleagues and collaborators. Many people have contributed to the CIF dev
 many workers who have given valuable help at some stage, we must highlight the special recent efforts of Helen Berman, Frances 
 Bernstein, Phil Bourne, Paula Fitzgerald, Brian McMahon and John Westbrook. 
 <p>
-<a name="CHAPTER_1"></a><h1 align="center">
+<h1 id="CHAPTER_1" align="center">
 CHAPTER 1
 </h1>
-<h2 align="center"> 
-<a name="What_is_a_CIF"</a>What is a CIF?
+<h2 id="What_is_a_CIF" align="center"> 
+What is a CIF?
 </h2>
-<h3 align="left">
-<a name="1.1"></a>1.1. Introduction 
+<h3 id="1.1" align="left">1.1. Introduction 
 </h3>
 <p>
 What is a CIF? To a crystallographer or a structural chemist, it is a simple and flexible way 
@@ -293,8 +291,7 @@ _crystal_preparation
 evaporation. 
 <b>;</pre></td></tr></table></center>
 <p>
-<h3 align="left">
-<a name="1.2"></a>1.2. Basic syntax 
+<h3 id="1.2" align="left">1.2. Basic syntax 
 </h3>
 <p>
 The above example illustrates many of the basic principles of a CIF.
@@ -329,15 +326,16 @@ rules, a text string may be used any place where a character string might be exp
 <li>Lists of repeated data values are to be preceded by data names in matching order. Such lists must be preceded by a loop_ command.</li> 
 <li>A data name and its value (i.e. <i>tag/value pair</i>, or <i>tuple</i>) are referred to as
 a <i>data item</i>. Data items are grouped into data 
-blocks. A data block is preceded by a <tt>data_</tt><name> command. The <name> string is referred to as the data block name and this 
+blocks. A data block is preceded by a <tt>data_</tt>&lt;name&gt; command. The &lt;name&gt; string is 
+referred to as the data block name and this 
 must be unique within a CIF.</li>
 <li>Within a data block, each data name must be unique.</li> 
 <li>A CIF is restricted to 80-character lines.</li>
 <li>The hash character '#' is used to start a comment on a line.</li>
 </ol>
 <p>
-<h3 align="left">
-<a name="1.3"></a>1.3. Case sensitivity. 
+<h3 id="1.3" align="left">
+1.3. Case sensitivity. 
 </h3>
 <p>
 Data names are not sensitive to the case of letters. For example, the strings
@@ -349,13 +347,13 @@ Data names are not sensitive to the case of letters. For example, the strings
 <p> 
 all represent the identical data name in a CIF. Strings that are not data names are case sensitive in that the case of letters must always be preserved. 
 <p>
-<h3 align="left">
-<a name="1.4"></a>1.4. Special characters 
+<h3 id="1.4" align="left">
+1.4. Special characters 
 </h3>
 <p>
 Certain characters in a CIF serve a special function when used in a particular way. 
 A brief summary of these is given below. For more detail see 
-<a name="Hall_Spadaccini_1994">[Hall, Spadaccini, 1994]</a>.
+<a href="Hall_Spadaccini_1994">[Hall, Spadaccini, 1994]</a>.
 <p>
 <table border=0> 
 <tr><td valign="top">_</td><td>the underscore (underline) is used to start a 
@@ -394,13 +392,12 @@ by itself as a data value. It usually means "the default value".
 when used by itself as a data value. It usually means "value unknown". 
 </td></tr>
 <tr><td valign="top">$</td><td> the dollar sign is normally NOT a special character 
-in a CIF. However, if a CIF contains save frames <a name="Hall_Spadaccini_1994">[Hall, Spadaccini, 1994]</a>, the 
+in a CIF. However, if a CIF contains save frames <a href="Hall_Spadaccini_1994">[Hall, Spadaccini, 1994]</a>, the 
 dollar sign is used at the start of save frame names when referred to as data values. 
 To avoid confusion, do not use an unquoted dollar sign as a value in a CIF.
 </td></tr></table> 
 <p>
-<h3 align="left">
-<a name="1.5"></a>1.5. Syntax control words
+<h3 id="1.5" align="left">1.5. Syntax control words
 </h3>
 <p> 
 Special words in a CIF control and signal syntax changes. These words can be easily 
@@ -443,13 +440,11 @@ The <tt>save_</tt> string closing a frame does not have a code attached.
 </td></tr>
 </table>
 <p>
-<h3 align="left">
-<a name="1.6"></a>1.6. File examples 
+<h3 id="1.6" align="left">1.6. File examples 
 </h3>
 <p>
 Some data file examples will be now used to illustrate syntax requirements.
-<h3 align="left">
-<a name="1.6.1"></a>1.6.1 A typical structural CIF
+<h3 id="1.6.1" align="left">1.6.1 A typical structural CIF
 </h3>
 <p> 
 Here is an abbreviated version of typical CIF. 
@@ -499,8 +494,7 @@ value as a reminder that it needs to be added.
 <p> 
 One of the most common errors in a CIF is the omission of a missing value (i.e. 
 using a blank field) as this violates the requirement to match tags to values.
-<h3 align="left"> 
-<a name="1.6.2"></a>1.6.2 A STAR File
+<h3 id="1.6.2" align="left">1.6.2 A STAR File
 </h3> 
 <p>
 Here is an example of a STAR File to illustrate its much more extensive syntax. 
@@ -586,8 +580,7 @@ The <tt>_qchem_basis_set_function_</tt> items are in a level 2 loop.
 Note that following the last set (or packet) of data values for these items 
 there is a <tt>stop_</tt> signal. This causes the nesting to revert to level 1.
 <p>
-<h3 align="left"> 
-<a name="1.7"></a>1.7 Data definitions
+<h3 id="1.7" align="left">1.7 Data definitions
 </h3>
 <p>
 CIF data items used in global data exchange applications, such as in archiving 
@@ -617,11 +610,10 @@ language, DDL2, is used to specify the macromolecular dictionary mmCIF
 <a href="#Fitzgerald_et_al_1996">[Fitzgerald <i>et al.</i>, 1996]</a>.
 <p>
 
-<h3 align="left">
-<a name="1.7.1"></a>1.7.1 DDL1 definition examples
+<h3 id="1.7.1" align="left">1.7.1 DDL1 definition examples
 </h3> 
 <p>
-<a name="1.7.1.11"></a><h3 align="left">1.7.1.1 DDL1 example 1
+<h3 id="1.7.1.11" align="left">1.7.1.1 DDL1 example 1
 </h3>
 <p> 
 Here is DDL1 definition of the data items <tt>_atom_site_fract_x</tt>,
@@ -650,7 +642,7 @@ data_atom_site_fract_
 The precise meanings of the different DDL1 attributes such as 
 <tt>_name</tt>, <tt>_category</tt>, <i>etc.</i> are given in 
 <a href="#Hall_Cook_1995">[Hall, Cook, 1995]</a>
-and <a name="McMahon_1995">[McMahon 1995]</a>. 
+and <a href="McMahon_1995">[McMahon 1995]</a>. 
 Note the following in this definition.
 <p>
 <ul>  
@@ -679,8 +671,7 @@ is assumed to have, if it is missing from a CIF.
 </li> 
 </ul>
 <p>
-<h3 align="left">
-<a name="1.7.1.2"><a>1.7.1.2 DDL1 example 2
+<h3 id="1.7.1.2" align="left">1.7.1.2 DDL1 example 2
 </h3>
 <p>
 Here is the DDL1 definition of the data item <tt>_atom_site_label</tt>. This is the 
@@ -730,8 +721,7 @@ must be present in the CIF if any of the dependent items is present.</li>
 <tt>_atom_site_label.</tt></li>
 </ul>
 <p> 
-<h3 align="left>
-<a name="1.7.1.3"></a>1.7.1.3 DDL1 example 3
+<h3 id="1.7.1.3" align="left>1.7.1.3 DDL1 example 3
 </h3> 
 Here is a more complicated DDL1 definition for the six anisotropic atomic 
 displacement parameters U<sup>ij</sup>.
@@ -778,8 +768,7 @@ that the U<sup>ij</sup> can be derived directly from the B<sup>ij</sup>.</li>
 &Aring;ngstroms squared.
 </ul>
 <p>
-<h3 align="left"> 
-<a name="1.7.2"></a>1.7.2 DDL2 definition examples
+<h3 id="1.7.2" align="left">1.7.2 DDL2 definition examples
 </h3>
 <p>
 The definitions shown above are from the CIF Core dictionary and illustrate how the 
@@ -788,7 +777,7 @@ of the 'category' of data items, such as <tt>atom_site</tt>. In a sense this is
 inefficient because data attributes such as <tt>_list</tt>, <tt>_list_reference</tt>, 
 <tt>_list_link_child</tt>, <tt>_list_link_parent</tt>, refer to properties of 
 the class or category rather than to individual items. The DDL2 approach 
-<a name="Westbrook_Hall_1995">[Westbrook, Hall, 1995]</a> uses a more 
+<a href="Westbrook_Hall_1995">[Westbrook, Hall, 1995]</a> uses a more 
 hierarchical approach to data classes in which data items of a particular category are 
 organized into a single table. The DDL2 also provides for explicit sub-categories in 
 which data items are identified by function, e.g. 'matrix'. Although this approach is 
@@ -796,8 +785,7 @@ less intuitive to the casual user, it has proven to be advantageous in defining 
 data relationships, such as those in the macromolecular dictionary, and is therefore 
 expected to be of increasing importance in the future as cross-discipline data bases develop.
 <p>
-<h3 align="left"> 
-<a name="1.7.2.1"></a>1.7.2.1 DDL2 example 1
+<h3 id= "1.7.2.1" align="left">1.7.2.1 DDL2 example 1
 </h3>
 <p> 
 To illustrate the differences between the dictionary approaches, we shall now look at the
@@ -843,8 +831,7 @@ except that it has a more detailed enumeration <i>e.g.</i> number has been expan
 float, etc.
 </ul>
 <p> 
-<h3 align="left">
-<a name="1.7.2.2"></a>1.7.2.2 DDL2 example 2
+<h3 id="1.7.2.2" align="left">1.7.2.2 DDL2 example 2
 </h3><p> 
 Here is another DDL2 definition to emphasise the differences in definition approach.
 <p> 
@@ -889,8 +876,7 @@ is defined in DDL2.</li>
 <li>in DDL2 definitions each data item, independent of its irreducible 
 relationship to other data items, is defined separately.</li>
 </ul> 
-<h3 align="left">
-<a name="1.7.2.3"></a>1.7.2.3 DDL2 example 3
+<h3 id="1.7.2.3" align="left">1.7.2.3 DDL2 example 3
 </h3> 
 <p>
 Finally here is how the properties of the category <tt>atom_site</tt> are defined in DDL2.
@@ -926,8 +912,7 @@ opposed to the <tt>_item_</tt> prefix used to define data items. It is important
 to emphasise that <tt>atom_site</tt> is NOT a data item and will not appear in a CIF.
 </ul>
 <p> 
-<h3 align="left">
-<a name="1.8"></a>1.8 Handling DDL1 and DDL2 name structures
+<h3 id="1.8" align="left">1.8 Handling DDL1 and DDL2 name structures
 </h3> 
 <p>
 The different naming structures in the two dictionary languages, DDL1 and DDL2, 
@@ -1079,11 +1064,11 @@ tag <tt>_atom_site.id</tt> tag fills the role of the small molecule core CIF tag
 linking the list of anisotropic atomic displacement parameters to the list of 
 atomic coordinates.
 <p> 
-<h1 align="center"><a name="CHAPTER_2"></a>CHAPTER 2</h1>
+<h1 id="CHAPTER_2" align="center">CHAPTER 2</h1>
 <p> 
 <h2 align="center">Overview of the Tool Box</h2>
 <p> 
-<h3 align="left"><a name="2.1"></a>2.1. Introduction</h3>
+<h3 id="2.1" align="left">2.1. Introduction</h3>
 <p> 
 The <i>CIFtbx</i> library is made up of Fortran functions, subroutines, monitor 
 variables and control variables. It is used to develop software to read and/or 
@@ -1147,7 +1132,7 @@ for the next data item, whatever the name of that data item might be, allowing t
 application to go beyond the position-independent context of CIF and to be sensitive 
 to the position of items within the CIF.
 <p> 
-<h3 align="left"><a name="2.2"></a>2.2. Initialisation Commands
+<h3 id="2.2" align="left">2.2. Initialisation Commands
 </h3>
 <p> 
 Initialisation commands are applied before any other commands. There are only two tools 
@@ -1192,7 +1177,7 @@ relationships.  The default is <tt>'parck'</tt>.  Three check codes control the 
 tags from the current dictionary which duplicate tags from a dictionary loaded earlier.  These
 codes (<tt>'first'</tt>, <tt>'final'</tt> and <tt>'nodup'</tt>) have effect only for the
 current call to <tt>dict_</tt>.  The default is 'first'.
-<pp>
+<p>
 The acceptable values for the checks are:
 <table border=0>
 <tr><td><tt>'valid'</tt></td><td>data name validation check.</td></tr>
@@ -1211,7 +1196,7 @@ The acceptable values for the checks are:
 </table>
 </td></tr></table>
 <p>
-<h3 align="left"><a name="2.3"></a>2.3. Read Commands</h3>
+<h3 id="2.3" align="left">2.3. Read Commands</h3>
 <p> 
 These commands are used to read data from an existing CIF. Since CIF data is order-independent,
 most applications would work from a known list of data names (tags) and to extract the 
@@ -1517,8 +1502,7 @@ Closes all attached data files, and clears all tables and pointers. This is a su
 </td></tr></table>
 <p>
 
-<h3 align="left">
-<a name="2.4"></a>2.4. Write Commands
+<h3 id="2.4" align="left">2.4. Write Commands
 </h3> 
 <p>
 The following commands are available for writing data to a new CIF.
@@ -1699,8 +1683,7 @@ This a subroutine call.
 </table>
 <p>
 
-<h3 align="left">
-<a name="2.5"></a>2.5. Variables 
+<h3 id="2.5" align="left">2.5. Variables 
 </h3>
 <p>
 The <i>CIFtbx</i> library also contains a large number of variables declared in the 
@@ -1711,8 +1694,7 @@ but special applications only the basic variables <tt>list_</tt>, <tt>loop_</tt>
 supplement the argument lists of the various commands, providing essential status 
 information. See <a href="#CHAPTER_7">Chapter 7</a> for more information.
 <p> 
-<h3 align="left">
-<a name="2.5.1"></a>2.5.1. General Monitor Variables
+<h3 id="2.5.1" align="left">2.5.1. General Monitor Variables
 </h3> 
 These variables are returned by <i>CIFtbx</i> tools and provide information about 
 the general status of processing.
@@ -1761,8 +1743,7 @@ prior versions this string was
 
 
 
-<h3 align="left">
-<a name="2.5.2"></a>2.5.2. General Control Variables
+<h3 id="2.5.2" align="left">2.5.2. General Control Variables
 </h3>
 <p>
 These variables are specified to control <i>CIFtbx</i> commands.
@@ -1822,8 +1803,7 @@ the reading of a CIF. The default is <tt>.true.</tt>
 </table
 
 
-<h3 align="left"> 
-<a name="2.5.3"></a>
+<h3 id="2.5.3" align="left">
 2.5.3. Input Monitor Variables 
 </h3>
 <p>
@@ -1998,8 +1978,7 @@ character data) or 'text' (for semi-colon delimited multi-line character data).
 </td></tr>
 </table>
 
-<h3 align="left">
-<a name="2.5.2"></a>2.5.2. Output Control Variables
+<h3 id="2.5.2" align="left">2.5.2. Output Control Variables
 </h3>  
 These variables are specified to control the processing <i>CIFtbx</i> commands that write CIFs.
 <p>
@@ -2124,8 +2103,7 @@ of output data. The default is <tt>.true.</tt>
 </table>
 <p>
 
-<h3 align="left">
-<a name="2.6"></a>2.6. Name Aliases
+<h3 id="2.6" align="left">2.6. Name Aliases
 </h3>  
 CIF dictionaries written in DDL2 permit data names to be aliased or equivalenced to other data names. This 
 serves two purposes. First, it allows for the different data name structures used between DDL1 and 
@@ -2169,12 +2147,11 @@ Invocation of this code results in the following printout.
 <tt>_atom_site_aniso_U_11 _atom_site_anisotrop.u[1][1]</tt><br />
 <tt>_atom_site_anisotrop.u[1][1] _atom_site_aniso_U_11</tt>
 <p>
-<h1 align="center"><a name="CHAPTER_3"></a>CHAPTER 3</h1>
+<h1 id="CHAPTER_3" align="center">CHAPTER 3</h1>
 <p> 
 <h2 align="center">How to Use the Tool Box</h2>
 <p> 
-<h3 align="left">
-<a name="3.1"></a>3.1. Introduction
+<h3 id="3.1" align="left">3.1. Introduction
 </h3> 
 <p>
 The <i>CIFtbx</i> tool box is supplied as a suite of Fortran source files and test files. The installation 
@@ -2218,8 +2195,7 @@ Note that the common file <tt>ciftbx.cmn</tt> must be 'included' into any
 local routines that use <i>CIFtbx</i> tools. This will be illustrated in the 
 later examples. 
 <p>
-<h3 align="left">
-<a name="3.2"></a>3.2. Reading CIF data
+<h3 id="3.2" align="left">3.2. Reading CIF data
 </h3> 
 The <i>CIFtbx</i> approach to reading a CIF is best illustrated with a 
 simple example. A source code listing of the program CIF_IN is shown below. 
@@ -2452,8 +2428,7 @@ be used to prevent the <i>CIFtbx</i> loop pointers from being mistakenly reset.
 </li>
 </ul>
 <p> 
-<h3 align="left">
-<a name="3.3"></a>3.3. Reading text data in loops
+<h3 id="3.3" align="left">3.3. Reading text data in loops
 </h3>
 <p>
 This example illustrates how text data is read from lists. This is a typical requirement when reading address labels or audit trails from a CIF. 
@@ -2543,8 +2518,7 @@ there is another name/address packet is present in the loop.
 </li>
 </ul>
 <p> 
-<h3 align="left">
-<a name="3.4"></a>3.4. Reading user-requested data items
+<h3 id="3.4" align="left">3.4. Reading user-requested data items
 </h3>
 <p> 
 The first two examples were used to show how data items are read from a CIF 
@@ -2685,8 +2659,7 @@ illustrate how the value of <tt>type_</tt> is returned. For these data items the
 &#8226; Note that the request for _symmetry_cell_setting terminates the loop block settings, and an further requests for _blat2 and _blat1 would start at the first packet of this block. 
 </ul>
 <p>
-<h3 align="left">
-<a name="3.5"></a>3.5. Creating a CIF
+<h3 id="3.5" align="left">3.5. Creating a CIF
 </h3>
 <p>
 We will now show how to generate CIF data items. The following example program creates a CIF. 
@@ -2844,9 +2817,9 @@ against the dictionary <tt>'cif_core.dic'</tt>. Unrecognised names are flagged w
 <tt>esdlim_</tt>, <tt>esdlim_</tt> and <tt>plzero_</tt> differ.
 </ul>
 <p> 
-<h3 align="left"><a name="3.6"></a>3.6. General tips on applying <i>CIFtbx</i>.</h3>
+<h3 id="3.6" align="left">3.6. General tips on applying <i>CIFtbx</i>.</h3>
 <p> 
-<h3 align="left"><a name="3.6.1"></a>3.6.1. Reading a CIF</h3>
+<h3 id="3.6.1" align="left">3.6.1. Reading a CIF</h3>
 <p> 
 The basic steps for reading a CIF are:
 <ul> 
@@ -2860,7 +2833,7 @@ The basic steps for reading a CIF are:
 command <tt>bkmrk_</tt> is used to keep the place in multiple loops </li>
 </ul>
 <p>
-<h3 align="left"><a name="3.6.2"></a>3.6.2. Writing a CIF</h3>
+<h3 id="3.6.2" align="left">3.6.2. Writing a CIF</h3>
 <p> 
 For applications writing CIF data, the basic steps needed are
 <p>
@@ -2877,7 +2850,7 @@ header followed by all its associated values </li>
 <li>Note that within a <tt>data_</tt> block, only one loop_ may be written at once </li>
 </ul> 
 <p>
-<h3 align="left"><a name="3.6.3"></a>3.6.3. Program organisation</h3>
+<h3 id="3.6.3" align="left">3.6.3. Program organisation</h3>
 <p> 
 The general structure of an application program using the <i>CIFtbx</i> tools is
 <p> 
@@ -2890,11 +2863,11 @@ The general structure of an application program using the <i>CIFtbx</i> tools is
 <li>Calls to subroutine to close CIF </li>
 </ul>
 <p>
-<h1 align="center"><a name="CHAPTER_4"></a>CHAPTER 4</h1>
+<h1 id="CHAPTER_4" align="center">CHAPTER 4</h1>
 <p> 
 <h2 align="center">Reference: Initialisation Functions</h2>
 <p> 
-<h3 align="left"><a name="4.1"></a>4.1. Introduction</h3>
+<h3 id="4.1" align="left">4.1. Introduction</h3>
 <p> 
 <i>CIFtbx</i> provides two initialisation functions, <tt>init_</tt> and <tt>dict_</tt>, 
 which affect all other CIF reading and writing operations. The <tt>init_</tt> function 
@@ -2908,12 +2881,12 @@ default unit number for a dictionary file, it must precede the relevant <tt>dict
 command. The command <tt>dict_</tt> is repeated for as many dictionaries as need to be attached to the 
 application.
 <p> 
-<h3 align="left"><a name="4.2"></a>4.2. init_</h3>
+<h3 id="4.2" align="left">4.2. init_</h3>
 <p> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical function <b>init_</b> (devcif, devout, devdir, deverr)</tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer devcif, devout, devdir, deverr<tt><br />
 <p> 
-<h3 align="left"><a name="4.2.1"></a>4.2.1 Definition</h3>
+<h3 id="4.2.1" align="left">4.2.1 Definition</h3>
 <p> 
 <tt>init_</tt> is an optional <i>logical function</i> for specifying the Fortran device numbers for the 
 four <i>CIFtbx</i> files: the input CIF, the output CIF, an internal scratch file and the error 
@@ -2931,7 +2904,7 @@ The <tt>init_</tt> arguments are:
 <p> 
 Note that dictionary files are read using the device number specified by argument 1.
 <p>
-<h3 align="left"><a name="4.2.2"></a>4.2.2 Application</h3>
+<h3 id="4.2.2" align="left">4.2.2 Application</h3>
 <p> 
 <tt>init_</tt> is a <i>logical function</i> that can be applied in a variety of ways. The 
 typical coding to apply this function is
@@ -2978,7 +2951,7 @@ it is acceptable for an input CIF to be on a read-once device, such as the stand
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical function <b>dict_</b> (fname, checks)</tt><br /> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character fname*(*), checks*(*)</tt><br />
 <p>
-<h3 align="left"><a name="4.2.2">4.2.2 Definition</h3>
+<h3 id="4.2.2" align="left">4.2.2 Definition</h3>
 <p> 
 <tt>dict_</tt> is an optional <i>logical function</i> used to read a CIF dictionary file (or a file containing a list of dictionary filenames) and to initiate optional data checks. The 
 <i>logical function</i> is returned as <tt>.true.</tt> if the named dictionary was opened, and if the check codes are recognisable. 
@@ -3004,7 +2977,7 @@ CIF checks are entered as a single quoted string separated by blanks:<br />
 </tr>
 </table>
 <p>
-<h3 aligh="left"><a name="4.3.2"></a>4.3.2 Application</h3>
+<h3 id="4.3.2" align="left">4.3.2 Application</h3>
 <p> 
 <tt>dict_</tt> is a <i>logical function</i> and can be applied in a variety of ways. Typically 
 the required Fortran coding for the application of this function is
@@ -3035,17 +3008,17 @@ filename of the opened dictionary, or, if the opened dictionary file contains th
 <tt>_dictionary_name</tt>, to its value. The variable <tt>dicver_</tt> is set to the value of 
 <tt>_dictionary_version</tt>
 <p>. 
-<h1 align="center"><a name="CHAPTER_5"></a>CHAPTER 5</h1>
+<h1 id="CHAPTER_5" align="center">CHAPTER 5</h1>
 <p> 
 <h2 align="center">Reference: Read Functions</h2>
 <p>
-<h3 align="left"><a name="5.1"></a>5.1. Introduction</h3>
+<h3 id="5.1" align="left">5.1. Introduction</h3>
 <p> 
 This chapter describes in detail the <i>CIFtbx</i> functions that read and check CIF data items. 
 Descriptions in this chapter assume knowledge of general principles of CIF implementation and 
 application covered in <a href="#CHAPTER_3">Chapter 3</a>.
 <p> 
-<h3 align="left"><a name="5.1.1"></a>5.1.1 <i>CIFtbx</i> bookkeeping</h3>
+<h3 id="5.1.1" align="left">5.1.1 <i>CIFtbx</i> bookkeeping</h3>
 <p> 
 As summarised in <a href="3.6.1">3.6.1</a>, there is a required sequence to some <i>CIFtbx</i> 
 commands. Device numbers need to be specified, dictionaries loaded and the CIF to be read, 
@@ -3054,7 +3027,7 @@ file and establishes a list of pointers that locate each data name (tag) in the 
 is shown diagrammatically in Fig. 5.1.
 <p>
 <center>
-<img src=CIFtbx_Manual_Fig5_1.jpg width="800px"><p>
+<img src=CIFtbx_Manual_Fig5_1.jpg width="800px" alt="Figure 5.1"><p>
 Fig 5.1.  Preparing to Read a CIF with <i>CIFtbx</i> 
 </center>
 <p>
@@ -3063,12 +3036,12 @@ one CIF needs to be processed simultaneously (e.g. there is a need to move betwe
 in different CIFs, the variable append_ set to <tt>.true.</tt> retains previous CIFs in the direct 
 access file.
 <p> 
-<h3 align="left"><a name="5.2"></a>5.2. <tt>ocif_</tt></h3>
+<h3 id="5.2" align="left">5.2. <tt>ocif_</tt></h3>
 <p> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical function <tt>ocif_</tt> (fname)</tt><br /> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character fname*(*) </tt><br />
 <p>
-<h3 align="left"><a name="5.2.1"></a>5.2.1 Definition</h3>
+<h3 id="5.2.1" align="left">5.2.1 Definition</h3>
 <p> 
 <tt>ocif_</tt> is an optional <i>logical function</i> for opening an input CIF. The 
 value of the function is returned as <tt>.true.</tt> if the named file has been opened. 
@@ -3080,7 +3053,7 @@ The command argument is:
 <tr><td>1</td><td>&lt;input CIF filename&gt;</td><td>input CIF filename string in quotes</td></tr>
 </table> 
 <p>
-<h3 align="left"><a name="5.2.2"></a>5.2.2 Application</h3>
+<h3 id="5.2.2" align="left">5.2.2 Application</h3>
 <p> 
 ocif_ can be applied in a variety of ways. Typically the coding of this function is
 <p>
@@ -3105,11 +3078,11 @@ the following coding would be typical.
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;... </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if( <tt>ocif_</tt>('next.cif') ) goto 200</tt><br />
 <p> 
-<h3 align="left"><a name="5.3"></a>5.3. <tt>data_</tt></h3><p> 
+<h3 id="5.3" align="left">5.3. <tt>data_</tt></h3><p> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical function <tt>data_</tt> (name) </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character name*(*) </tt><br />
 <p>
-<h3 align="left"><a name="5.3.1"></a>5.3.1 Definition</h3>
+<h3 id="5.3.1" align="left">5.3.1 Definition</h3>
 <p> 
 <tt>data_</tt> is a <i>logical function</i> for selecting the block of data items to be read. The function 
 is returned as <tt>.true.</tt> if the requested data block is found. Only one block may be accessed at a time, 
@@ -3125,7 +3098,7 @@ The command argument is:
 If this is blank, accept <br />
 the next encountered data block and place the name in the variable <tt>bloc_</tt>.
 </td></tr></table><p> 
-<h3 align="left"><a name="5.3.2"></a>5.3.2 Application</h3><p> 
+<h3 id="5.3.2" align="left">5.3.2 Application</h3><p> 
 The <tt>data_</tt> command can be applied in several different ways. Typically the coding of this function is
 <p> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if( <b>data_</b>('arg1') ) goto 100 </tt><br />
@@ -3158,12 +3131,12 @@ Here is a simple sequence for opening the file test.cif and selecting the data b
 <p>
 
 
-<h3 align="left"><a name="5.4"></a>5.4. bkmrk_</h3>
+<h3 id="5.4" align="left">5.4. bkmrk_</h3>
 <p> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical function bkmrk_ (mark)</tt><br /> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer mark</tt><br />
 <p> 
-<h3 align="left"><a name="5.4.1"></a>5.4.1 Definition</h3>
+<h3 id="5.4.1" align="left">5.4.1 Definition</h3>
 <p> 
 <tt>bkmrk_</tt> is a <i>logical function</i> for saving, or restoring, the current position of a data item 
 in the data block. It permits data elsewhere in the block to be accessed without losing the current position. 
@@ -3186,7 +3159,7 @@ will restore the position saved for the bookmark number given. The bookmark and 
 cleared. The position set on return allow reprocessing of the data item or loop row last processed 
 when the bookmark was placed. All bookmarks are cleared by a call to <tt>data_</tt>.
 <p> 
-<h3 align="left"><a name="5.4.2"></a>5.4.2 Application</h3> 
+<h3 id="5.4.2" align="left">5.4.2 Application</h3> 
 <tt>bkmrk_</tt> can be applied in a variety of ways. Typically this function is used in the save mode as:
 <p> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer iset, imark</tt><br /> 
@@ -3202,12 +3175,12 @@ when the bookmark was placed. All bookmarks are cleared by a call to <tt>data_</
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write(6,'(a)') ' Bookmark entry does not exist.' </tt><br /> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stop</tt><br />
 <p> 
-<h3 align="left"><a name="5.5"></a>5.5. find_</h3>
+<h3 id="5.5" align="left">5.5. find_</h3>
 <p> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical function find_ (name, type, strg)</tt><br /> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character name*(*), type*(*), strg*(*)</tt><br />
 <p>
-<h3 align="left"><a name="5.5.1"></a>5.5.1 Definition</h3>
+<h3 id="5.5.1" align="left">5.5.1 Definition</h3>
 <p>
 <tt>find_</tt> is a <i>logical function</i> used to locate a requested item, name or value, in the current 
 data block, and to return the appropriate string as an argument. The function is returned 
@@ -3228,7 +3201,7 @@ A blank implies the next item encountered.</td></tr>
 </table>
 <p> 
 
-<h3 align="left"><a name="5.5.2"></a>5.5.2 Application</h3>
+<h3 id="5.5.2" align="left">5.5.2 Application</h3>
 <p> 
 <tt>find_</tt> may be applied in a variety of ways. Typically the application is as
 <p> 
@@ -3237,11 +3210,11 @@ A blank implies the next item encountered.</td></tr>
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if( find_('_atomic_number', 'valu', string) ) goto 100</tt><br /> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write(6,'(a)') ' atomic number not found')</tt><br />
 <p>
-<h3 align="left"><a name="5.6"></a>5.6. test_</h3><p> 
+<h3 id="5.6" align="left">5.6. test_</h3><p> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical function <b><tt>test_</tt></b> (name)</tt><br /> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character name*(*)</tt><br />
 <p>
-<h3 align="left"><a name="5.6.1"></a>5.6.1 Definition</h3><p>
+<h3 id="5.6.1" align="left">5.6.1 Definition</h3><p>
 <tt>test_</tt> is a <i>logical function</i> used to identify the data attributes of a data item in the current data block. 
 The function is returned as <tt>.true.</tt> if the item is found. The data attributes are stored in the 
 common variables <tt>list_</tt>, <tt>type_</tt>, <tt>dictype_</tt>, <tt>diccat_</tt> and <tt>dicname_</tt>. 
@@ -3300,7 +3273,7 @@ right of the field.
 <tt>quote_</tt> is a character*1 variable that may be examined to determine if a 
 quotation character was used on character data. 
 <p>
-<h3 align="left"><a name="5.6.2"></a>5.6.2 Application</h3>
+<h3 id="5.6.2" align="left">5.6.2 Application</h3>
 <p> 
 <tt>test_</tt> may be applied in a variety of ways. Here is one coding of this function.
 <p>
@@ -3345,11 +3318,11 @@ and then <tt>numb_</tt> and <tt>char_</tt> are used to get the data values.
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;goto 300</tt><br />
 <p>
 
-<h3 align="left"><a name="5.7"></a>5.7. name_ </h3><p>
+<h3 id="5.7" align="left">5.7. name_ </h3><p>
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical function name_ (name) </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character name*(*)  </tt><br />
 <p>
-<h3 align="left"><a name="5.7.1"></a>5.7.1 Definition</h3>
+<h3 id="5.7.1" align="left">5.7.1 Definition</h3>
 <p> 
 <tt>name_</tt> is a <i>logical function</i> used to identify the next 
 data name in the current data block, and to return that string as an 
@@ -3362,7 +3335,7 @@ The command arguments are:
 <tr><td>No.</td><td>Argument</td><td>Description</td></tr> 
 <tr><td>1</td><td>&lt;RETURNED data name&gt;</td><td>The next encountered data name.</td></tr>
 <p> 
-<h3 align="left"><a name="5.7.2"></a>5.7.2 Application</h3>
+<h3 id=5.7.2 align="left">5.7.2 Application</h3>
 <p> 
 <tt>name_</tt> may be applied in a variety of ways. Typically the application is
 <p> 
@@ -3371,12 +3344,12 @@ The command arguments are:
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flag = name_(string) </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flag = test_(string) </tt><br />
 <p>
-<h3 align="left"><a name="5.8"></a>5.8. <tt>numb_</tt></h3><p> 
+<h3 id="5.8" align="left">5.8. <tt>numb_</tt></h3><p> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical function <b><tt>numb_</tt></b> (name, numb, sdev) </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character name*(*) </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;real numb, sdev </tt><br />
 <p>
-<h3 align="left"><a name="5.8.1"></a>5.8.1 Definition</h3>
+<h3 id="5.8.1" align="left">5.8.1 Definition</h3>
 <p> 
 <tt>numb_</tt> is a <i>logical function</i> used to read the numerical value and esd value 
 (if appended) of a specified data name in the current data block. The function is returned 
@@ -3393,7 +3366,7 @@ The command arguments are:
 <tr><td valign="top">3</td><td valign="top">&lt;real number variable&gt;</td>
 <td>Returned esd of the number value.</td></tr>
 <p>
-<h3 align="left"><a name="5.8.2"></a>5.8.2. Application</h3>
+<h3 id="5.8.2" align="left">5.8.2. Application</h3>
 <p> 
 <tt>numb_</tt> is usually applied as follows.
 <p> 
@@ -3403,13 +3376,13 @@ The command arguments are:
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;... </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flag = <b>numb_</b>(name, value, esdval)</tt><br />
 <p> 
-<h3 align="left"><a name="5.9"></a>5.9. numd_</h3>
+<h3 id="5.9" align="left">5.9. numd_</h3>
 <p> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical function <b>numd_</b> (name, numb, sdev) </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character name*(*) </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;double precision numb, sdev </tt><br />
 <p> 
-<h3 align="left"><a name="5.9.1"></a>5.9.1. Definition</h3><p> 
+<h3 id="5.9.1" align="left">5.9.1. Definition</h3><p> 
 <p>
 <tt>numd_</tt> is a <i>logical function</i> used to read a double-precision number and esd 
 value (if appended) of a specified data name in the current data block. The function is 
@@ -3427,7 +3400,7 @@ The command arguments are:<p>
 <td>Returned esd of the number value.</td></tr> 
 </table>
 <p> 
-<h3 align="left"><a name="5.9.2"></a>5.9.2 Application</h3>
+<h3 id="5.9.2" align="left">5.9.2 Application</h3>
 <p> 
 <tt>numd_</tt> is typically used as follows.
 <p> 
@@ -3437,12 +3410,12 @@ The command arguments are:<p>
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;... </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flag = numd_(name, dvalue, desdval)</tt><br /> 
 <p>
-<h3 align="left"><a name="5.10"></a>5.10. cmnt_</h3>
+<h3 id="5.10" align="left">5.10. <tt>cmnt_</tt></h3>
 <p> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical function cmnt_ (strg)</tt><br /> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character strg*(*)</tt><br />
 <p> 
-<h3 align="left"><a name="5.10.1"></a>5.10.1 Definition</h3>
+<h3 id="5.10.1" align="left">5.10.1 Definition</h3>
 <p> 
 <tt>cmnt_</tt> is a <i>logical function</i> used to read the next comment string in the current data 
 block. The function is returned as <tt>.true.</tt> if a comment is found. The initial comment character 
@@ -3455,7 +3428,7 @@ The command arguments are:
 <tr><td>1</td><td>&lt;Returned char variable</td><td>The returned character string of length <tt>long_</tt>.</td></tr>
 </table>
 <p> 
-<h3 align="left"><a name="5.10.2"></a>5.10.2 Application</h3>
+<h3 id="5.10.2" align="left">5.10.2 Application</h3>
 <p> 
 <tt>cmnt_</tt> is usually applied as follows.
 <p> 
@@ -3464,22 +3437,21 @@ The command arguments are:
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;... </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flag = <b>cmnt_</b>(coment)</tt><br />
 <p> 
-<h3 align="left"><a name="5.11"></a>5.11. purge_</h3>
+<h3 id="5.11" align="left">5.11. <tt>purge_</tt></h3>
 <p> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;subroutine <b>purge_</b></tt>
 <p> 
-<h3 align="left"><a name="5.11.1"></a>5.11.1 Definition</h3> 
+<h3 id="5.11.1" align="left">5.11.1 Definition</h3> 
 <p>
-<h3 align="left"><a name="5.11.2"></a>5.11.2 Application</h3> 
+<h3 id="5.11.2" align="left">5.11.2 Application</h3> 
 purge_ is called after all data access and output activities are complete. call purge_ 
 <p>
 
-<h1 align="center"><a name="CHAPTER_6"></a>CHAPTER 6</h1>
+<h1 id="CHAPTER_6" align="center">CHAPTER 6</h1>
 <p> 
-<h2 align="center"><a name="Reference_Write_Functions"></a>Reference: Write Functions</h2>
+<h2 id="Reference_Write_Functions" align="center">Reference: Write Functions</h2>
 <p> 
-<h3 align="left">
-<a name="6.1"></a>6.1. Introduction
+<h3 id="6.1" align="left">6.1. Introduction
 </h3> 
 <p>
 The functions needed to write a CIF are similar to those described in <a href="#CHAPTER_5">Chapter 5</a>
@@ -3511,15 +3483,13 @@ Must be done after the last data value or comment is written.
 </li>
 </ul>
 <p> 
-<h3 align="left">
-<a name="6.2"></a>6.2. pfile_
+<h3 id="6.2" align="left">6.2. <tt>pfile_</tt>
 </h3>
 <p> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical function <b>pfile_</b> (fname)</tt><br /> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character fname*(*)</tt>
 <p> 
-<h3 align="left">
-<a name="6.2.1"></a>6.2.1. Definition
+<h3 id="6.2.1" align="left">6.2.1. Definition
 </h3> 
 <tt>pfile_</tt> is a <i>logical function</i> for opening an output file with the specified file name.
 <p> 
@@ -3534,8 +3504,7 @@ If the filename is entered as blank, items will be written to an output CIF that
 If a non-blank file name is entered, and the named file is already open, the value of flag will be returned 
 as <tt>.false.</tt>
 <p> 
-<h3 align="left">
-<a name="6.2.2"></a>6.2.2. Application
+<h3 id="6.2.2" align="left">6.2.2. Application
 </h3>
 <p> 
 <tt>pfile_</tt> is typically applied as follows.
@@ -3545,15 +3514,13 @@ as <tt>.false.</tt>
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</tt><br /> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flag = <b>pfile_</b>(fname)</tt><br /> 
 <p> 
-<h3 align="left">
-<a name="6.3"></a>6.3. pdata_
+<h3 id="6.3" align="left">6.3. <tt>pdata_</tt>
 </h3>
 <p> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical function <b>pdata_</b> (name)</tt><br /> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character name*(*)</tt><br />
 <p> 
-<h3 align="left">
-<a name="6.3.1"></a>6.3.1. Definition
+<h3 id="6.3.1" align="left">6.3.1. Definition
 </h3> 
 <tt>pdata_</tt> is a <i>logical function</i> for writing a data block header line into the output CIF. The 
 value of the function is returned as <tt>.true.</tt> if the block is created. The value will be 
@@ -3568,8 +3535,7 @@ The command arguments are:
 <tr><td>1<td></td> &lt:block name&gt;<td></td> Blank for use of the next data block</td></tr>
 </table>
 <p>
-<h3 align="left">
-<a name="6.3.2"></a>6.3.2. Application
+<h3 id="6.3.2" align="left">6.3.2. Application
 </h3> 
 <p>
 <tt>pdata_</tt> is usually applied as follows.
@@ -3596,15 +3562,13 @@ C....... Insert a data block code
 </table>
 </center>
 <p>
-<h3 align="left">
-<a name="6.4"></a>6.4. ploop_
+<h3 id="6.4" align="left">6.4. <tt>ploop_</tt>
 </h3>
 <p> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical function <b>ploop_</b> (name)</tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character name*(*)</tt><br />
 <p> 
-<h3 align="left">
-<a name="6.4.1"></a>6.4.1. Definition
+<h3 id="6.4.1" align="left">6.4.1. Definition
 </h3>
 <p> 
 <tt>ploop_</tt> is a <i>logical function</i> for writing a data name belonging to a list of items 
@@ -3618,8 +3582,7 @@ The command arguments are:
 <tr><td>1</td><td> &lt;data name&gt;</td><td> Data name of the item that is a member of a list 
 of items.</td></tr></table>
 <p> 
-<h3 align="left">
-<a name="6.4.2"></a>6.4.2. Application
+<h3 id="6.4.2" align="left">6.4.2. Application
 </h3> 
 <p>
 <tt>ploop_</tt> is usually applied as follows.
@@ -3668,14 +3631,12 @@ abcdefghi    9.0(9)         77.8071
 abcdefghij   10.0(10)       86.4523
 </pre></td></tr></table></center>
 <p>
-<h3 align="left">
-<a name="6.5"></a>6.5. pchar_
+<h3 id="6.5" align="left">6.5. <tt>pchar_</tt>
 </h3>
 <p> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical function <b>pchar_</b> (name, string)</tt><br /> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character name*(*), string*(*)</tt><br />
-<h3 align="left">
-<a name="6.5.1"></a>6.5.1. Definition
+<h3 id="6.5" align="left">6.5.1. Definition
 </h3>
 <p> 
 <tt>pchar_</tt> is a <i>logical function</i> for writing a character string to the output CIF. The 
@@ -3697,7 +3658,7 @@ The command arguments are:
 <tr><td>2</td><td> &lt;character string&gt;</td><td> A character string of <tt>MAXBUF</tt> chars or less.</td></tr>
 </table>
 <p>
-<h3 align="left"><a name="6.5.2"></a>6.5.2. Application
+<h3 id="6.5.2" align="left">6.5.2. Application
 </h3>
 <p>
 <tt>pchar_</tt> is typically applied as follows.
@@ -3708,15 +3669,13 @@ The command arguments are:
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;... </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flag = <b>pchar_</b>(tname,string)</tt><br /> 
 <p>
-<h3 align="left">
-<a name="6.6"></a>6.6. pcmnt_
+<h3 id="6.6" align="left">6.6. <tt>pcmnt_</tt>
 </h3>
 <p> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical function <b>pcmnt_</b> (string)</tt><br />  
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character string*(*) </tt><br /> 
 <p>
-<h3 align="left">
-<a name="6.1"></a>6.6.1. Definition
+<h3 id="6.6.1" align="left">6.6.1. Definition
 </h3> 
 <tt>pcmnt_</tt> is a <i>logical function</i> for writing a comment; string to the output CIF. 
 The value of the function is returned <tt>.true.</tt> The comment character "#" should not be 
@@ -3729,8 +3688,7 @@ The command arguments are:
 <tr><td>1</td><td> &lt;character string&gt;</td><td> A character string of <tt>MAXBUF</tt> chars or less.</td></tr>
 </table>
 <p>
-<h3 align="left">
-<a name="6.6.2"></a>6.6.2. Application
+<h3 id="6.6.2" align="left">6.6.2. Application
 </h3>
 <p>
 <tt>pcmnt_</tt> is typically applied as follows.
@@ -3746,16 +3704,14 @@ Here is and example of how two comments are written to the output file.
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f1 = pcmnt_(' Loops with various numeric and esd formats')</tt><br />
 <p>
 
-<h3 align="left">
-<a name="6.7"></a>6.7. pnumb_
+<h3 id="6.7" align="left">6.7. <tt>pnumb_</tt>
 </h3>
 <p>
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical function <b>pnumb_</b> (name, numb, sdev)</tt><br /> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character name*(*) </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;real numb, sdev </tt><br />
 <p>
-<h3 align="left">
-<a name="6.7.1"></a>6.7.1. Definition
+<h3 id="6.7.1" align="left">6.7.1. Definition
 </h3> 
 <tt>pnumb_</tt> is a <i>logical function</i> for writing a single precision number and its esd
  to the output CIF. The value of the function is returned as <tt>.true.</tt> if the name is unique 
@@ -3773,8 +3729,7 @@ The command arguments are:
 </table>
 <p>
 
-<h3 align="left">
-<a name="6.7.2"></a>6.7.2. Application
+<h3 id="6.7.2" align="left">6.7.2. Application
 </h3>
 <p> 
 <tt>pnumb_</tt> is usually applied as follows.
@@ -3785,16 +3740,14 @@ The command arguments are:
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;... </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flag = <b>pnumb_</b>(tname, xnumb, xesd)</tt><br />
 <p> 
-<h3 align="left">
-<a name="6.8"></a>6.8. pnumd_
+<h3 id="6.8" align="left">6.8. <tt>pnumd_</tt>
 </h3>
 <p>
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical function <b>pnumd_</b> (name, numb, sdev) </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character name*(*) </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;double precision numb, sdev</tt><br />
 <p> 
-<h3 align="left">
-<a name="6.8.1"></a>6.8.1. Definition
+<h3 id="6.8.1" align="left">6.8.1. Definition
 </h3> 
 <tt>pnumd_</tt> is a <i>logical function</i> for writing a double precision; number and its esd; 
 to the output CIF. The value of the function is returned as <tt>.true.</tt> when the name is 
@@ -3809,8 +3762,7 @@ The command arguments are:
 <tr><td>3</td><td> &lt;double precision variable&gt;</td><td> Esd number to be appended in parentheses.</td></tr>
 </table>
 <p> 
-<h3 align="left">
-<a name="6.8.2"></a>6.8.2. Application
+<h3 id="6.8.2" align="left">6.8.2. Application
 </h3>
 <p> 
 <tt>pnumb_</tt> is usually applied as follows.
@@ -3821,15 +3773,13 @@ The command arguments are:
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;... </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flag = <b>pnumd_</b>(tname, xnumb, xesd) </tt><br />
 <p>
-<h3 align="left">
-<a name="6.9"></a>6.9. ptext_
+<h3 id="6.9" align="left">6.9. <tt>ptext_</tt>
 </h3> 
 <p>
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical function <b>ptext_</b> (name, string) </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character name*(*), string*(*)  </tt><br /
-<p>>
-<h3 align="left">
-<a name="6.9.1"></a>6.9.1. Definition
+<p>
+<h3 id="6.9.1" align="left">6.9.1. Definition
 </h3> 
 <tt>ptext_</tt> is a <i>logical function</i> for writing character string data to the output CIF. The 
 <i>logical function</i> returned as <tt>.true.</tt> if the name is unique AND if <tt>dict_</tt> is invoked, the 
@@ -3844,8 +3794,7 @@ The command arguments are:
 <tr><td>2</td><td> &lt;character string&gt;</td><td> A character string of <tt>MAXBUF</tt> chars or less.</td></tr>
 </table>
 <p>
-<h3 align="left">
-<a name="6.9.2"></a>6.9.2. Application
+<h3 id="6.9.2" align="left">6.9.2. Application
 </h3> 
 <tt>ptext_</tt> is usually applied as follows.
 <p> 
@@ -3875,47 +3824,59 @@ or in a loop.
 </pre></td></tr>
 </table>
 <p> 
-<h3 align="left">
-<a name="6.10"></a>6.10. prefx_
+<h3 id="6.10" align="left">6.10. <tt>prefx_</tt>
 </h3> 
-logical function prefx_ (strg, lstrg) 
-character strg*(*) 
-integer lstrg 
-<h3 align="left">
-<a name="6.10.1"></a>6.10.1. Definition
+<p>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical function prefx_ (strg, lstrg) </tt><br /> 
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character strg*(*) </tt><br />
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer lstrg </tt><br />
+<p>
+<h3 id="6.10.1" align="left">6.10.1. Definition
 </h3> 
-<tt>prefx_</tt> is a <i>logical function</i> for writing a prefix string to subsequent lines of the output CIF. The <i>logical function</i> returned as <tt>.true.</tt> The second argument may be zero to suppress a previously used prefix, or greater than the non-blank length of the string to force a left margin. Any change in the length of the prefix string flushes pending partial output lines, but does not force completion of pending text blocks or loops. This function allows the CIF output functions to be used within what appear to be text fields to support annotation of a CIF. 
-The command arguments are: 
-No. Argument Description 
-1 <character string> A character string of <tt>MAXBUF</tt> chars or less. 2 <integer variable> The length of the prefix string to use. 6.10.2. Application 
-prefx_ is usually applied as follows. 
-character*10 string 
-integer lstr 
-logical flag 
-... 
-lstr = len(string) 
-flag = prefx_(string, lstr)
+<tt>prefx_</tt> is a <i>logical function</i> for writing a prefix string to subsequent lines 
+of the output CIF. The <i>logical function</i> returned as <tt>.true.</tt> The second argument 
+may be zero to suppress a previously used prefix, or greater than the non-blank length of the 
+string to force a left margin. Any change in the length of the prefix string flushes pending 
+partial output lines, but does not force completion of pending text blocks or loops. This 
+function allows the CIF output functions to be used within what appear to be text fields to 
+support annotation of a CIF.
 <p> 
-<h3 align="left">
-6.11. close_
+The command arguments are:
+<p>
+<table border=0> 
+<tr><td>No.</td><td>Argument</td><td>Description</td></tr> 
+<tr><td>1</td><td>&lt;character string&gt;</td><td>A character string of <tt>MAXBUF</tt> chars or less.</td></tr> 
+<tr><td>2</td><td>&lt;integer variable&gt;</td><td>The length of the prefix string to use.</td></tr>
+</table>
+<p>
+<h3 id="6.10.2" align="left">6.10.2. Application</h3>
+<p> 
+<tt>prefx_</tt> is usually applied as follows.
+<p> 
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character*10 string</tt><br /> 
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer lstr </tt><br />
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical flag </tt><br />
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;... </tt><br />
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lstr = len(string) </tt><br />
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flag = prefx_(string, lstr)</tt><br />
+<p> 
+<h3 id="6.11" align="left">6.11. <tt>close_</tt>
 </h3>
 <p>
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;subroutine close_</tt>
 <p>
-<h3 align="left"> 
-<a name="6.11.1"></a>6.11.1. Definition
+<h3 id="6.11.1" align="left"> 6.11.1. Definition
 </h3> 
 close_ is a subroutine called to close the creation CIF.
 <p> 
-<h3 align="left">
-<a name="6.11.2"><a>6.11.2. Application
+<h3 id="6.11.2" align="left">6.11.2. Application
 </h3> 
 <tt>close_</tt> must be used if <tt>pfile_</tt> is used.<br /> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;call close_</tt>
 <p> 
-<h1 align="center"><a name="CHAPTER_7"></a>CHAPTER 7</h1>
+<h1 id="CHAPTER_7" align="center">CHAPTER 7</h1>
 <p> 
-<h2 align="center"><a name="Reference_Variables">Reference: Variables</h2>
+<h2 id="Reference_Variables" align="center">Reference: Variables</h2>
 <p> 
 Most simple <i>CIFtbx</i> applications need be aware of just a few basic variables: 
 <tt>list_</tt>, <tt>loop_</tt>, <tt>strg_</tt>, <tt>text_</tt>, and <tt>type_</tt>. 
@@ -4575,8 +4536,7 @@ _cell.length_a 37.58
 </center>
 <p>
 
-<h2 align="center">
-<a name="Error_Message_Glossary"></a>CHAPTER 8 Reference: Error Message Glossary </h2>
+<h2 id="Error_Message_Glossary" align="center">CHAPTER 8 Reference: Error Message Glossary </h2>
 <p>
 The <i>CIFtbx</i> functions avoid issuing error messages unless they are requested, or 
 there is no sensible way to continue. The preferred approach is for the <i>CIFtbx</i> 
@@ -4597,7 +4557,7 @@ item name _dummy_test, in the data block <tt>data_</tt>mumbo_jumbo.
 <tt>ciftbx warning:  test.cif     <tt>data_</tt>mumbo_jumbo    line: 12</tt><br />
 <tt>Data name _dummy_test not in dictionary!</tt> 
 <p>
-<h3 align="left"><a name="Fatal_Errors_Array_Bounds"></a>Fatal Errors: Array Bounds</h3> 
+<h3 id="Fatal_Errors_Array_Bounds" align="left">Fatal Errors: Array Bounds</h3> 
 <p>
 The following messages are issued if the <i>CIFtbx</i> array bounds are exceeded.
 <p>
@@ -4634,8 +4594,7 @@ will return <tt>.false.</tt>, and processing will continue, so that the calling 
 may take appropriate action before termination, but this is effectively a 
 fatal error for which recompilation with a larger value of <tt>MAXBOOK</tt> is necessary.
 <p>
-<h3 align="left">
-<a name="Fatal_Errors_Data_Sqeance"></a>Fatal Errors: Data Sequence, Syntax and File Construction
+<h3 id="Fatal_Errors_Data_Sequence"malign="left">Fatal Errors: Data Sequence, Syntax and File Construction
 </h3>
 <p>
 <b><tt>Dict_ must precede <tt>ocif_</tt></tt></b>
@@ -4673,7 +4632,7 @@ When processing multi-line text the end of the CIF is encountered before the
 terminal semicolon.
 <p>
 
-<h3 align="left"><a name="Fatal_Errors_Invalid_Arguments"></a>Fatal Errors: Invalid Arguments</h2>
+<h3 id="Fatal_Errors_Invalid_Arguments" align="left">Fatal Errors: Invalid Arguments</h2>
 <p>
 The following messages are generated by calls with invalid arguments.
 <p>
@@ -4686,9 +4645,9 @@ Internal error in putnum
 </tt></b></td></tr></table>
 </center>
 <p>
-<h3 align="left"><a name="Warnings_Input_Errors"></a>Warnings: Input Errors</h3>
+<h3 id="Warnings_Input_Errors" align="left">Warnings: Input Errors</h3>
 <p>
-<b><tt>Category <cat-code> first implicitly defined in cif</tt></b>
+<b><tt>Category &lt;cat-code&gt; first implicitly defined in cif</tt></b>
 <p>
 The category code in the DDL2 data name is not matched by an explicit definition 
 in the dictionary. This may be intentional, but it more likely indicates a 
@@ -4754,7 +4713,7 @@ values "?" or "." will not generate this message.
 <b><tt>Quoted string not closed</tt></b>
 <p>
 Character values may be enclosed by bounding quotes. The strict definition 
-of a "quoted string" value is that it must start with a <wq> digraph and 
+of a "quoted string" value is that it must start with a &lt;wq&gt; digraph and 
 end with a &lt;qw&gt; digraph, where w is a white-space character blank 
 or tab and q is a single or double quote and the same type of quote mark 
 is used in the terminal digraph as was used in the initial digraph. 
@@ -4812,7 +4771,7 @@ A prefix string specified to <tt>prefx_</tt> is longer than the maximum line len
 allowed. It is truncated and processing continues
 <p>
 
-<h3 align="left"><a name="Warnings_Dictionary_Checks"></a>Warnings: Dictionary Checks</h3>
+<h3 id="Warnings_Dictionary_Checks" align="left">Warnings: Dictionary Checks</h3>
 <p>
 <b><tt>Aliases and names in different loops; only using first alias</tt></b>
 <p>
@@ -4852,7 +4811,7 @@ The second alias declaration is ignored.
 When a DDL2 dictionary contains a new declaration of an alias for a data name 
 that duplicates a previously defined alias pair, this warning is issued.
 <p>
-<b><tt>Item name <name> does not match category name</tt></b>
+<b><tt>Item name &lt;name&gt; does not match category name</tt></b>
 <p>
 If category checking is enabled and the category assigned to an item name does 
 not match the initial characters of the item name, this warning is issued and 
@@ -4913,114 +4872,111 @@ because the use of the block name was probably the intended result, but if no su
 match is found, this warning is issued.
 
 
-
-
-<h2 align="center">
-<a name="#References">References</a>
+<h2 id="References" align="center">References</div>
 </h2>
 <p>
 <ul>
 <li>
-<a name="Bernstein_Brown_Gra&zcaron;ulis_2016">[Bernstein, Brown, Gra&zcaron;ulis <i>et al.</i>, 2016]</a>
+<div id="Bernstein_Brown_Gra&zcaron;ulis_2016">[Bernstein, Brown, Gra&zcaron;ulis <i>et al.</i>, 2016]</div>
 Bernstein, H.J., Bollinger, J.C., Brown, I.D., Gra&zcaron;ulis, S., Hester, J.R., McMahon, B., Spadaccini, N., Westbrook, J.D. and Westrip, S.P., 2016. Specification of the crystallographic information file format, version 2.0. J. Appl. Cryst., 49(1), 277 -- 284.
 </li>
 <li>
-<a name="Bernstein_1997">[Bernstein, 1997]</a>
+<div id="Bernstein_1997">[Bernstein, 1997]</div>
 Bernstein, H. J., 1997.  CIF2cif.  CIF Copy program.
 </li>
 <li> 
-<a href=http://www.bernstein-plus-sons.com/software/cifcif></a>
+<a href=http://www.bernstein-plus-sons.com/software/cifcif></div>
 http://www.bernstein-plus-sons.com/software/cifcif</li>
 <li>
-<a name="Bernstein_Bernstein_1996">[Bernstein, Bernstein, 1996]</a>
+<div id="Bernstein_Bernstein_1996">[Bernstein, Bernstein, 1996]</div>
 Bernstein, F.C. and Bernstein, H.J., 1996. Translating mmCIF data into PDB entries. 
 Acta Crystallographica Section A, 52, C576.
 </li>
 <li>
-<a name="Bernstein_Bernstein_Bourne_1998">[Bernstein, Bernstein, Bourne, 1998]</a>
+<div id="Bernstein_Bernstein_Bourne_1998">[Bernstein, Bernstein, Bourne, 1998]</div>
 Bernstein, H.J., Bernstein, F.C. and Bourne, P.E., 1998. CIF applications. VIII. 
 pdb2cif: translating PDB entries into mmCIF format. J. Appl. Cryst., 31(2), 282 -- 295.
 </li>
 <li>
-<a name="Bernstein_Hall_1998">[Bernstein, Hall, 1998]</a>
+<div id="Bernstein_Hall_1998">[Bernstein, Hall, 1998]</div>
 Bernstein, H.J. and Hall, S.R., 1998. CIF applications. VII. CYCLOPS2: extending the validation of CIF data names. J. Appl. Cryst., 31(2), 278 -- 281.
 </li>
 <li>
-<a name="Bernstein_et_al_1977'>[Bernstein, <i>et al.</i>, 1977]</a>
+<div id="Bernstein_et_al_1977'>[Bernstein, <i>et al.</i>, 1977]</div>
 Bernstein, F.C., Koetzle, T.F., Williams, G.J., Meyer Jr, E.F., Brice, M.D., 
 Rodgers, J.R., Kennard, O., Shimanouchi, T. and Tasumi, M., 1977. 
 The Protein Data Bank: a computer-based archival file for macromolecular structures. 
 J. Mol. Biol., 112(3), 535 -- 542.
 </li>
 <li>
-<a name="Bourne_et_al_1996">[Bourne <i>et al.</i>, 1996]</a>
+<div id="Bourne_et_al_1996">[Bourne <i>et al.</i>, 1996]</div>
 Bourne, P.E., Berman, H.M., McMahon, B., Watenpaugh, K.D., Westbrook, J.D. and 
 Fitzgerald, P.M., 1997. [30] Macromolecular crystallographic information file. 
 In Methods in enzymology (Vol. 277, 571 -- 590). Academic Press
 </li>
 <li>
-<a name="Bourne_Bernstein_Bernstein_1996">[Bourne, Bernstein, Bernstein, 1996]</a>
+<div id="Bourne_Bernstein_Bernstein_1996">[Bourne, Bernstein, Bernstein, 1996]</div>
 Bourne, P.E., Bernstein, F.C. and Bernstein, H.J., 1996, August. 
 Translating PDB entries into mmCIF. Based on "Translating PDB Entries into mmCIF", 
 mmCIF workshop, IUCr meeting, Seattle Washington.
 </li>
 <li>
-<a name="Fitzgerald_et_al_1996">[Fitzgerald <i>et al.</i> 1996]</a>
+<div id="Fitzgerald_et_al_1996">[Fitzgerald <i>et al.</i> 1996]</div>
 Fitzgerald, P.M.D., Berman, H., Bourne, P., McMahon, B., Watenpaugh, K. 
 and Westbrook, J., 1996. The mmCIF dictionary: community review and final approval. 
 Acta Cryst. A52, C575.
 <li>
-<a name="Hall_1993">[Hall, 1993]</a>
+<div id="Hall_1993">[Hall, 1993]</div>
 Hall, S.R., 1993. CIF applications. II. CIFIO: for CIF input/output in the Xtal system. 
 J. Appl. Cryst., 26(3), 474 -- 479.
 </li>
 <li>
-<a name="Hall_1993a">[Hall, 1993a]</a>
+<div id="Hall_1993a">[Hall, 1993a]</div>
 Hall, S.R., 1993. CIF applications. IV. <i>CIFtbx</i>: a tool box for manipulating CIFs. 
 J. Appl. Cryst., 26(3), 482 -- 494.
 </li>
-<a name="Hall_Allen_Brown_1991">[Hall, Allen, Brown, 1991]</a>
+<div id="Hall_Allen_Brown_1991">[Hall, Allen, Brown, 1991]</div>
 Hall, S.R., Allen, F.H. and Brown, I.D., 1991. The crystallographic information file (CIF): 
 a new standard archive file for crystallography. Acta Cryst.  A47(6), 655 -- 685.
 </li>
 <li>
-<a name="Hall_Bernstein_1996">[Hall, Bernstein, 1996]</a>
+<div id="Hall_Bernstein_1996">[Hall, Bernstein, 1996]</div>
 Hall, S.R. and Bernstein, H.J., 1996. CIF applications. V. CIFtbx2: 
 Extended tool box for manipulating CIFs. 
 J. Appl. Cryst., 29(5), 598 -- 603.
 </li>
 <li>
-<a name="Hall_Cook_1995">[Hall, Cook, 1995]</a>
+<div id="Hall_Cook_1995">[Hall, Cook, 1995]</div>
 Hall, S.R. and Cook, A.P., 1995. STAR dictionary definition language:
 initial specification. J. Chem. Info. Comp. Sci., 35(5), 819 -- 825.
 </li>
 <li>
-<a name="Hall_Spadaccini_1994">[Hall, Spadaccini, 1994]</a>
+<div id="Hall_Spadaccini_1994">[Hall, Spadaccini, 1994]</div>
 Hall, S.R. and Spadaccini, N., 1994. The STAR file: Detailed specifications. 
 J. Chem. Info. Comp. Sci., 34(3), 505 -- 508.
 </li>
 <li>
-<a name="McMahon_1995">[McMahon 1995]</a>
+<div id="McMahon_1995">[McMahon 1995]</div>
 B. McMahon, "A Brief History of the DDL", COMCIFS, 1995.
-<a href="http://www.iucr.ac.uk/iucr-top/cif/ddlhist.html">http://www.iucr.ac.uk/iucr-top/cif/ddlhist.html</a>
+<a href="http://www.iucr.ac.uk/iucr-top/cif/ddlhist.html">http://www.iucr.ac.uk/iucr-top/cif/ddlhist.html</div>
 </li>
 <li>
-<a name="Spadaccini_Hall_2012">[Spadaccini, Hall, 2012]</a>
+<div id="Spadaccini_Hall_2012">[Spadaccini, Hall, 2012]</div>
 Spadaccini, N. and Hall, S.R., 2012. DDLm: A new dictionary definition language. J. Chem. Info. and Modeling, 52(8), 1907 -- 1916.
 </li>
 <li>
-<a name="Toby_von_Dreele_Larson_2003">[Toby, von Dreele, Larson, 2003]</a>
+<div id="Toby_von_Dreele_Larson_2003">[Toby, von Dreele, Larson, 2003]</div>
 Toby, B.H., von Dreele, R.B. and Larson, A.C., 2003. CIF applications. XIV. Reporting of 
 Rietveld results using pdCIF: GSAS2CIF. J. Appl. Cryst., 36(5), 1290 -- 1294.
 </li>
 <li>
-<a name="Westbrook_Hall_1995">[Westbrook, Hall, 1995]</a>
+<div id="Westbrook_Hall_1995">[Westbrook, Hall, 1995]</div>
 Westrook, J.D. and Hall, S.R., mmcif ddl dictionary, 
-<a href=https://mmcif.wwpdb.org/dictionaries/ascii/mmcif_ddl.dic>https://mmcif.wwpdb.org/dictionaries/ascii/mmcif_ddl.dic</a>
+<a href=https://mmcif.wwpdb.org/dictionaries/ascii/mmcif_ddl.dic>https://mmcif.wwpdb.org/dictionaries/ascii/mmcif_ddl.dic</div>
 </li>
 </ul>
 
-<h1 align="center"><a name="APPENDIX_A"></a>APPENDIX A</h2>
+<h1 id="APPENDIX_A" align="center">APPENDIX A</h2>
 <p>
 <h3 align="left">Usage Restrictions and Policy</h3>
 <p>
@@ -5044,7 +5000,7 @@ follow.
 <hr />
 <p>
 <center>
-<a name="GPL"></a>GNU GENERAL PUBLIC LICENSE
+<div id="GPL">GNU GENERAL PUBLIC LICENSE<div>
 </center>
 <p>
 Version 2, June 1991
@@ -5271,7 +5227,7 @@ POSSIBILITY OF SUCH DAMAGES.
 <p>
 
 <center>
-<a name="LGPL"></a>GNU LESSER GENERAL PUBLIC LICENSE
+<div id="LGPL">GNU LESSER GENERAL PUBLIC LICENSE</div>
 </center>
 <p>
 Version 2.1, February 1999
@@ -5434,7 +5390,7 @@ NO WARRANTY
 <p>
 
 <center>
-<a name="RASLIC"></a>RasMol License
+<div id="RASLIC">RasMol License</div>
 </center>
 <p>
 Creative endeavors depend on the lively exchange of ideas. There are laws and customs that establish rights and responsibilities for authors and the users of what authors create. This notice is not intended to prevent you from using the software and documents in this package, but to ensure that there are no misunderstandings about terms and conditions of such use.
@@ -5456,9 +5412,9 @@ BY USE OF THE PROGRAMS OR DOCUMENTS LIES SOLELY WITH THE USERS OF THE PROGRAMS O
 <hr />
 <p>
 <center>
-<a name="IUCR_POLICY"></a>The IUCr Policy Use of the Crystallographic Information File (CIF)<br />
+<div id="IUCR_POLICY">The IUCr Policy Use of the Crystallographic Information File (CIF)<br />
 on the
-(Reproduced with permission from the IUCr Web Page)
+(Reproduced with permission from the IUCr Web Page)</div>
 </center>
 <p>
 The Crystallographic Information File [Hall, Allen, Brown  91] is, as of January
