@@ -1338,14 +1338,14 @@ C
            if(charnp_(ct(i),name,lstrg)) then
              if(i.eq.5) then
 C
-C              if this is a DDLm _defintion.scope with a value of
-C              category, we need to get the name from _defintion.id
+C              if this is a DDLm _definition.scope with a value of
+C              category, we need to get the name from _definition.id
 C
                call tbxxnlc(bcname,name(1:lstrg))
                if(bcname.eq.'category') then
                  if(.not.charnp_(nt(3),name,lstrg)) then
                    call tbxxwarn(
-     *             ' DDLm category defintion without _definition.id ')
+     *             ' DDLm category definition without _definition.id ')
                  else
                    go to 216
                  endif
@@ -6564,7 +6564,7 @@ CDBG *  buffer(jchar:lastch)
 
 
 3390    if(depth_ .ne. innerdepth) then
-         call tbxxwarn(' failed to close bracketed string')
+         call tbxxwarn(' Failed to close bracketed string')
          depth_ = innerdepth
         endif
         go to 3400
