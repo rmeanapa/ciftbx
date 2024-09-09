@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-</head>
+                                                                                                                                                                                                                                                                         </head>
 <body>
 <font face="Arial,Helvetica,Times" size="3">
 <center>
@@ -142,8 +142,8 @@ and to construct CIF dictionaries.
 <a href="#CHAPTER_5">5. Read Functions</a>
 <ul>
 <li><a href="#5.1">5.1. Introduction</a></li>
-<li><a href="#5.2">5.2. <tt>ocif_</tt></a></li>
-<li><a href="#5.3">5.3. <tt>data_</tt></a></li>
+<li><a href="#5.2">5.2. ocif_</a></li>
+<li><a href="#5.3">5.3. data_</a></li>
 <li><a href="#5.4">5.4. bkmrk_</a></li>
 <li><a href="#5.5">5.5. find_</a></li>
 <li><a href="#5.6">5.6. test_</a></li>
@@ -1800,7 +1800,14 @@ bracketed constructs on read.
 </td></tr>
 
 <tr><td valign="top"><b><tt>
-rdcqt_
+rdprn_
+</tt></b></td><td>
+Logical variable controls the acceptance of parentheses
+ <tt> ( ... ) </tt> as delimiters on read.
+</td></tr>
+
+<tr><td valign="top"><b><tt>
+rdrcqt_
 </tt></b></td><td>
 Logical variable controls recognition of trailing punctuation
   after a closing quote.  If <tt>.true.</tt> a closing quotation mark is
@@ -1810,14 +1817,6 @@ Logical variable controls recognition of trailing punctuation
   in bracketed constructs, by a blank, a colon, a comma or 
   the closing bracket. 
 </td></tr>
-
-<tr><td valign="top"><b><tt>
-rdprn_
-</tt></b></td><td>
-Logical variable controls the acceptance of parentheses
- <tt> ( ... ) </tt> as delimiters on read.
-</td></tr>
-
 
 <tr><td valign="top"><b><tt>
 rdtq_
@@ -1866,7 +1865,7 @@ Character string containing the current data block name.
 </td></tr>
 
 <tr><td valign="top"><b><tt>
-clipt__
+clipt_
 </tt></b></td><td>
 Logical variable, if set .true., when reading text fields,
 an extra blank is inserted before the character string
@@ -4106,8 +4105,8 @@ nblank_<br />
 rdbkt_<br />
 rdbrc_<br />
 rdcolon_<br />
-rdcqt_<br />
 rdprn_<br />
+rdrcqt_<br />
 rdtq_<br /> 
 recbeg_<br />
 recend_<br />
@@ -4287,6 +4286,53 @@ nblank_
 <tt>Logical</tt> variable: Set <tt>.true.</tt> will cause calls to <tt>char_</tt> or <tt>test_</tt> 
 that encounter a non-text quoted blank to return the type as 'null' rather than 'char'.
 </td></tr>
+
+<tr><td valign="top"><b><tt>  
+rdbkt_
+</tt></b></td><td>
+<tt>Logical</tt> variable controls the recognition of bracket delimiters <tt> [ ... ] </tt> on read.
+</td></tr>
+
+<tr><td valign="top"><b><tt>
+rdbrc_
+</tt></b></td><td>
+<tt>Logical</tt> variable controls the recognition of brace delimiters <tt> { ... } </tt> on read.
+</td></tr>
+
+<tr><td valign="top"><b><tt>
+rdcolon_
+</tt></b></td><td>
+<tt>Logical</tt> variable controls the acceptance of colons as delimiters inside
+bracketed constructs on read.
+</td></tr>
+
+<tr><td valign="top"><b><tt>
+rdprn_
+</tt></b></td><td>
+<tt>Logical</tt> variable controls the acceptance of parentheses
+ <tt> ( ... ) </tt> as delimiters on read.
+</td></tr>
+
+<tr><td valign="top"><b><tt>
+rdrcqt_
+</tt></b></td><td>
+<tt>Logical</tt> variable controls recognition of trailing punctuation
+after a closing quote.  If <tt>.true.</tt> a closing quotation mark is
+recognized immediately, no matter what follows the closing
+quotation mark (the CIF 2 convention).  If <tt>.false.</tt>, a closing
+quotation mark is only effective if followed by a blank, or,
+in bracketed constructs, by a blank, a colon, a comma or
+the closing bracket.
+</td></tr>
+
+<tr><td valign="top"><b><tt>
+rdtq_
+</tt></b></td><td>
+<tt>Logical</tt> variable controls the recognition of triple-quote delimiters
+<tt>&quot;&quot;&quot; ...  &quot;&quot;&quot;</tt>
+ and  <tt>''' ...  '''</tt> on read.
+</td></tr>
+
 
 <tr><td valign="top"><b><tt>
 recbeg_
