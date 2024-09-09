@@ -2068,7 +2068,7 @@ Logical variable containing <tt>.true.</tt> if the current value has been
 </table>
  
 
-<h3 id="2.5.2" align="left">2.5.2. Output Control Variables
+<h3 id="2.5.4" align="left">2.5.4. Output Control Variables
 </h3>  
 These variables are specified to control the processing <i>CIFtbx</i> commands that write CIFs.
 <p>
@@ -2111,6 +2111,15 @@ unquoted period (<i>i.e.</i> to a data item of type null)3.
 </td></tr>
 
 <tr><td valign="top"><b><tt>
+pclipt_
+</tt></b></td><td>
+Logical variable controls whether to clip first character of text on output.
+If set to <tt>.true.</tt>, when writing text fields, if there is a blank as 
+the first character to be written, it is removed, emulating the behaviour of
+<i>CIFtbx</i> versions prior to version 4. 
+</td></tr>
+
+<tr><td valign="top"><b><tt>
 pdecp_
 </tt></b></td><td>
 Logical variable controls the treatment of output decimal numbers. If set <tt>.true.</tt> 
@@ -2120,12 +2129,31 @@ needed. The default is <tt>.false.</tt>
 </td></tr>
 
 <tr><td valign="top"><b><tt>
+pdepth_
+</tt></b></td><td>
+Integer variable containing the depth within a list, array, tuple, or table.
+</td></tr>
+
+<tr><td valign="top"><b><tt>
 pesddig_
 </tt></b></td><td>
 Integer variable to set non-zero, and <tt>esdlim_</tt> is negative, controls the 
-number of digits for esd's produced by pnumb_ and pnumd_ 
+number of digits for esd's produced by <tt>pnumb_</tt> and <tt>pnumd_</tt>. 
 </td></tr>
 
+<tr><td valign="top"><b><tt>
+pfold_
+</tt></b></td><td>
+Integer variable controlling the character position on which to fold output.
+</td></tr>
+
+<tr><td valign="top"><b><tt>
+phtml_
+</tt></b></td><td>
+Logical variable set to <tt>.true.</tt> to chnage the output style to HTML
+conventions.  The default value is <tt>.false.</tt>
+</td></tr>
+ 
 <tr><td valign="top"><b><tt>
 plzero_
 </tt></b></td><td>
@@ -2139,6 +2167,13 @@ pposdec_
 </tt></b></td><td>
 Integer variable to set the column number (position along the line, counting from 
 1 at the left) of the decimal point for the next number to be output. 
+</td></tr>
+
+<tr><td valign="top"><b><tt>
+pposdelim_
+</tt></b></td><td>
+Integer variable to set the column number (position along the line, counting from 
+1 at the left) of the next delimiter character to be output. 
 </td></tr>
 
 <tr><td valign="top"><b><tt>
@@ -2171,19 +2206,19 @@ Character variable containing the quotation symbol to be used for the next strin
 </td></tr>
 
 <tr><td valign="top"><b><tt>
-saveo_
-</tt></b></td><td>
-Logical variable is set <tt>.true.</tt> for pdata_ to output a save-frame, otherwise a 
-data block is output. 
-</td></tr>
-
-<tr><td valign="top"><b><tt>
 ptabx_
 </tt></b></td><td>
 Logical variable is set to <tt>.true.</tt> for tab-stops to be expanded to blanks 
 during the creation of a CIF. The default is <tt>.true.</tt> 
 </td></tr>
 
+<tr><td valign="top"><b><tt>
+saveo_
+</tt></b></td><td>
+Logical variable is set <tt>.true.</tt> for pdata_ to output a save-frame, otherwise a 
+data block is output. 
+</td></tr>
+ 
 <tr><td valign="top"><b><tt>
 tabl_
 </tt></b></td><td>
@@ -2192,6 +2227,34 @@ of output data. The default is <tt>.true.</tt>
 </td></tr>
 </table>
 <p>
+
+<tr><td valign="top"><b><tt>
+unfold_
+</tt></b></td><td>
+Logical variable is set <tt>.true.</tt> if input lines are to be unfolded
+before prsentation of data.
+</td></tr>
+
+<tr><td valign="top"><b><tt>
+xmlout_
+</tt></b></td><td>
+Logical variable is set <tt>.true.</tt> to change the output style to 
+XML conventions.  Note that this is not a CML output, but a literal
+translation from the input CIF.
+</td></tr>
+
+<tr><td valign="top"><b><tt>
+xmlong_
+</tt></b></td><td>
+Logical variable is set <tt>.true.</tt> to change the 
+style of XML output if <tt>xmlout_</tt> is <tt>.true.</tt>.  When
+<tt>.true.</tt>, XML tag names are the full CIF tag names with 
+leading underscore, <tt>_</tt>, removed.  When <tt>.false.</tt>,
+an attempt is made to strip the leading category name as well.
+</td></tr>
+<p>
+
+
 
 <h3 id="2.6" align="left">2.6. Name Aliases
 </h3>  
