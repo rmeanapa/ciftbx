@@ -1800,13 +1800,6 @@ bracketed constructs on read.
 </td></tr>
 
 <tr><td valign="top"><b><tt>
-rdprn_
-</tt></b></td><td>
-Logical variable controls the acceptance of parentheses
- <tt> ( ... ) </tt> as delimiters on read.
-</td></tr>
-
-<tr><td valign="top"><b><tt>
 rdcqt_
 </tt></b></td><td>
 Logical variable controls recognition of trailing punctuation
@@ -1817,6 +1810,14 @@ Logical variable controls recognition of trailing punctuation
   in bracketed constructs, by a blank, a colon, a comma or 
   the closing bracket. 
 </td></tr>
+
+<tr><td valign="top"><b><tt>
+rdprn_
+</tt></b></td><td>
+Logical variable controls the acceptance of parentheses
+ <tt> ( ... ) </tt> as delimiters on read.
+</td></tr>
+
 
 <tr><td valign="top"><b><tt>
 rdtq_
@@ -4103,12 +4104,12 @@ line_<br />
 <br />
 <br />
 nblank_<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br /> 
+rdbkt_<br />
+rdbrc_<br />
+rdcolon_<br />
+rdcqt_<br />
+rdprn_<br />
+rdtq_<br /> 
 recbeg_<br />
 recend_<br />
 <br />
@@ -4123,6 +4124,7 @@ tabx_<br /></tt>
 bloc_<br />
 clipt_<br />
 decp_<br /> 
+depth_<br />
 dictype_<br />
 diccat_<br />
 dicname_<br />
