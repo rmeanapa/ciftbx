@@ -1537,14 +1537,14 @@ The following commands are available for writing data to a new CIF.
 </pre>
 <p>
 <table border=0>
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 pfile_</tt></b></td><td> 
 Creates a new file with the specified file name, <tt>fname</tt>. The <i>logical function</i> is 
 returned as <tt>.true.</tt> if the file is opened. The value will be <tt>.false.</tt> 
 if the file already exists.
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 pdata_</tt></b></td><td>
 Puts "data_name", <tt>name</tt>, into the output CIF. The <i>logical function</i> is returned 
 as <tt>.true.</tt> if the block is created. The value will be <tt>.false.</tt> if the 
@@ -1554,7 +1554,7 @@ save-frame, the necessary terminal 'save_' is written for that block before the
 new block is started. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 pdelim_</tt></b></td><td>
 Puts delimiter ' ', ',', ':', '(', '{', '[', ')', '}', or ']', <tt>delim</tt>, 
 into the output CIF.  Emitting a '(', '{' or '[' increases the output depth by one.
@@ -1574,7 +1574,7 @@ new block is started.
 </td></tr>
 
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 ploop_</tt></b></td><td>
 Puts the specified data name, <tt>name</tt>, into the output CIF. On the first 
 invocation of this command for a given loop a "loop_" string is placed before 
@@ -1587,7 +1587,7 @@ of which is blank, or the loop_ will be terminated. If the variable <tt>pposnam_
 is non-zero, the data name (or save-frame name) is positioned to start in that column.
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 pchar_</tt></b></td><td>
 Puts the specified data name, <tt>name</tt>, and character string, <tt>string</tt>, into 
 the output CIF. If the data name is blank, only the character string is put. The 
@@ -1609,7 +1609,7 @@ when writing a text field, if <tt>nblanko_</tt> is true, <tt>pchar_</tt> convert
 a blank string to an unquoted period.
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top"  align="left"><b><tt>
 pcmnt_</tt></b></td><td>
 Puts the specified comment string, <tt>string</tt>, into the output CIF. The 
 <i>logical function</i> is always returned as <tt>.true.</tt> The comment
@@ -1618,7 +1618,7 @@ presented as a blank line without the leading "#". The string <tt>char(0)//char(
 can be used to produce an empty comment with the leading "#".
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 pnumb_</tt></b></td><td>
 Puts the specified data name, <tt>name</tt>, single precision number, <tt>numb</tt>, 
 and an appended esd, <tt>sdev</tt>, into the output CIF. The <i>logical function</i> is 
@@ -1627,7 +1627,7 @@ dictionary validation checks.  The number of esd digits is controlled by
 the variable <tt>esdlim_</tt>.
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 pnumd_</tt></b></td><td>
 Puts the specified data name, <tt>name</tt>, double precision number, <tt>numb</tt>,
 and an appended esd, <tt>sdev</tt>, into the output CIF. The <i>logical function</i> is 
@@ -1636,7 +1636,7 @@ dictionary validation checks.  The number of esd digits is controlled by
 the variable <tt>esdlim_</tt>.
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 ptext_</tt></b></td><td>
 Puts the specified data name, <tt>name</tt>, and text string, <tt>string</tt>, 
 into the output CIF. The data name will only be inserted on the first 
@@ -1660,7 +1660,7 @@ or <tt>pnumd_</tt> is made or if a call is made to <tt>ptext_</tt> for a differe
 data name.
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 prefx_</tt></b></td><td>
 Prefixes the specified string, <tt>strg</tt>, of length, <tt>lstrg</tt>, to 
 subsequent lines of the output CIF. The total line length is still limited 
@@ -1675,7 +1675,7 @@ be text fields to support annotation
 of a CIF. The <i>logical function</i> is always returned as <tt>.true.</tt> 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 close_</tt></b></td><td>
 Closes the output CIF only. This command MUST be used if pfile_ is used. 
 This a subroutine call. 
@@ -1706,27 +1706,27 @@ file_
 Character string containing the filename of the current input file.
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 longf_
 </tt></b></td><td>
 Integer variable containing the length of the filename in <tt>file_</tt>.
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 precn_
 </tt></b></td><td>
 Integer variable containing the line number (starting from 1) of the last line 
 written to the output CIF.
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 recn_
 </tt></b></td><td>
 Integer variable containing the line number (starting from 1) of the last line 
 read from the input CIF.
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 tbxver_
 </tt></b></td><td>
 Character*32 variable: which is the <i>CIFtbx</i> version and date in the form 
@@ -1772,7 +1772,7 @@ default value is 80 characters. This limit counts the visible printable characte
 of the line, not the system-dependent line terminators. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 nblank_
 </tt></b></td><td>
 Logical variable controls the treatment of input blank strings. If set 
@@ -1780,33 +1780,33 @@ Logical variable controls the treatment of input blank strings. If set
 than char when encountering a quoted blank. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 rdbkt_
 </tt></b></td><td>
 Logical variable controls the recognition of bracket delimiters <tt> [ ... ] </tt> on read.
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 rdbrc_
 </tt></b></td><td>
 Logical variable controls the recognition of brace delimiters <tt> { ... } </tt> on read.
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 rdcolon_
 </tt></b></td><td>
 Logical variable controls the acceptance of colons as delimiters inside
 bracketed constructs on read.
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 rdprn_
 </tt></b></td><td>
 Logical variable controls the acceptance of parentheses
  <tt> ( ... ) </tt> as delimiters on read.
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 rdrcqt_
 </tt></b></td><td>
 Logical variable controls recognition of trailing punctuation
@@ -1818,7 +1818,7 @@ Logical variable controls recognition of trailing punctuation
   the closing bracket. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 rdtq_
 </tt></b></td><td>
 Logical variable controls the recognition of triple-quote delimiters
@@ -1826,21 +1826,21 @@ Logical variable controls the recognition of triple-quote delimiters
  and  <tt>''' ...  '''</tt> on read.
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 recbeg_
 </tt></b></td><td>
 Integer variable that gives the record number of the first record to be used. May be 
 changed by the user to restrict access to a CIF. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 recend_
 </tt></b></td><td>
 Integer variable that gives the record number of the last record to be used. May be 
 changed by the user to restrict access to a CIF. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 tabx_
 </tt></b></td><td>
 Logical variable is set to <tt>.true.</tt> for tab-stops to be expanded to blanks during 
@@ -1864,7 +1864,7 @@ bloc_
 Character string containing the current data block name. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 clipt_
 </tt></b></td><td>
 Logical variable, if set .true., when reading text fields,
@@ -1874,27 +1874,27 @@ the behavior of <i>CIFtbx</i> versions prior to version 4.
 </td></tr> 
 
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 decp_
 </tt></b></td><td>
 Logical variable is <tt>.true.</tt> if there is a decimal point is present in the 
 input numeric value. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 depth_
 </tt></b></td><td>
 Integer variable containing the depth within a list, array, tuple
   or table. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 diccat_
 </tt></b></td><td>
 Character string containing the category name specified in the attached dictionaries. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 dicname_
 </tt></b></td><td>
 Character string containing the root alias data name (see <a href="#2.6">2.6</a>, 
@@ -1902,7 +1902,7 @@ below) specified in the attached dictionaries, or, after a call to <tt>dict_</tt
  the name of the dictionary. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 dictype_
 </tt></b></td><td>
 Character string containing the data type code specified in the attached dictionaries. 
@@ -1910,20 +1910,20 @@ These types may be more specific (e.g. 'float' or 'int') than the types given by
 variable <tt>type_</tt> (e.g. 'numb') 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 dicver_
 </tt></b></td><td>
 Character string containing the version of a dictionary after a call to dict_. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 esddig_
 </tt></b></td><td>
 Integer variable containing number of esd digits in the last number read from a CIF. 
 Will be zero if no esd was given. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 fold_
 </tt></b></td><td>
 Logical variable signalling with a <tt>.true.</tt> value that the current
@@ -1931,7 +1931,7 @@ text block began with the semicolon-reverse-solidus fold indicator.
 This is only meaningful when <tt>text_</tt> is <tt>.true.</tt>. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 glob_
 </tt></b></td><td>
 Logical variable: is <tt>.true.</tt> if the current data block is actually a global 
@@ -1939,7 +1939,7 @@ block. The application is responsible for managing the relationship of global da
 to other data blocks. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 list_
 </tt></b></td><td>
 Integer variable containing the sequence number of the current looped list. This 
@@ -1947,96 +1947,96 @@ value may be used by the application to identify variables that are in different
 lists or which are not in a list (a zero value). 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 long_
 </tt></b></td><td>
 Integer variable containing the length of the data string in <tt>strg_</tt>. 
 </td></tr>
  
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 loop_
 </tt></b></td><td>
 Logical variable is <tt>.true.</tt> if another loop packet is present in the 
 current looped list. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 lzero_
 </tt></b></td><td>
 Logical variable is <tt>.true.</tt> if the input numeric value is of the form 
 [sign]0.nnnn rather than [sign].nnnn. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 posdec_
 </tt></b></td><td>
 Integer variable containing the column number (position along the line, counting 
 from 1 at the left) of the decimal point for the last number read. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 posdelim_
 </tt></b></td><td>
 Integer variable containing the column number (position along the line, counting 
 from 1 at the left) of the last delimiter read. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 posend_
 </tt></b></td><td>
 Integer variable containing the column number (position along the line, counting 
 from 1 at the left) of the last character for the last string or number read. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 posnam_
 </tt></b></td><td>
 Integer variable containing the starting column (position along the line, 
 counting from 1 at the left) of the last name or comment read. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 posval_
 </tt></b></td><td>
 Integer variable containing the starting column (position along the line, counting 
 from 1 at the left) of the last data value read. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 quote_
 </tt></b></td><td>
 Character variable giving the quotation symbol found delimiting the last string read. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 save_
 </tt></b></td><td>
 Logical variable is <tt>.true.</tt> if the current data block is actually a save frame, 
 otherwise <tt>.false.</tt> 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 strg_
 </tt></b></td><td>
 Character variable containing the data name or string representing the data value 
 last retrieved. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 tagname_
 </tt></b></td><td>
 Character variable containing the data name of the current data item as it was 
 found in the CIF. May differ from dicname_ because of aliasing. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 text_
 </tt></b></td><td>
 Logical variable is <tt>.true.</tt> if another text line is present in the current 
 input text block. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 type_
 </tt></b></td><td>
 Character variable containing the data type code of the current input data item. 
@@ -2045,7 +2045,7 @@ period or the question mark), 'numb' (for numeric data), 'char'(for most
 character data) or 'text' (for semi-colon delimited multi-line character data). 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 ttype_
 </tt></b></td><td>
 Character variable containing the container type code of the current
@@ -2056,7 +2056,7 @@ input data item. When scanning input in CIF~2.0 format (indicated by
 (for table data). If <tt>'depth_'</tt> is 0, then <tt>'ttype_'</tt> is not valid.
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 valid_
 </tt></b></td><td>
 Logical variable containing <tt>.true.</tt> if the current value has been
@@ -2073,7 +2073,7 @@ Logical variable containing <tt>.true.</tt> if the current value has been
 These variables are specified to control the processing <i>CIFtbx</i> commands that write CIFs.
 <p>
 <table border=0> 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 aliaso_
 </tt></b></td><td>
 Logical variable to control the use of data name aliases for output items. If 
@@ -2081,28 +2081,28 @@ set <tt>.true.</tt> preferred synonyms from the input dictionary may be output
 (see <a href="#2.6">2.6</a> below). The default is <tt>.false.</tt> 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 align_
 </tt></b></td><td>
 Logical variable to control the column alignment of data values in <tt>loop_</tt> 
 lists output to a CIF. The default is <tt>.true.</tt> 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 esdlim_
 </tt></b></td><td>
 Integer variable to set the upper limit of appended esd integers output by <tt>pnumb_</tt>. 
 The default value is 19, which limits esd's to the range 2 -- 19. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 globo_
 </tt></b></td><td>
 Logical variable which if set <tt>.true.</tt> will cause the output data block from 
 <tt>pdata_</tt> to be written as a global block. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 nblanko_
 </tt></b></td><td>
 Logical variable controls the treatment of output blank strings. If set 
@@ -2110,7 +2110,7 @@ Logical variable controls the treatment of output blank strings. If set
 unquoted period (<i>i.e.</i> to a data item of type null)3. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 pclipt_
 </tt></b></td><td>
 Logical variable controls whether to clip first character of text on output.
@@ -2119,7 +2119,7 @@ the first character to be written, it is removed, emulating the behaviour of
 <i>CIFtbx</i> versions prior to version 4. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 pdecp_
 </tt></b></td><td>
 Logical variable controls the treatment of output decimal numbers. If set <tt>.true.</tt> 
@@ -2128,33 +2128,33 @@ a decimal point will be inserted into numbers output by <tt>pnumb_</tt> or
 needed. The default is <tt>.false.</tt> 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 pdepth_
 </tt></b></td><td>
 Integer variable containing the depth within a list, array, tuple, or table.
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 pesddig_
 </tt></b></td><td>
 Integer variable to set non-zero, and <tt>esdlim_</tt> is negative, controls the 
 number of digits for esd's produced by <tt>pnumb_</tt> and <tt>pnumd_</tt>. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 pfold_
 </tt></b></td><td>
 Integer variable controlling the character position on which to fold output.
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 phtml_
 </tt></b></td><td>
 Logical variable set to <tt>.true.</tt> to chnage the output style to HTML
 conventions.  The default value is <tt>.false.</tt>
 </td></tr>
  
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 plzero_
 </tt></b></td><td>
 Logical variable controls the treatment of leading zeros in output decimal numbers. 
@@ -2162,28 +2162,28 @@ If set <tt>.true.</tt> a zero will be inserted before a leading decimal point. T
 default is <tt>.false.</tt> 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 pposdec_
 </tt></b></td><td>
 Integer variable to set the column number (position along the line, counting from 
 1 at the left) of the decimal point for the next number to be output. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 pposdelim_
 </tt></b></td><td>
 Integer variable to set the column number (position along the line, counting from 
 1 at the left) of the next delimiter character to be output. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 pposend_
 </tt></b></td><td>
 Integer variable to set the position of the ending column for the next number or 
 character string to be output. Used to pad with zeros or blanks. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 pposnam_
 </tt></b></td><td>
 Integer variable to set the starting column of the next name or comment to be output. 
@@ -2193,47 +2193,47 @@ character strings are expected.
 <i>CIFtbx</i> treats an unquoted period or question mark as being of type 'null'. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 pposval_
 </tt></b></td><td>
 Integer variable to set the starting column of the next data value to be output. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 pquote_
 </tt></b></td><td>
 Character variable containing the quotation symbol to be used for the next string written. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 ptabx_
 </tt></b></td><td>
 Logical variable is set to <tt>.true.</tt> for tab-stops to be expanded to blanks 
 during the creation of a CIF. The default is <tt>.true.</tt> 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 saveo_
 </tt></b></td><td>
 Logical variable is set <tt>.true.</tt> for pdata_ to output a save-frame, otherwise a 
 data block is output. 
 </td></tr>
  
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 tabl_
 </tt></b></td><td>
 Logical variable is set to <tt>.true.</tt> for tab-stops to be used in the alignment 
 of output data. The default is <tt>.true.</tt> 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 unfold_
 </tt></b></td><td>
 Logical variable is set <tt>.true.</tt> if input lines are to be unfolded
 before prsentation of data.
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 xmlout_
 </tt></b></td><td>
 Logical variable is set <tt>.true.</tt> to change the output style to 
@@ -2241,7 +2241,7 @@ XML conventions.  Note that this is not a CML output, but a literal
 translation from the input CIF.
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 xmlong_
 </tt></b></td><td>
 Logical variable is set <tt>.true.</tt> to change the 
@@ -4206,21 +4206,21 @@ common block <tt>ciftbx.cmn</tt> must be included, as by
 The following <i>CIFtbx</i> general monitor variables give the status of general processing by <i>CIFtbx</i>.
 <p>
 <table border=0>
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 file_
 </tt></b></td><td>
 <tt>Character*(MAXBUF)</tt> variable: Set by <tt>dict_</tt>, <tt>ocif_</tt> and <tt>pfile_</tt> to 
 the filename of the current file.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;
 longf_
 </tt></b></td><td>
 <tt>Integer</tt> variable: Set by <tt>dict_</tt>, <tt>ocif_</tt> and <tt>pfile_</tt> to the length of 
 the filename in <tt>file_</tt>.
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 precn_
 </tt></b></td><td>
 <tt>Integer</tt> variable: Reports the record number (starting from 1) of the last line 
@@ -4228,14 +4228,14 @@ written to the output CIF. Set to zero by <tt>init_</tt>. Also set to zero by <t
 and <tt>close_</tt> if the output CIF file name was not blank.
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 recn_
 </tt></b></td><td>
 <tt>Integer</tt> variable: Reports the record number (starting from 1) of the last line 
 read from the direct access copy of the input CIF.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;
 tbxver_
 </tt></b></td><td>
 <tt>Character*32</tt> variable: Initialized to the <i>CIFtbx</i> version and date in the form 
@@ -4251,7 +4251,7 @@ variables to change the behavior of the commands.
 <p>
 <table border=0>
 
-<tr><td valign="top"><b><tt>&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;
 alias_
 </tt></b></td><td> 
 <tt>Logical</tt> variable: Set <tt>.true.</tt> will cause calls to <i>CIFtbx</i> functions to 
@@ -4261,7 +4261,7 @@ by an input dictionary (via <tt>dict_</tt>). The default is <tt>.true.</tt>, but
 may be set to <tt>.false.</tt> in an application.
 </td></tr> 
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 append_
 </tt></b></td><td> 
 <tt>Logical variable: Set <tt>.true.</tt> will cause each call to <tt>ocif_</tt> to append the 
@@ -4270,7 +4270,7 @@ CIFs. The default is <tt>.false.</tt>, in which case each call to <tt>ocif_</tt>
 the information for the prior CIF.
 </td></tr>                   
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 line_
 </tt></b></td><td> 
 <tt>Integer</tt> variable: Specifies the input/output line limit for processing a CIF. The 
@@ -4280,40 +4280,40 @@ program. The maximum value is
 <tt>MAXBUF</tt> that has a default value of 2048. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 nblank_
 </tt></b></td><td>
 <tt>Logical</tt> variable: Set <tt>.true.</tt> will cause calls to <tt>char_</tt> or <tt>test_</tt> 
 that encounter a non-text quoted blank to return the type as 'null' rather than 'char'.
 </td></tr>
 
-<tr><td valign="top"><b><tt>  
+<tr><td valign="top" align="left"><b><tt>  
 rdbkt_
 </tt></b></td><td>
 <tt>Logical</tt> variable controls the recognition of bracket delimiters <tt> [ ... ] </tt> on read.
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 rdbrc_
 </tt></b></td><td>
 <tt>Logical</tt> variable controls the recognition of brace delimiters <tt> { ... } </tt> on read.
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 rdcolon_
 </tt></b></td><td>
 <tt>Logical</tt> variable controls the acceptance of colons as delimiters inside
 bracketed constructs on read.
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 rdprn_
 </tt></b></td><td>
 <tt>Logical</tt> variable controls the acceptance of parentheses
  <tt> ( ... ) </tt> as delimiters on read.
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 rdrcqt_
 </tt></b></td><td>
 <tt>Logical</tt> variable controls recognition of trailing punctuation
@@ -4325,7 +4325,7 @@ in bracketed constructs, by a blank, a colon, a comma or
 the closing bracket.
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 rdtq_
 </tt></b></td><td>
 <tt>Logical</tt> variable controls the recognition of triple-quote delimiters
@@ -4334,14 +4334,14 @@ rdtq_
 </td></tr>
 
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 recbeg_
 </tt></b></td><td>
 <tt>Integer</tt> variable: Gives the record number of the first record to be used. May be changed 
 by the user to restrict access to a CIF.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;
 recend_
 </tt></b></td><td>
 <tt>Integer</tt> variable: Gives the record number of the last record to be used. 
@@ -4349,7 +4349,7 @@ May be changed
 by the user to restrict access to a CIF.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;
 tabx_
 </tt></b></td><td>
 <tt>Logical</tt> variable: Set <tt>.true.</tt> causes tab character expansion to 
@@ -4362,27 +4362,27 @@ The following <i>CIFtbx</i> input monitor variables monitor the processing of in
 <p>
 <table border=0>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 bloc_
 </tt></b></td><td>
 <tt>Character*(NUMCHAR)</tt> variable: Set by <tt>data_</tt> to the current block name.
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 decp_
 </tt></b></td><td>
 <tt>Logical</tt> variable: Set when processing numeric input, <tt>.true.</tt> if there is 
 a decimal point in the numeric value, <tt>.false.</tt> otherwise, set by <tt>numb_</tt> and <tt>numd_</tt>.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;
 diccat_
 </tt></b></td><td>
 <tt>Character*(NUMCHAR)</tt> variable: Set by <tt>test_</tt>, <tt>find_</tt>, <tt>char_</tt>, <tt>numb_</tt>,
 <tt>numd_</tt> to the category (see <tt>test_</tt>) or '(none)'.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;
 dicname_
 </tt></b></td><td>
 <tt>Character*(NUMCHAR)</tt> variable: Set by <tt>test_</tt>, <tt>find_</tt>, <tt>char_</tt>, <tt>numb_</tt>, 
@@ -4390,7 +4390,7 @@ dicname_
 dictionary just loaded.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;
 dictype_
 </tt></b></td><td>
 <tt>Character*(NUMCHAR)</tt> variable: Set to the precise data type code (see <tt>test_</tt>). This is 
@@ -4400,20 +4400,20 @@ This type may be more specific (e.g. 'float' or 'int') than the one given by <tt
 (e.g. 'numb').
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;
 dicver_
 </tt></b></td><td>
 <tt>Character*(NUMCHAR)</tt> variable: Set by <tt>dict_</tt> to the version of the dictionary.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;&nbsp;
 esddig_
 </tt></b></td><td>
 <tt>Integer</tt> variable: Set when processing numeric input to the number of esd digits in the last 
 number read from a CIF. Will be zero if no esd was given.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;
 glob_
 </tt></b></td><td> 
 <tt>Logical</tt> variable: Set by <tt>data_</tt> to signal that the current data block is actually a 
@@ -4421,7 +4421,7 @@ global block (<tt>.true.</tt> for a global block). The application is responsibl
 relationship of global data to other data blocks.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;
 list_
 </tt></b></td><td> 
 <tt>Integer</tt> variable: Set by <tt>test_</tt>, <tt>find_</tt>, <tt>char_</tt>, <tt>numb_</tt>, 
@@ -4429,21 +4429,21 @@ list_
 in the data block. If the item is not within a loop structure this value will be zero.
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 long_
 </tt></b></td><td> 
 <tt>Integer</tt> variable: Set by <tt>test_</tt>, <tt>find_</tt>, <tt>char_</tt>, <tt>cmnt_</tt>, 
 <tt>numb_</tt>, <tt>numd_</tt> to the length of the data string in <tt>strg_</tt>.
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 loop_
 </tt></b></td><td> 
 <tt>Logical</tt> variable: Set by <tt>test_</tt>, <tt>find_</tt>, <tt>char_</tt>, <tt>numb_</tt>, 
 <tt>numd_</tt> to <tt>.true.</tt> if another loop packet is present.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;
 lzero_
 </tt></b></td><td> 
 <tt>Logical</tt> variable: Set when processing numeric input to <tt>.true.</tt> if the numeric value 
@@ -4451,7 +4451,7 @@ is of the form [sign]0.nnnn rather than [sign].nnnn, <tt>.false.</tt> otherwise,
 and <tt>numd_</tt>.
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 posdec_
 </tt></b></td><td> 
 <tt>Integer</tt> variable : Set when processing numeric input to the column number (position along 
@@ -4460,7 +4460,7 @@ point was present, set by <tt>numb_</tt> and <tt>numd_</tt>. For whole numbers, 
 position of the decimal point is one column to the right of the field.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;
 posend_
 </tt></b></td><td> 
 <tt>Integer</tt> variable : Set by <tt>test_</tt>, <tt>find_</tt>, <tt>char_</tt>, <tt>numb_</tt>, 
@@ -4468,7 +4468,7 @@ posend_
 of the last data value read, not including a terminal quote. 
 </td></tr>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 posnam_
 </tt></b></td><td> 
 <tt>Integer</tt> variable: Set by <tt>test_</tt>, <tt>find_</tt>, <tt>char_</tt>, <tt>numb_</tt>, 
@@ -4476,7 +4476,7 @@ posnam_
 counting from 1 at the left) of the last name or comment or data block read.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;
 posval_ 
 </tt></b></td><td> 
 <tt>Integer</tt> variable: Set by <tt>test_</tt>, <tt>find_</tt>, <tt>char_</tt>, <tt>numb_</tt>, 
@@ -4484,35 +4484,35 @@ posval_
 (position along the line, counting from 1 at the left) of the terminal "<tt>save_</tt>" of a save frame.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;
 quote_
 </tt></b></td><td> 
 <tt>Character</tt> variable: Set by <tt>test_</tt>, <tt>find_</tt>, <tt>char_</tt> to the quotation 
 symbol found delimiting the last string read.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;
 save_
 </tt></b></td><td>  
 <tt>Logical</tt> variable : Set by <tt>data_</tt> to <tt>.true.</tt> if the current data block is 
 actually a save-frame.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;&nbsp;
 strg_
 </tt></b></td><td>  
 <tt>Character*(MAXBUF)</tt> variable: Set by <tt>test_</tt>, <tt>find_</tt>, <tt>char_</tt>, cmnt_, 
 <tt>numb_</tt>, <tt>numd_</tt> to the current data item.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;&nbsp;
 tabx_
 </tt></b></td><td>  
 <tt>Logical</tt> variable: Set <tt>.true.</tt> will cause the expansion of tab characters to blanks 
 during the reading of a CIF. The default is <tt>.true.</tt>
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;&nbsp;&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;&nbsp;&nbsp;
 tagname
 </tt></b></td><td>  
 <tt>_Character*(NUMCHAR)</tt> variable: Set by <tt>test_</tt>, <tt>find_</tt>, <tt>char_</tt>, 
@@ -4522,14 +4522,14 @@ and may differ from the data item name provided by the user if the name used in 
 is an alias of the data item name and alias_ is <tt>.true.</tt> 
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;
 text_
 </tt></b></td><td>   
 <tt>Logical</tt> variable: Set by <tt>test_</tt>, <tt>find_</tt>, <tt>char_</tt> to <tt>.true.</tt> 
 if another text line is present.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;
 type_
 </tt></b></td><td>    
 <tt>Character*4</tt> variable: Set by <tt>test_</tt>, <tt>find_</tt>, <tt>char_</tt>, <tt>numb_</tt>, 
@@ -4547,7 +4547,7 @@ The following <i>CIFtbx</i> output control variables control output formats of a
 <p> 
 <table border=0>
 
-<tr><td valign="top"><b><tt>
+<tr><td valign="top" align="left"><b><tt>
 aliaso_
 </tt></b></td><td>
 <tt>Logical</tt> variable: Set <tt>.true.</tt> will cause output functions to convert alias names 
@@ -4555,14 +4555,14 @@ to preferred synonyms in the dictionary. The default is <tt>.false.</tt> The set
 <tt>aliaso_</tt> is independent of the setting of <tt>alias_</tt>.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;
 align_
 </tt></b></td><td>
 <tt>Logical</tt> variable: Set <tt>.true.</tt> will cause an alignment of <tt>loop_</tt> lists 
 during the creation of a CIF. The default is <tt>.true.</tt>
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;
 esdlim_
 </tt></b></td><td> 
 <tt>Integer</tt> variable: Specifies the upper limit of esd's produced by <tt>pnumb_</tt?, and, 
@@ -4571,14 +4571,14 @@ Typical values of <tt>esdlim_</tt> might be 9 (limiting esd's to the range 1-9),
 (limiting esd's to the range 3-29)
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;
 globo_
 </tt></b></td><td> 
 <tt>Logical</tt> variable: Set <tt>.true.</tt> will cause the output data block from 
 <tt>pdata_</tt> to be written as a global block.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;
 phtml_
 </tt></b></td><td> 
 <tt>Logical</tt> variable: Set <tt>.true.</tt> will cause the <tt>pfile_</tt> output
@@ -4586,7 +4586,7 @@ file to be written as an HTML web page rather than as text.  The default is
 <tt>.false.</tt>.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;
 nblanko_
 </tt></b></td><td> 
 <tt>Logical</tt> variable: Set <tt>.true.</tt> will cause the output functions to convert 
@@ -4594,7 +4594,7 @@ quoted blank strings to an unquoted period (<i>i.e.</i> to a data item of type n
 default is <tt>.false.</tt>.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;
 pdecp_
 </tt></b></td><td> 
 <tt>Logical</tt> variable: Set <tt>.true.</tt> will cause the output functions to insert a 
@@ -4603,7 +4603,7 @@ decimal point in all numbers written by <tt>pnumb_</tt> or <tt>pnumbd_</tt>. If 
 <tt>.false.</tt>.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;&nbsp;
 pesddig_
 </tt></b></td><td> 
 <tt>Integer</tt> variable: Specifies the the number of digits of esd's produced by 
@@ -4611,14 +4611,14 @@ pesddig_
 non-zero and <tt>esdlim_</tt> is negative.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;
 plzero_
 </tt></b></td><td> 
 <tt>Logical</tt> variable: Set <tt>.true.</tt> will cause the output functions to insert 
 a zero before a leading decimal point. The default is <tt>.false.</tt>.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;
 pposdec_
 </tt></b></td><td> 
 <tt>Integer</tt> variable: Specifies the column number (position along the line, counting 
@@ -4627,33 +4627,33 @@ much like a decimal centered tab in a word processor, to help align columns of n
 a decimal point, if a decimal point is present.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;&nbsp;
 pposend_
 </tt></b></td><td> 
 <tt>Integer</tt> variable: Specifies the ending column number of the next number or quoted 
 character value to be written. Used to pad with zeros or blanks.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;&nbsp;
 pposnam_
 </tt></b></td><td> 
 <tt>Integer</tt> variable: Specifies the starting column number of the next name or 
 comment to be written.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;
 pposval_
 </tt></b></td><td>
 <tt>Integer</tt> variable: Specifies the starting column number of the next data value to be written.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;
 pquote_
 </tt></b></td><td>
 <tt>Character</tt> variable: Specifies the quotation symbol to be used for the next string written.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;
 precn_
 </tt></b></td><td>
 <tt>Integer</tt> variable: Returns the record number of the last line written to the output CIF. 
@@ -4661,28 +4661,28 @@ Set to zero by <tt>init_</tt>. Also set to zero by <tt>pfile_</tt> and <tt>close
 output CIF file name was not blank.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;
 ptabx_
 </tt></b></td><td> 
 <tt>Logical</tt> variable: Set <tt>.true.</tt> will cause tab character expansion to blanks during 
 the creation of a CIF. The default is <tt>.true.</tt>.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;
 saveo_
 </tt></b></td><td> 
 <tt>Logical</tt> variable: Set <tt>.true.</tt> will cause the <tt>pdata_</tt> to output a save frame 
 header line rather than a data block header line. The default is <tt>.false.</tt>.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;
 tabl_
 </tt></b></td><td> 
 <tt>Logical</tt> variable: Set <tt>.true.</tt> if tab-stop alignment is to be used 
 for data items written to the CIF. The default is <tt>.true.</tt>.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;
 xmlout_
 </tt></b></td><td>
 <tt>Logical</tt> variable: Set <tt>.true.</tt> will cause the pfile_ output
@@ -4691,7 +4691,7 @@ note that this is not a cml output, but a literal translation from CIF.  The def
 <tt>.false.</tt>.
 </td></tr>
 
-<tr><td valign="top"><b><tt>&nbsp;
+<tr><td valign="top" align="left"><b><tt>&nbsp;
 xmlong__
 </tt></b></td><td>
 <tt>Logical</tt> variable: Set <tt>.true.</tt> will change the style of <tt>pfile_</tt> 
