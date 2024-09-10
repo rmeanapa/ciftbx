@@ -297,7 +297,7 @@ evaporation.
 The above example illustrates many of the basic principles of a CIF.
 <ol>
 <li>All contents are plain text.  The definition of "plain" text is system
-dependent.  For modern unix compatible systems, that os most likely to be <i>ascii</i>
+dependent.  For modern unix compatible systems, that is most likely to be <i>ascii</i>
 or Unicode utf8 text</li>
 <li>Each <i>data value</i> (shown above in bold) must be preceded by an identifying 
 <i>data name</i>.</li>
@@ -313,7 +313,7 @@ not preceded by an underscore,
 and does not exceed a system-dependent number of
 characters in length. For all versions of CIF it is possible for
 a string to be as long as 78 characters, and for most modern versions
-of CIF and most modern compuyer systems, a string may be as long
+of CIF and most modern computer systems, a string may be as long
 as 2046 characters.  If the string contains blanks it must be 
 surrounded by quote characters (see <tt>_crystal_habit</tt>).</li>
 <li>A text string may be one or more lines in length and must be bounded by 
@@ -426,7 +426,7 @@ not currently used in CIFs but they are in a STAR File
 shown later.
 <p></td></tr><tr><td valign="top">
 <b><tt>save_</tt></b></td><td>signals the start, and the end, of a save frame. 
-Save frames are not used in CIF's, but they are in DDL2 dictionaries. A save 
+Save frames are not used in CIFs, but they are in DDL2 dictionaries. A save 
 frame is used as a "macro" within a data block to contain, one or more data items. 
 A save frame is "addressable" via a frame code, and each data name within a frame 
 must be unique. A data block may contain any number of save frames. 
@@ -481,7 +481,7 @@ not affect the meaning of the data; nor does any reordering of the items.
 The term "item" refers to a tag/value pair.
 </li> 
 <li>The quotes are not needed for the _symmetry_equiv_pos_as_xyz values because 
-they contain no embedded blanks, however, their presense does not alter the 
+they contain no embedded blanks, however, their presence does not alter the 
 value. Because of embedded blanks in the formula, the quotes bounding the 
 _chemical_formula_sum string are required. Double quotes would have worked as well.
 </li> 
@@ -604,7 +604,7 @@ The format of all CIF electronic dictionaries conform to the STAR syntax,
 and may also be parsed with <i>CIFtbx</i> tools. In fact, the toolbox provides a 
 specific function to read and cross check attributes from dictionaries. 
 <p>
-Existing dictionaries are written using two different DDL's. DDL1 has been used to 
+Existing dictionaries are written using two different DDLs. DDL1 has been used to 
 construct the CIF Core, Powder and several other dictionaries. A more recent dictionary 
 language, DDL2, is used to specify the macromolecular dictionary mmCIF 
 <a href="#Fitzgerald_et_al_1996">[Fitzgerald <i>et al.</i>, 1996]</a>.
@@ -1171,7 +1171,7 @@ the variable <tt>dicname_</tt> is either equal to the filename, or, if the dicti
 a value for the tag <tt>dictionary_name</tt> of dictionary.title, dicname_ is set to that value.
 The variable <tt>dicver_</tt> is blank or set to the value of <tt>_dictionary_version</tt> or 
 of <tt>_dictionary.version</tt>  The check codes <tt>'catck'</tt> and <tt>'catno'</tt> turn 
-on and off checking of dictionary catgeory conventions.  The default is <tt>'catck'</tt>.  
+on and off checking of dictionary category conventions.  The default is <tt>'catck'</tt>.  
 The check codes <tt>'parck'</tt> and <tt>'parno'</tt> turn on and off checking of parent-child
 relationships.  The default is <tt>'parck'</tt>.  Three check codes control the handling of 
 tags from the current dictionary which duplicate tags from a dictionary loaded earlier.  These
@@ -1189,7 +1189,7 @@ The acceptable values for the checks are:
 <tr><td><tt>'first'</tt></td><td>accept first dictionary's definitions of duplicate tags</td></tr>
 <tr><td><tt>'final'</tt></td><td>accept final dictionary's definitions of duplicate tags</td></tr>
 <tr><td><tt>'nodup'</tt></td><td>do not accept duplicate tag definitions</td></tr>
-<tr><td><tt>'parck'</tt></td><td>check datanames against parent-child relationahips</td></tr>
+<tr><td><tt>'parck'</tt></td><td>check datanames against parent-child relationships</td></tr>
 <tr><td><tt>'parno'</tt></td><td>don't check datanames against parent-child relationships</td></tr>
 <tr><td><tt>'reset'</tt></td><td>switch off checking flags</td></tr>
 <tr><td><tt>'close'</tt></td><td>close existing dictionaries</td></tr>
@@ -1289,7 +1289,7 @@ returned in the function argument, <tt>name</tt>.
 The data attributes are stored in the
 common variables <tt>list_</tt>, <tt>type_</tt>, <tt>dictype_</tt>, 
 <tt>diccat_</tt> and <tt>dicname_</tt>.
-The list, array, tuple or table attribites are stored in
+The list, array, tuple or table attributes are stored in
 <tt>ttype_</tt>, <tt>depth_</tt> <tt>index_</tt>.
 <p>
 The values in <tt>dictype_</tt>, <tt>diccat_</tt> and <tt>dicname_</tt> are valid
@@ -1564,7 +1564,7 @@ error that can be overridden by the second argument, <tt>force</tt> being <tt>.t
 Emitting a ' ' at a depth_ greater than 0 is an error that can be overridden
 by the second, <tt>force</tt> argument being <tt>.true.</tt>.  The third argument,
 <tt>posdlm</tt>, specifies the column position at which to write the delimiter, or
-should be 0, if not specific column position is being specficied. 
+should be 0, if not specific column position is being specified. 
 The <i>logical function</i> is returned
 as <tt>.true.</tt> if the block is created. The value will be <tt>.false.</tt> if the
 block name already exists. This command inserts "save_name" instead of a data block
@@ -2150,7 +2150,7 @@ Integer variable controlling the character position on which to fold output.
 <tr><td valign="top" align="left"><b><tt>
 phtml_
 </tt></b></td><td>
-Logical variable set to <tt>.true.</tt> to chnage the output style to HTML
+Logical variable set to <tt>.true.</tt> to change the output style to HTML
 conventions.  The default value is <tt>.false.</tt>
 </td></tr>
  
@@ -2230,7 +2230,7 @@ of output data. The default is <tt>.true.</tt>
 unfold_
 </tt></b></td><td>
 Logical variable is set <tt>.true.</tt> if input lines are to be unfolded
-before prsentation of data.
+before presentation of data.
 </td></tr>
 
 <tr><td valign="top" align="left"><b><tt>
@@ -2616,7 +2616,7 @@ Australia 2601
 <p>
 Here is an extract from a routine that reads the above addresses.
 <p>
-<table border=1>
+<center><table border=1>
 <tr><td><pre> 
       if(<tt>data_</tt>('publication')) 
      *  write(6,'(a,a/)') ' Access items in data block ',<tt>bloc_</tt>
@@ -3036,7 +3036,7 @@ application.
 <h3 id="4.2" align="left">4.2. init_</h3>
 <p> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical function <b>init_</b> (devcif, devout, devdir, deverr)</tt><br />
-<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer devcif, devout, devdir, deverr<tt><br />
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer devcif, devout, devdir, deverr</tt><br />
 <p> 
 <h3 id="4.2.1" align="left">4.2.1 Definition</h3>
 <p> 
@@ -3188,7 +3188,7 @@ one CIF needs to be processed simultaneously (e.g. there is a need to move betwe
 in different CIFs, the variable append_ set to <tt>.true.</tt> retains previous CIFs in the direct 
 access file.
 <p> 
-<h3 id="5.2" align="left">5.2. <tt>ocif_</tt></h3>
+<h3 id="5.2" align="left">5.2. ocif_</h3>
 <p> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical function <tt>ocif_</tt> (fname)</tt><br /> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character fname*(*) </tt><br />
@@ -3230,7 +3230,7 @@ the following coding would be typical.
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;... </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if( <tt>ocif_</tt>('next.cif') ) goto 200</tt><br />
 <p> 
-<h3 id="5.3" align="left">5.3. <tt>data_</tt></h3><p> 
+<h3 id="5.3" align="left">5.3. data_</h3><p> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical function <tt>data_</tt> (name) </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character name*(*) </tt><br />
 <p>
@@ -3321,7 +3321,7 @@ when the bookmark was placed. All bookmarks are cleared by a call to <tt>data_</
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write(6,'(a)') ' Bookmark array has been exceeded.'</tt><br /> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stop </tt><br />
 <tt>100&nbsp;&nbsp;&nbsp;imark = iset </tt><br />
-<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and in restore mode as: <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and in restore mode as: <br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iset = imark </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if( bkmrk_(iset) ) goto 200 </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write(6,'(a)') ' Bookmark entry does not exist.' </tt><br /> 
@@ -3451,7 +3451,7 @@ and then <tt>numb_</tt> and <tt>char_</tt> are used to get the data values.
 <tt>300&nbsp;&nbsp;&nbsp;read(8,'(a)',end=400) name </tt><br />
 <tt>C </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f1 = test_(name) </tt><br />
-<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write(6,'(/a,3x,a,2i5)') name,type_,long_,list_
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write(6,'(/a,3x,a,2i5)') name,type_,long_,list_ </tt><br />
 <tt>C </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(type_.ne.'numb') goto 320 </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f1 = numb_(name, numb, sdev) </tt><br />
@@ -3496,7 +3496,7 @@ The command arguments are:
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flag = name_(string) </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flag = test_(string) </tt><br />
 <p>
-<h3 id="5.8" align="left">5.8. <tt>numb_</tt></h3><p> 
+<h3 id="5.8" align="left">5.8. numb_</h3><p> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical function <b><tt>numb_</tt></b> (name, numb, sdev) </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character name*(*) </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;real numb, sdev </tt><br />
@@ -3562,7 +3562,7 @@ The command arguments are:<p>
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;... </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flag = numd_(name, dvalue, desdval)</tt><br /> 
 <p>
-<h3 id="5.10" align="left">5.10. <tt>cmnt_</tt></h3>
+<h3 id="5.10" align="left">5.10. cmnt_</h3>
 <p> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical function cmnt_ (strg)</tt><br /> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character strg*(*)</tt><br />
@@ -3589,7 +3589,7 @@ The command arguments are:
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;... </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flag = <b>cmnt_</b>(coment)</tt><br />
 <p> 
-<h3 id="5.11" align="left">5.11. <tt>purge_</tt></h3>
+<h3 id="5.11" align="left">5.11. purge_</h3>
 <p> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;subroutine <b>purge_</b></tt>
 <p> 
@@ -3635,7 +3635,7 @@ Must be done after the last data value or comment is written.
 </li>
 </ul>
 <p> 
-<h3 id="6.2" align="left">6.2. <tt>pfile_</tt>
+<h3 id="6.2" align="left">6.2. pfile_
 </h3>
 <p> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical function <b>pfile_</b> (fname)</tt><br /> 
@@ -3666,7 +3666,7 @@ as <tt>.false.</tt>
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</tt><br /> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flag = <b>pfile_</b>(fname)</tt><br /> 
 <p> 
-<h3 id="6.3" align="left">6.3. <tt>pdata_</tt>
+<h3 id="6.3" align="left">6.3. pdata_
 </h3>
 <p> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical function <b>pdata_</b> (name)</tt><br /> 
@@ -3714,7 +3714,7 @@ C....... Insert a data block code
 </table>
 </center>
 <p>
-<h3 id="6.4" align="left">6.4. <tt>ploop_</tt>
+<h3 id="6.4" align="left">6.4. ploop_
 </h3>
 <p> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical function <b>ploop_</b> (name)</tt><br />
@@ -3783,7 +3783,7 @@ abcdefghi    9.0(9)         77.8071
 abcdefghij   10.0(10)       86.4523
 </pre></td></tr></table></center>
 <p>
-<h3 id="6.5" align="left">6.5. <tt>pchar_</tt>
+<h3 id="6.5" align="left">6.5. pchar_
 </h3>
 <p> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical function <b>pchar_</b> (name, string)</tt><br /> 
@@ -3821,7 +3821,7 @@ The command arguments are:
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;... </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flag = <b>pchar_</b>(tname,string)</tt><br /> 
 <p>
-<h3 id="6.6" align="left">6.6. <tt>pcmnt_</tt>
+<h3 id="6.6" align="left">6.6. pcmnt_
 </h3>
 <p> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical function <b>pcmnt_</b> (string)</tt><br />  
@@ -3856,7 +3856,7 @@ Here is and example of how two comments are written to the output file.
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f1 = pcmnt_(' Loops with various numeric and esd formats')</tt><br />
 <p>
 
-<h3 id="6.7" align="left">6.7. <tt>pnumb_</tt>
+<h3 id="6.7" align="left">6.7. pnumb_
 </h3>
 <p>
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical function <b>pnumb_</b> (name, numb, sdev)</tt><br /> 
@@ -3892,7 +3892,7 @@ The command arguments are:
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;... </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flag = <b>pnumb_</b>(tname, xnumb, xesd)</tt><br />
 <p> 
-<h3 id="6.8" align="left">6.8. <tt>pnumd_</tt>
+<h3 id="6.8" align="left">6.8. pnumd_
 </h3>
 <p>
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical function <b>pnumd_</b> (name, numb, sdev) </tt><br />
@@ -3925,7 +3925,7 @@ The command arguments are:
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;... </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flag = <b>pnumd_</b>(tname, xnumb, xesd) </tt><br />
 <p>
-<h3 id="6.9" align="left">6.9. <tt>ptext_</tt>
+<h3 id="6.9" align="left">6.9. ptext_
 </h3> 
 <p>
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical function <b>ptext_</b> (name, string) </tt><br />
@@ -3976,7 +3976,7 @@ or in a loop.
 </pre></td></tr>
 </table>
 <p> 
-<h3 id="6.10" align="left">6.10. <tt>prefx_</tt>
+<h3 id="6.10" align="left">6.10. prefx_
 </h3> 
 <p>
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical function prefx_ (strg, lstrg) </tt><br /> 
@@ -4012,7 +4012,7 @@ The command arguments are:
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lstr = len(string) </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flag = prefx_(string, lstr)</tt><br />
 <p> 
-<h3 id="6.11" align="left">6.11. <tt>close_</tt>
+<h3 id="6.11" align="left">6.11. close_
 </h3>
 <p>
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;subroutine close_</tt>
@@ -4818,7 +4818,7 @@ the number of data names in the <tt>loop_</tt> header.
 <b><tt>Prior save-frame not terminated</tt></b><br />
 <b><tt>Save-frame terminator found out of context</tt></b>
 <p>
-Save-frames must start with <tt>save_&lt;framecode%gt;</tt> and end with <tt>save_</tt>.
+Save-frames must start with <tt>save_&lt;framecode&gt;</tt> and end with <tt>save_</tt>.
 These messages will be issued if this does not occur.
 <p>
 <b><tt>Syntax construction error</tt></b>
