@@ -4,8 +4,8 @@ C        *%%%%%%%%%%%*
 C      *%%%%%/\|/\%%%%%*
 C    *%%%%%%|--2--|%%%%%%*   C Y C L O P S 2 ...... STAR data name checker
 C      *%%%%%\/|\/%%%%%*
-C        *%%%%%%%%%%%*                Version 2.1.5
-C           *%%%%%*                  29 November 2009
+C        *%%%%%%%%%%%*                Version 2.1.6
+C           *%%%%%*                 16 September 2024
 C
 C
 C
@@ -23,14 +23,15 @@ C                  Nedlands 6009, AUSTRALIA
 C                  
 C                  and
 C                  
-C                  Herbert J. Bernstein (yaya@bernstein-plus-sons.com)
+C                  Herbert J. Bernstein (yayahjb@gmail.com)
 C                  Bernstein + Sons
-C                  5 Brewster Lane
-C                  Bellport, NY 11713, U.S.A.
+C                  11 Riverside Drive Apt 5UE
+C                  New York, NY 10023-1317, U.S.A.
 C
 C          Version 2 handles DDL1 and DDL2 dictionaries, and uses CIFtbx2
 C
-C The latest program source and information is available from:
+C The latest program source and information is available on github
+C http://github.com/yayahjb/ciftbx.git
 C
 C Em: syd@crystal.uwa.edu.au       ,-_|\      Sydney R. Hall
 C sendcif@crystal.uwa.edu.au      /     \     Crystallography Centre
@@ -154,7 +155,7 @@ C
       IF(CASE.LT.0) GOTO 100
       XTAB=CHAR(09)
 C
-      VERS='2.1.5 (29 Nov 09)'
+      VERS='2.1.6 (16 Sep 24)'
       WRITE(IUNERR,
      *  '(/35H <CYCLOPS2> STAR data name checker ,A,/1X,59(1H-))'
      *  ,ERR=40) VERS
@@ -332,7 +333,8 @@ C ---------------------------------------- new data name add to list
       IF (J.NE.I) GOTO 170
       dictag(I) = UNAME
       DO 160 J=1,20
-160   NPOS(NDICT,J)=0
+        NPOS(NDICT,J)=0
+160   CONTINUE
       I=NDICT
 C --------------------------------------- add line numbers to npos()
 170   IF(NPOS(I,1).EQ.19) THEN
@@ -1040,7 +1042,8 @@ C
       close(unit=iundac)
       DO 610 I=1,NDICT
         DO 660 J=1,20
- 660    NPOS(I,J)=0
+          NPOS(I,J)=0
+ 660    CONTINUE
  610  CONTINUE
       RETURN
  900  write(iunerr,'(a)')
