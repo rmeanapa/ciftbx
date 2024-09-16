@@ -2,7 +2,8 @@
   No match to requested name _rubbish_to_see_what_happens
  cif2cif warning:    line:     24
   duplicate data block P6122                                                    
-                  
+                       
  cif2cif warning:    line:     50
   duplicate data block P6122                                                    
-                  
+                       
+Note: The following floating-point exceptions are signalling: IEEE_UNDERFLOW_FLAG IEEE_DENORMAL

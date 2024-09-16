@@ -12,6 +12,8 @@
   No name defined in block
  ciftbx warning: cif_mm.dic save__refine_hist.number_atoms_total line:  56070
   No name defined in block
+ ciftbx warning: cif_mm.dic data_  line:  71541
+  Output prefix may force line overflow
  ciftbx warning:   data_4INS line:   2781
   Data name _struct_conn.ptnr1_atom_site_id not in dictionary!
  ciftbx warning:   data_4INS line:   2783
@@ -1088,3 +1090,4 @@
  ciftbx warning:   data_4INS line:   2657
   Dictionary type code for _atom_site.group_pdb, HETA not in dictionary list of
  values
+Note: The following floating-point exceptions are signalling: IEEE_UNDERFLOW_FLAG IEEE_DENORMAL

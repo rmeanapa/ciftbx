@@ -3562,3 +3562,4 @@
  ciftbx warning:   data_4INS line:   1778
   Dictionary type code for _atom_site.group_pdb, HETA not in dictionary list of
  values
+Note: The following floating-point exceptions are signalling: IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
