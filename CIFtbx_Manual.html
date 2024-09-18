@@ -5,7 +5,7 @@
 <body>
 <font face="Arial,Helvetica,Times" size="3">
 <center>
-<font size="+2"><img src="CIFtbx_logo.gif" alt="CIFtbx"></font><br />
+<font size="+2"><img src="CIFtbx_Manual_files/CIFtbx_logo." alt="CIFtbx"></font><br />
 <font size="+3">
 <b>Manual</b><br />
 </font>
@@ -3181,7 +3181,7 @@ file and establishes a list of pointers that locate each data name (tag) in the 
 is shown diagrammatically in Fig. 5.1.
 <p>
 <center>
-<img src=CIFtbx_Manual_Fig5_1.jpg width="800px" alt="Figure 5.1"><p>
+<img src="CIFtbx_Manual_files/CIFtbx_Manual_Fig5_1.jpg" width="800px" alt="Figure 5.1"><p>
 Fig 5.1.  Preparing to Read a CIF with <i>CIFtbx</i> 
 </center>
 <p>
@@ -3359,7 +3359,7 @@ A blank implies the next item encountered.</td></tr>
 <p> 
 <tt>find_</tt> may be applied in a variety of ways. Typically the application is as
 <p> 
-<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character string*(MAXBUF)</tt><br />
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character string*(<tt>MAXBUF</tt>)</tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if( find_('_atomic_number', 'valu', string) ) goto 100</tt><br /> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write(6,'(a)') ' atomic number not found')</tt><br />
@@ -3493,7 +3493,7 @@ The command arguments are:
 <p> 
 <tt>name_</tt> may be applied in a variety of ways. Typically the application is
 <p> 
-<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character string*(MAXBUF)</tt><br /> 
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character string*(<tt>MAXBUF</tt>)</tt><br /> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;... </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flag = name_(string) </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flag = test_(string) </tt><br />
@@ -3526,7 +3526,7 @@ The command arguments are:
 <p> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical flag </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;real value, esdval </tt><br />
-<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character name*(MAXBUF) </tt><br />
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character name*(<tt>MAXBUF</tt>) </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;... </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flag = <b>numb_</b>(name, value, esdval)</tt><br />
 <p> 
@@ -3560,7 +3560,7 @@ The command arguments are:<p>
 <p> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical flag</tt><br /> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;double precision dvalue, desdval</tt><br /> 
-<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character name*(MAXBUF) </tt><br />
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character name*(<tt>MAXBUF</tt>) </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;... </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flag = numd_(name, dvalue, desdval)</tt><br /> 
 <p>
@@ -3587,7 +3587,7 @@ The command arguments are:
 <tt>cmnt_</tt> is usually applied as follows.
 <p> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical flag</tt><br /> 
-<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character coment*(MAXBUF) </tt><br />
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character coment*(<tt>MAXBUF</tt>) </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;... </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flag = <b>cmnt_</b>(coment)</tt><br />
 <p> 
@@ -3663,7 +3663,7 @@ as <tt>.false.</tt>
 <p> 
 <tt>pfile_</tt> is typically applied as follows.
 <p> 
-<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character*(MAXBUF) fname</tt><br /> 
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character*(<tt>MAXBUF</tt>) fname</tt><br /> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical flag</tt><br /> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</tt><br /> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flag = <b>pfile_</b>(fname)</tt><br /> 
@@ -3694,7 +3694,7 @@ The command arguments are:
 <p>
 <tt>pdata_</tt> is usually applied as follows.
 <p> 
-<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character*(MAXBUF) bname</tt><br /> 
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character*(<tt>MAXBUF</tt>) bname</tt><br /> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical flag</tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</tt><br /> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flag = pdata_(bname)</tt><br />
@@ -3741,7 +3741,7 @@ of items.</td></tr></table>
 <p>
 <tt>ploop_</tt> is usually applied as follows.
 <p> 
-<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character*(MAXBUF) tname</tt><br /> 
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character*(<tt>MAXBUF</tt>) tname</tt><br /> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical flag </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;... </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flag = ploop_(tname)</tt><br /> 
@@ -3809,7 +3809,7 @@ The command arguments are:
 <table border=0>
 <tr><td>No.</td><td>Argument</td><td>Description</td></tr> 
 <tr><td>1</td><td> &lt;data name&gt;</td><td> If the name is blank, do not output name.</td></tr>
-<tr><td>2</td><td> &lt;character string&gt;</td><td> A character string of <tt>MAXBUF</tt> chars or less.</td></tr>
+<tr><td>2</td><td> &lt;character string&gt;</td><td> A character string of <tt><tt>MAXBUF</tt></tt> chars or less.</td></tr>
 </table>
 <p>
 <h3 id="6.5.2" align="left">6.5.2. Application
@@ -3817,8 +3817,8 @@ The command arguments are:
 <p>
 <tt>pchar_</tt> is typically applied as follows.
 <p> 
-<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character*(MAXBUF) tname</tt><br /> 
-<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character*(MAXBUF) string</tt><br /> 
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character*(<tt>MAXBUF</tt>) tname</tt><br /> 
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character*(<tt>MAXBUF</tt>) string</tt><br /> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical flag </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;... </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flag = <b>pchar_</b>(tname,string)</tt><br /> 
@@ -3839,7 +3839,7 @@ The command arguments are:
 <p>
 <table border=0>
 <tr><td>No.</td><td>Argument</td><td>Description</td></tr> 
-<tr><td>1</td><td> &lt;character string&gt;</td><td> A character string of <tt>MAXBUF</tt> chars or less.</td></tr>
+<tr><td>1</td><td> &lt;character string&gt;</td><td> A character string of <tt><tt>MAXBUF</tt></tt> chars or less.</td></tr>
 </table>
 <p>
 <h3 id="6.6.2" align="left">6.6.2. Application
@@ -3847,7 +3847,7 @@ The command arguments are:
 <p>
 <tt>pcmnt_</tt> is typically applied as follows.
 <p> 
-<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character*(MAXBUF) string</tt><br /> 
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character*(<tt>MAXBUF</tt>) string</tt><br /> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical flag</tt><br /> 
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;... </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flag = <b>pcmnt_</b>(string)</tt><br />
@@ -3888,7 +3888,7 @@ The command arguments are:
 <p> 
 <tt>pnumb_</tt> is usually applied as follows.
 <p> 
-<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character*(MAXBUF) tname </tt><br />
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character*(<tt>MAXBUF</tt>) tname </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;real xnumb, xesd </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical flag </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;... </tt><br />
@@ -3921,7 +3921,7 @@ The command arguments are:
 <p> 
 <tt>pnumb_</tt> is usually applied as follows.
 <p> 
-<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character*(MAXBUF) tname </tt><br />
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character*(<tt>MAXBUF</tt>) tname </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;double precision xnumb, xesd </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical flag </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;... </tt><br />
@@ -3945,14 +3945,14 @@ The command arguments are:
 <table border=0> 
 <tr><td>No.</td><td>Argument</td><td>Description</td></tr> 
 <tr><td>1</td><td> &lt;data name&gt;</td><td> If the name is blank, do not output name.</td></tr> 
-<tr><td>2</td><td> &lt;character string&gt;</td><td> A character string of <tt>MAXBUF</tt> chars or less.</td></tr>
+<tr><td>2</td><td> &lt;character string&gt;</td><td> A character string of <tt><tt>MAXBUF</tt></tt> chars or less.</td></tr>
 </table>
 <p>
 <h3 id="6.9.2" align="left">6.9.2. Application
 </h3> 
 <tt>ptext_</tt> is usually applied as follows.
 <p> 
-<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character*(MAXBUF) tname </tt><br />
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character*(<tt>MAXBUF</tt>) tname </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character*78 string(10) </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical flag </tt><br />
 <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer ii </tt><br />
@@ -3999,7 +3999,7 @@ The command arguments are:
 <p>
 <table border=0> 
 <tr><td>No.</td><td>Argument</td><td>Description</td></tr> 
-<tr><td>1</td><td>&lt;character string&gt;</td><td>A character string of <tt>MAXBUF</tt> chars or less.</td></tr> 
+<tr><td>1</td><td>&lt;character string&gt;</td><td>A character string of <tt><tt>MAXBUF</tt></tt> chars or less.</td></tr> 
 <tr><td>2</td><td>&lt;integer variable&gt;</td><td>The length of the prefix string to use.</td></tr>
 </table>
 <p>
@@ -4211,7 +4211,7 @@ The following <i>CIFtbx</i> general monitor variables give the status of general
 <tr><td valign="top" align="left"><b><tt>
 file_
 </tt></b></td><td>
-<tt>Character*(MAXBUF)</tt> variable: Set by <tt>dict_</tt>, <tt>ocif_</tt> and <tt>pfile_</tt> to 
+<tt>Character*(<tt>MAXBUF</tt>)</tt> variable: Set by <tt>dict_</tt>, <tt>ocif_</tt> and <tt>pfile_</tt> to 
 the filename of the current file.
 </td></tr>
 
@@ -4279,7 +4279,7 @@ line_
 default value is 80 characters. This limit includes the visible printable characters of 
 the line, not the system-dependent line terminators. This variable may be set by the 
 program. The maximum value is 
-<tt>MAXBUF</tt> that has a default value of 2048. 
+<tt><tt>MAXBUF</tt></tt> that has a default value of 2048. 
 </td></tr>
 
 <tr><td valign="top" align="left"><b><tt>
@@ -4503,7 +4503,7 @@ actually a save-frame.
 <tr><td valign="top"><b><tt>&nbsp;&nbsp;
 strg_
 </tt></b></td><td>  
-<tt>Character*(MAXBUF)</tt> variable: Set by <tt>test_</tt>, <tt>find_</tt>, <tt>char_</tt>, cmnt_, 
+<tt>Character*(<tt>MAXBUF</tt>)</tt> variable: Set by <tt>test_</tt>, <tt>find_</tt>, <tt>char_</tt>, cmnt_, 
 <tt>numb_</tt>, <tt>numd_</tt> to the current data item.
 </td></tr>
 
@@ -4764,13 +4764,13 @@ item name _dummy_test, in the data block <tt>data_</tt>mumbo_jumbo.
 The following messages are issued if the <i>CIFtbx</i> array bounds are exceeded.
 <p>
 Operation terminates immediately. Array bounds can be adjusted by changing 
-the PARAMETER values in <tt>ciftbx.sys</tt>. If the value of <tt>MAXBUF</tt> needs to be changed, 
+the PARAMETER values in <tt>ciftbx.sys</tt>. If the value of <tt><tt>MAXBUF</tt></tt> needs to be changed, 
 the file <tt>ciftbx.cmv</tt> must be updated. 
 <p>
 <center>
 <table border=0>
 <tr><td align="left"><b><tt>
-Input line_ value > <tt>MAXBUF</tt> 
+Input line_ value > <tt><tt>MAXBUF</tt></tt> 
 </tt></b></td></tr><tr><td align="left"><b><tt>
 Number of categories > <tt>NUMBLOCK</tt> 
 </tt></b></td></tr><tr><td align="left"><b><tt>
@@ -4895,7 +4895,7 @@ a loop for which all data items have no category declared.
 Non-blank characters were found beyond the value given by the variable 
 <tt>line_</tt>. The default value for <tt>line_</tt> is 80, which is the 
 upper bound for lines in a valid CIF1 file. The extra characters in 
-column positions line_+1 through <tt>MAXBUF</tt> will be processed but 
+column positions line_+1 through <tt><tt>MAXBUF</tt></tt> will be processed but 
 the input file may need to be reformatted for use with other CIF 
 handling programs.
 <p>
@@ -5193,7 +5193,7 @@ Westrook, J.D. and Hall, S.R., mmcif ddl dictionary,
 <p>
 <h3 align="left">Usage Restrictions and Policy</h3>
 <p>
-The first releases of CIFtbx were released under "The IUCr Policy Use of the Crystallographic 
+The first releases of <i>CIFtbx</i> were released under "The IUCr Policy Use of the Crystallographic 
 Information File (CIF), then under a the open source "RasLic" opne source license, and most 
 recently under the terms of the GNU General Public License as published by the Free Software 
 Foundation; either version 2 of the License 
@@ -5670,7 +5670,7 @@ Office at 5 Abbey Square, Chester CH1 2HU, England.
 <p>
 <h3 id="Quick_Installation" align="left">Installation</h3>
 <p>
-On unix-like systems  current source code of CIFtbx is available from github
+On unix-like systems  current source code of <i>CIFtbx</i> is available from github
 working in an empty directory via
 <p> 
 <tt> github.com/yayahjb/ciftbx.git ciftbx_4.1_build<tt>
@@ -5680,265 +5680,265 @@ which should create a copy of the current source code in <tt>ciftbx_4.1_build</t
 so that <tt>tree ciftbx_4.1_build</tt> will produce
 <p><pre>
 ciftbx_4.1_build
-├── cif2cif.cshar.Z
-├── cif2cif.shar.Z
-├── cif2cif.src
-│   ├── 4ins.cif.Z
-│   ├── 4ins.out.Z
-│   ├── 4ins.prt
-│   ├── 4insuw.out.Z
-│   ├── 4insuw.prt
-│   ├── 4ins.wide
-│   ├── 4insw.out.Z
-│   ├── 4insw.prt
-│   ├── cif2cif.cmn
-│   ├── cif2cif.f
-│   ├── cif_expanded.dic.Z -> ../dictionaries/cif_expanded_jun06.dic.Z
-│   ├── cif_expanded.duff
-│   ├── cif_expanded.nduff
-│   ├── cif_mm.dic.Z -> ../dictionaries/cif_mm.dic.Z
-│   ├── ciftbx.cmf -> ../ciftbx.src/ciftbx.cmf
-│   ├── ciftbx.cmn -> ../ciftbx.src/ciftbx.cmn
-│   ├── ciftbx.cmv -> ../ciftbx.src/ciftbx.cmv
-│   ├── ciftbx.sys -> ../ciftbx.src/ciftbx.sys
-│   ├── index.html -> README.cif2cif.html
-│   ├── IUCR_POLICY.html
-│   ├── IUCR_POLICY.txt
-│   ├── Makefile
-│   ├── Makefile~
-│   ├── Makefile_arcib
-│   ├── MANIFEST
-│   ├── MANIFEST.html
-│   ├── MANIFEST.html.m4
-│   ├── postshar
-│   ├── qtest.cif
-│   ├── qtest.out
-│   ├── qtest.prt
-│   ├── qtest.req
-│   ├── qtest.rq2
-│   ├── qtest.rq3
-│   ├── README.cif2cif
-│   ├── README.cif2cif.html
-│   ├── README.cif2cif.html.m4
-│   ├── xtalt2.cif
-│   ├── xtalt2.out
-│   ├── xte29.out
-│   └── xttne9.out
-├── cif2pdb.cshar.Z
-├── cif2pdb.shar.Z
-├── cif2pdb.src
-│   ├── 1ace.cif.Z
-│   ├── 1ace.tpdb.Z
-│   ├── 1ace.twid.Z
-│   ├── 1crn.cif.Z
-│   ├── 1crn.tpdb.Z
-│   ├── 1crn.twid.Z
-│   ├── 1cro.cif.Z
-│   ├── 1cro.tpdb.Z
-│   ├── 1cro.twid.Z
-│   ├── 1cwp.cif.Z
-│   ├── 1cwp.ent
-│   ├── 1cwp.tpdb.Z
-│   ├── 1cwp.twid.Z
-│   ├── 1hyh.cif.Z
-│   ├── 1hyh.tpdb.Z
-│   ├── 1hyh.twid.Z
-│   ├── 1zrt.cif.Z
-│   ├── 1zrt.tpdb.Z
-│   ├── 1zrt.twid.Z
-│   ├── 2ace.cif.Z
-│   ├── 2ace.tpdb.Z
-│   ├── 2ace.twid.Z
-│   ├── 4hir.cbf
-│   ├── 4hir.cif.Z
-│   ├── 4hir.tpdb.Z
-│   ├── 4hir.twid.Z
-│   ├── 4ins.cif.Z
-│   ├── 4ins.tpdb.Z
-│   ├── 4ins.twid.Z
-│   ├── 5hvp.cif.Z
-│   ├── 5hvp.tpdb.Z
-│   ├── 5hvp.twid.Z
-│   ├── ADH041.cif.Z
-│   ├── ADH041.tpdb.Z
-│   ├── ADH041.twid.Z
-│   ├── BDL001.cif.Z
-│   ├── BDL001.tpdb.Z
-│   ├── BDL001.twid.Z
-│   ├── BDLB13.cif.Z
-│   ├── BDLB13.tpdb.Z
-│   ├── BDLB13.twid.Z
-│   ├── cif2pdb.cmn
-│   ├── cif2pdb.cshar.Z -> ../cif2pdb.cshar.Z
-│   ├── cif2pdb.f
-│   ├── cif2pdb.shar.Z -> ../cif2pdb.shar.Z
-│   ├── cif_mm.dic.Z -> ../dictionaries/cif_mm_cif2pdb.dic.Z
-│   ├── ciftbx.cmf -> ../ciftbx.src/ciftbx.cmf
-│   ├── ciftbx.cmn -> ../ciftbx.src/ciftbx.cmn
-│   ├── ciftbx.cmv -> ../ciftbx.src/ciftbx.cmv
-│   ├── ciftbx.sys -> ../ciftbx.src/ciftbx.sys
-│   ├── DDF040.cif.Z
-│   ├── DDF040.tpdb.Z
-│   ├── DDF040.twid.Z
-│   ├── DISCUSS.cif2pdb.html
-│   ├── index.html -> README.cif2pdb.html
-│   ├── IUCR_POLICY
-│   ├── IUCR_POLICY.html
-│   ├── Makefile
-│   ├── Makefile_local
-│   ├── Makefile.m4
-│   ├── Makefile_save.m4
-│   ├── MANIFEST
-│   ├── MANIFEST.html
-│   ├── MANIFEST.html.m4
-│   ├── mkdecompln
-│   ├── NOTICE
-│   ├── NOTICE.html
-│   ├── postshar
-│   ├── README
-│   ├── README.cif2pdb.html
-│   ├── README.cif2pdb.html.m4
-│   └── rmdecompln
-├── cif2xml.cshar.Z
-├── cif2xml.shar.Z
-├── cif2xml.src
-│   ├── 4ins.cif.Z
-│   ├── 4ins.out.Z
-│   ├── 4ins.prt
-│   ├── cif2xml.cmn
-│   ├── cif2xml.f
-│   ├── cif_cml.dic
-│   ├── cif_mm.dic.Z -> ../dictionaries/cif_mm.dic.Z
-│   ├── ciftbx.cmf -> ../ciftbx.src/ciftbx.cmf
-│   ├── ciftbx.cmn -> ../ciftbx.src/ciftbx.cmn
-│   ├── ciftbx.cmv -> ../ciftbx.src/ciftbx.cmv
-│   ├── ciftbx.sys -> ../ciftbx.src/ciftbx.sys
-│   ├── cml.dtd
-│   ├── Foils.html
-│   ├── index.html -> README.cif2xml.html
-│   ├── IUCR_POLICY.html
-│   ├── IUCR_POLICY.txt
-│   ├── Makefile
-│   ├── Makefile_arcib
-│   ├── MANIFEST
-│   ├── MANIFEST.html
-│   ├── MANIFEST.html.m4
-│   ├── MANIFEST.txt
-│   ├── postshar
-│   ├── README.cif2xml
-│   ├── README.cif2xml.html
-│   ├── README.cif2xml.html.m4
-│   ├── xqtest.out
-│   ├── xtalt2.cif
-│   ├── xtalt2.out
-│   ├── xte29.out
-│   └── xttne9.out
-├── ciftbx.cshar.Z
-├── CIFtbx_logo_med_res.png
-├── CIFtbx_Manual_Fig5_1.jpg
-├── CIFtbx_Manual.html
-├── CIFtbx_Primer.pdf
-├── ciftbx.shar.Z
-├── ciftbx.src
-│   ├── cif_core.dic.Z -> ../dictionaries/cif_core.dic.Z
-│   ├── cif_expanded.dic.Z -> ../dictionaries/cif_expanded_jun06.dic.Z
-│   ├── cif_mm.dic.Z -> ../dictionaries/cif_mm.dic.Z
-│   ├── ciftbx.cmf
-│   ├── ciftbx.cmn
-│   ├── ciftbx.cmv
-│   ├── ciftbx.f
-│   ├── ciftbx.sys
-│   ├── ciftbx_test.f
-│   ├── clearfp.f
-│   ├── clearfp_sun.f
-│   ├── hash_funcs.f
-│   ├── index.html -> README.ciftbx.html
-│   ├── IUCR_POLICY.html
-│   ├── IUCR_POLICY.txt
-│   ├── m3test.out
-│   ├── m3test.prt
-│   ├── Makefile
-│   ├── Makefile~
-│   ├── MANIFEST
-│   ├── MANIFEST.html
-│   ├── mtest.out
-│   ├── mtest.prt
-│   ├── mtest.xew
-│   ├── mtest.xml
-│   ├── postshar
-│   ├── README.ciftbx
-│   ├── README.ciftbx.html
-│   ├── tbx_ex3.f
-│   ├── tbx_ex.f
-│   ├── tbx_exh.f
-│   ├── tbx_exm.f
-│   ├── test.cif
-│   ├── test.out
-│   ├── test.prt
-│   ├── test.req
-│   ├── testrle.f
-│   └── testrle.prt
-├── COPYING
-├── cyclops.cshar.Z
-├── cyclops.shar.Z
-├── cyclops.src
-│   ├── cif_core.dic.Z -> ../dictionaries/cif_core.dic.Z
-│   ├── cif_mm.dic.Z -> ../dictionaries/cif_mm.dic.Z
-│   ├── ciftbx.cmf -> ../ciftbx.src/ciftbx.cmf
-│   ├── ciftbx.cmv -> ../ciftbx.src/ciftbx.cmv
-│   ├── ciftbx.sys -> ../ciftbx.src/ciftbx.sys
-│   ├── cyclops.cmn
-│   ├── cyclops.f
-│   ├── cyclops_test.prt
-│   ├── index.html -> README.cyclops.html
-│   ├── IUCR_POLICY.html
-│   ├── IUCR_POLICY.txt
-│   ├── Makefile
-│   ├── Makefile~
-│   ├── MANIFEST
-│   ├── MANIFEST.html
-│   ├── mtest.cyc
-│   ├── mtest.prt -> ../ciftbx.src/mtest.prt
-│   ├── README.cyclops
-│   ├── README.cyclops.html
-│   └── STARCHK2
-├── decomp.cgi
-├── dictionaries
-│   ├── cif_core.dic
-│   ├── cif_core.dic.Z
-│   ├── cif_expanded_aug08.dic
-│   ├── cif_expanded_aug08.dic.Z
-│   ├── cif_expanded_jun06.dic
-│   ├── cif_expanded_jun06.dic.Z
-│   ├── cif_expanded_oct09.dic
-│   ├── cif_expanded_oct09.dic.Z
-│   ├── cif_mm_cif2pdb.dic
-│   ├── cif_mm_cif2pdb.dic.Z
-│   ├── cif_mm.dic
-│   ├── cif_mm.dic.Z
-│   ├── cif_mm_pdbx.dic
-│   ├── cif_mm_pdbx.dic.Z
-│   ├── compressed
-│   ├── expanded
-│   ├── index.html -> README.dictionaries.html
-│   ├── Makefile
-│   ├── Makefile_arcib
-│   ├── README.dictionaries.html
-│   └── README.dictionaries.html.m4
-├── DISCUSS.ciftbx.html
-├── gpl.txt
-├── index.html -> README.html
-├── IUCR_POLICY
-├── IUCR_POLICY.html
-├── lgpl.txt
-├── Makefile
-├── mkdecompln
-├── NOTICE
-├── NOTICE.html
-├── README
-├── README.html
-├── README.html.m4
-└── rmdecompln
+|-- cif2cif.cshar.Z
+|-- cif2cif.shar.Z
+|-- cif2cif.src
+|   |-- 4ins.cif.Z
+|   |-- 4ins.out.Z
+|   |-- 4ins.prt
+|   |-- 4insuw.out.Z
+|   |-- 4insuw.prt
+|   |-- 4ins.wide
+|   |-- 4insw.out.Z
+|   |-- 4insw.prt
+|   |-- cif2cif.cmn
+|   |-- cif2cif.f
+|   |-- cif_expanded.dic.Z -> ../dictionaries/cif_expanded_jun06.dic.Z
+|   |-- cif_expanded.duff
+|   |-- cif_expanded.nduff
+|   |-- cif_mm.dic.Z -> ../dictionaries/cif_mm.dic.Z
+|   |-- ciftbx.cmf -> ../ciftbx.src/ciftbx.cmf
+|   |-- <tt>ciftbx.cmn</tt> -> ../ciftbx.src/ciftbx.cmn
+|   |-- ciftbx.cmv -> ../ciftbx.src/ciftbx.cmv
+|   |-- ciftbx.sys -> ../ciftbx.src/ciftbx.sys
+|   |-- index.html -> README.cif2cif.html
+|   |-- IUCR_POLICY.html
+|   |-- IUCR_POLICY.txt
+|   |-- Makefile
+|   |-- Makefile~
+|   |-- Makefile_arcib
+|   |-- MANIFEST
+|   |-- MANIFEST.html
+|   |-- MANIFEST.html.m4
+|   |-- postshar
+|   |-- qtest.cif
+|   |-- qtest.out
+|   |-- qtest.prt
+|   |-- qtest.req
+|   |-- qtest.rq2
+|   |-- qtest.rq3
+|   |-- README.cif2cif
+|   |-- README.cif2cif.html
+|   |-- README.cif2cif.html.m4
+|   |-- xtalt2.cif
+|   |-- xtalt2.out
+|   |-- xte29.out
+|   |-- xttne9.out
+|-- cif2pdb.cshar.Z
+|-- cif2pdb.shar.Z
+|-- cif2pdb.src
+|   |-- 1ace.cif.Z
+|   |-- 1ace.tpdb.Z
+|   |-- 1ace.twid.Z
+|   |-- 1crn.cif.Z
+|   |-- 1crn.tpdb.Z
+|   |-- 1crn.twid.Z
+|   |-- 1cro.cif.Z
+|   |-- 1cro.tpdb.Z
+|   |-- 1cro.twid.Z
+|   |-- 1cwp.cif.Z
+|   |-- 1cwp.ent
+|   |-- 1cwp.tpdb.Z
+|   |-- 1cwp.twid.Z
+|   |-- 1hyh.cif.Z
+|   |-- 1hyh.tpdb.Z
+|   |-- 1hyh.twid.Z
+|   |-- 1zrt.cif.Z
+|   |-- 1zrt.tpdb.Z
+|   |-- 1zrt.twid.Z
+|   |-- 2ace.cif.Z
+|   |-- 2ace.tpdb.Z
+|   |-- 2ace.twid.Z
+|   |-- 4hir.cbf
+|   |-- 4hir.cif.Z
+|   |-- 4hir.tpdb.Z
+|   |-- 4hir.twid.Z
+|   |-- 4ins.cif.Z
+|   |-- 4ins.tpdb.Z
+|   |-- 4ins.twid.Z
+|   |-- 5hvp.cif.Z
+|   |-- 5hvp.tpdb.Z
+|   |-- 5hvp.twid.Z
+|   |-- ADH041.cif.Z
+|   |-- ADH041.tpdb.Z
+|   |-- ADH041.twid.Z
+|   |-- BDL001.cif.Z
+|   |-- BDL001.tpdb.Z
+|   |-- BDL001.twid.Z
+|   |-- BDLB13.cif.Z
+|   |-- BDLB13.tpdb.Z
+|   |-- BDLB13.twid.Z
+|   |-- cif2pdb.cmn
+|   |-- cif2pdb.cshar.Z -> ../cif2pdb.cshar.Z
+|   |-- cif2pdb.f
+|   |-- cif2pdb.shar.Z -> ../cif2pdb.shar.Z
+|   |-- cif_mm.dic.Z -> ../dictionaries/cif_mm_cif2pdb.dic.Z
+|   |-- ciftbx.cmf -> ../ciftbx.src/ciftbx.cmf
+|   |-- <tt>ciftbx.cmn</tt> -> ../ciftbx.src/ciftbx.cmn
+|   |-- ciftbx.cmv -> ../ciftbx.src/ciftbx.cmv
+|   |-- ciftbx.sys -> ../ciftbx.src/ciftbx.sys
+|   |-- DDF040.cif.Z
+|   |-- DDF040.tpdb.Z
+|   |-- DDF040.twid.Z
+|   |-- DISCUSS.cif2pdb.html
+|   |-- index.html -> README.cif2pdb.html
+|   |-- IUCR_POLICY
+|   |-- IUCR_POLICY.html
+|   |-- Makefile
+|   |-- Makefile_local
+|   |-- Makefile.m4
+|   |-- Makefile_save.m4
+|   |-- MANIFEST
+|   |-- MANIFEST.html
+|   |-- MANIFEST.html.m4
+|   |-- mkdecompln
+|   |-- NOTICE
+|   |-- NOTICE.html
+|   |-- postshar
+|   |-- README
+|   |-- README.cif2pdb.html
+|   |-- README.cif2pdb.html.m4
+|   |-- rmdecompln
+|-- cif2xml.cshar.Z
+|-- cif2xml.shar.Z
+|-- cif2xml.src
+|   |-- 4ins.cif.Z
+|   |-- 4ins.out.Z
+|   |-- 4ins.prt
+|   |-- cif2xml.cmn
+|   |-- cif2xml.f
+|   |-- cif_cml.dic
+|   |-- cif_mm.dic.Z -> ../dictionaries/cif_mm.dic.Z
+|   |-- ciftbx.cmf -> ../ciftbx.src/ciftbx.cmf
+|   |-- <tt>ciftbx.cmn</tt> -> ../ciftbx.src/ciftbx.cmn
+|   |-- ciftbx.cmv -> ../ciftbx.src/ciftbx.cmv
+|   |-- ciftbx.sys -> ../ciftbx.src/ciftbx.sys
+|   |-- cml.dtd
+|   |-- Foils.html
+|   |-- index.html -> README.cif2xml.html
+|   |-- IUCR_POLICY.html
+|   |-- IUCR_POLICY.txt
+|   |-- Makefile
+|   |-- Makefile_arcib
+|   |-- MANIFEST
+|   |-- MANIFEST.html
+|   |-- MANIFEST.html.m4
+|   |-- MANIFEST.txt
+|   |-- postshar
+|   |-- README.cif2xml
+|   |-- README.cif2xml.html
+|   |-- README.cif2xml.html.m4
+|   |-- xqtest.out
+|   |-- xtalt2.cif
+|   |-- xtalt2.out
+|   |-- xte29.out
+|   |-- xttne9.out
+|-- ciftbx.cshar.Z
+|-- CIFtbx_logo_med_res.png
+|-- CIFtbx_Manual_Fig5_1.jpg
+|-- CIFtbx_Manual.html
+|-- CIFtbx_Primer.pdf
+|-- ciftbx.shar.Z
+|-- ciftbx.src
+|   |-- cif_core.dic.Z -> ../dictionaries/cif_core.dic.Z
+|   |-- cif_expanded.dic.Z -> ../dictionaries/cif_expanded_jun06.dic.Z
+|   |-- cif_mm.dic.Z -> ../dictionaries/cif_mm.dic.Z
+|   |-- ciftbx.cmf
+|   |-- ciftbx.cmn
+|   |-- ciftbx.cmv
+|   |-- ciftbx.f
+|   |-- ciftbx.sys
+|   |-- ciftbx_test.f
+|   |-- clearfp.f
+|   |-- clearfp_sun.f
+|   |-- hash_funcs.f
+|   |-- index.html -> README.ciftbx.html
+|   |-- IUCR_POLICY.html
+|   |-- IUCR_POLICY.txt
+|   |-- m3test.out
+|   |-- m3test.prt
+|   |-- Makefile
+|   |-- Makefile~
+|   |-- MANIFEST
+|   |-- MANIFEST.html
+|   |-- mtest.out
+|   |-- mtest.prt
+|   |-- mtest.xew
+|   |-- mtest.xml
+|   |-- postshar
+|   |-- README.ciftbx
+|   |-- README.ciftbx.html
+|   |-- tbx_ex3.f
+|   |-- tbx_ex.f
+|   |-- tbx_exh.f
+|   |-- tbx_exm.f
+|   |-- test.cif
+|   |-- test.out
+|   |-- test.prt
+|   |-- test.req
+|   |-- testrle.f
+|   |-- testrle.prt
+|-- COPYING
+|-- cyclops.cshar.Z
+|-- cyclops.shar.Z
+|-- cyclops.src
+|   |-- cif_core.dic.Z -> ../dictionaries/cif_core.dic.Z
+|   |-- cif_mm.dic.Z -> ../dictionaries/cif_mm.dic.Z
+|   |-- ciftbx.cmf -> ../ciftbx.src/ciftbx.cmf
+|   |-- ciftbx.cmv -> ../ciftbx.src/ciftbx.cmv
+|   |-- ciftbx.sys -> ../ciftbx.src/ciftbx.sys
+|   |-- cyclops.cmn
+|   |-- cyclops.f
+|   |-- cyclops_test.prt
+|   |-- index.html -> README.cyclops.html
+|   |-- IUCR_POLICY.html
+|   |-- IUCR_POLICY.txt
+|   |-- Makefile
+|   |-- Makefile~
+|   |-- MANIFEST
+|   |-- MANIFEST.html
+|   |-- mtest.cyc
+|   |-- mtest.prt -> ../ciftbx.src/mtest.prt
+|   |-- README.cyclops
+|   |-- README.cyclops.html
+|   |-- STARCHK2
+|-- decomp.cgi
+|-- dictionaries
+|   |-- cif_core.dic
+|   |-- cif_core.dic.Z
+|   |-- cif_expanded_aug08.dic
+|   |-- cif_expanded_aug08.dic.Z
+|   |-- cif_expanded_jun06.dic
+|   |-- cif_expanded_jun06.dic.Z
+|   |-- cif_expanded_oct09.dic
+|   |-- cif_expanded_oct09.dic.Z
+|   |-- cif_mm_cif2pdb.dic
+|   |-- cif_mm_cif2pdb.dic.Z
+|   |-- cif_mm.dic
+|   |-- cif_mm.dic.Z
+|   |-- cif_mm_pdbx.dic
+|   |-- cif_mm_pdbx.dic.Z
+|   |-- compressed
+|   |-- expanded
+|   |-- index.html -> README.dictionaries.html
+|   |-- Makefile
+|   |-- Makefile_arcib
+|   |-- README.dictionaries.html
+|   |-- README.dictionaries.html.m4
+|-- DISCUSS.ciftbx.html
+|-- gpl.txt
+|-- index.html -> README.html
+|-- IUCR_POLICY
+|-- IUCR_POLICY.html
+|-- lgpl.txt
+|-- Makefile
+|-- mkdecompln
+|-- NOTICE
+|-- NOTICE.html
+|-- README
+|-- README.html
+|-- README.html.m4
+|-- rmdecompln
 
 7 directories, 253 files
 </pre><p>
@@ -6038,7 +6038,7 @@ or post an issue on github in <a href="github.com/yayahjb/ciftbx.git">github.com
 
 <h1 align="center" id="APPENDIX_C">APPENDIX C</h1>
 <p>
-<h2 align="center" id="CYCLOPS2"> CYCLOPS2: a full CIFtbx application</h2>
+<h2 align="center" id="CYCLOPS2"> CYCLOPS2: a full <i>CIFtbx</i> application</h2>
 <p>
 CYCLOPS2 <a href="#Bernstein_Hall_1998">[Bernstein, Hall, 1998]</a>  is a newer version of 
 the program CYCLOPS <a href="#Hall_1993b">[Hall, 1993b]</a> which is used, in conjunction 
@@ -6254,9 +6254,9 @@ Table 2.  Sample output  still later in  a validation output file, showing the t
 In addition to the error messages reported by the CIFtbx2 library routines when processing dictionaries, 
 CYCLOPS2 can output the following error messages.
 <p>
-<tt>Data name in text is &gt; NUMCHAR chars &lt;string></tt>
+<tt>Data name in text is &gt; <tt>NUMCHAR</tt> chars &lt;string></tt>
 <p>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A non-fatal warning issued if the length of a data name in the validated file exceeds the preset value of NUMCHAR.  Processing continues with a truncated name. The value of NUMCHAR should be changed in ciftbx.sys and ciftbx.f recompiled.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A non-fatal warning issued if the length of a data name in the validated file exceeds the preset value of <tt>NUMCHAR</tt>.  Processing continues with a truncated name. The value of <tt>NUMCHAR</tt> should be changed in ciftbx.sys and ciftbx.f recompiled.
 <p>
 <tt>Dictionary list empty</tt>
 <p>
@@ -6272,10 +6272,10 @@ cannot process more than 99 dictionaries.  If many small dictionaries must be ha
 <p>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The dictionary file named in STARDICT or on the command line could not be opened.
 <p>
-<tt>Data name table exceeded (Current max is NUMDICT)</tt>
+<tt>Data name table exceeded (Current max is <tt>NUMDICT</tt>)</tt>
 <p>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The combined number of data names in the dictionaries and the text is greater than 
-the parameter NUMDICT defined in ciftbx.sys.  Recompile with a larger value of NUMDICT.
+the parameter <tt>NUMDICT</tt> defined in ciftbx.sys.  Recompile with a larger value of <tt>NUMDICT</tt>.
 <p>
 <h3 align="left">Distribution</h3>
 <p>
@@ -6300,19 +6300,19 @@ of white space (or, in the case of a semicolon, of an end of line) which is part
 of a syntactic element, but which may be part of another syntactic element by shading the background.
 <p>
 <center>
-<img src="CIFtbx_App_D_Fig_1.jpg" alt="App_D_Fig_1" height="75px">
+<img src="CIFtbx_Manual_files/CIFtbx_App_D_Fig_1.jpg" alt="App_D_Fig_1" height="75px">
 </center>
 <p>
 We make a STAR file out of a series of blocks separated by whitespace:
 <p>
 <center>
-<img src="CIFtbx_App_D_Fig_2.jpg" alt="App_D_Fig_2" height="40px">
+<img src="CIFtbx_Manual_files/CIFtbx_App_D_Fig_2.jpg" alt="App_D_Fig_2" height="40px">
 </center>
 <p>
 In a STAR file, a block may be an un-named global_ block or a named data_ block:
 <p>
 <center>
-<img src="CIFtbx_App_D_Fig_3.jpg" alt="App_D_Fig_3" height="200px">
+<img src="CIFtbx_Manual_files/CIFtbx_App_D_Fig_3.jpg" alt="App_D_Fig_3" height="200px">
 </center>
 <p>
 In a CIF there are no global_ blocks, but they are used in dictionaries. The body of a 
@@ -6320,14 +6320,14 @@ block consists of white space separated tag-value pairs, loops and save_ frames.
 frames are not used in CIF, but they are used in the mmCIF dictionary.
 <p>
 <center>
-<img src="CIFtbx_App_D_Fig_4.jpg" alt="App_D_Fig_4" height="80px">
+<img src="CIFtbx_Manual_files/CIFtbx_App_D_Fig_4.jpg" alt="App_D_Fig_4" height="80px">
 </center>
 <p>
 A save_ frame is very similar to a data_ block, but it cannot contain an embedded save_ 
 frame, and it must be terminated by a save_.
 <p>
 <center>
-<img src="CIFtbx_App_D_Fig_5.jpg" alt="App_D_Fig_4" height="160px">
+<img src="CIFtbx_Manual_files/CIFtbx_App_D_Fig_5.jpg" alt="App_D_Fig_4" height="160px">
 </center>
 <p>
 A loop consists of loop_, whitespace, the header for the loop giving the tags that label 
@@ -6342,9 +6342,353 @@ white space.
 
 <p>
 <center>
-<img src="CIFtbx_App_D_Fig_6.jpg" alt="App_D_Fig_4" height="320px">
+<img src="CIFtbx_Manual_files/CIFtbx_App_D_Fig_6.jpg" alt="App_D_Fig_4" height="320px">
 </center>
 <p>
+<h1 align="center" id="APPENDIX_E">APPENDIX E<h1>
+<p>
+<h2 align="center" id="Internals_and_Programming_Style">Internals and Programming Style</h2>
+<p>
+<i>CIFtbx</i> is programmed in a highly portable Fortran programming style. However, on some older systems, 
+some adaptation may be necessary to allow compilation. Implementors should be aware of the extensive use of 
+variables in common blocks to transmit information and control execution (programming by side-effects), the 
+use of the INCLUDE statement, use of the ENDDO statement, the names of routines used internally by the package, 
+use of names longer than six characters and use of names including the underscore character.
+<p>
+Some aspects of the internal organization of the library to deal with characteristics of CIFs are worth noting. 
+<i>CIFtbx</i> copies an input CIF to a direct access (i.e. random access) file, but writes an output CIF directly. 
+All data names are converted to lower case to deal with the case-insensitive nature of CIF. A hierarchy of parsing 
+routines is used to deal processing whitespace.
+<p>
+<h3 align="left" id="Programming Style">Programming Style</h3>
+<p>
+A traditional Fortran style of programming is used in <i>CIFtbx</i>. Common blocks are declared to report and 
+control the state of the processing. This allows argument lists to be kept short and avoids the need to create 
+complex data structure types, but introduces extensive &quot;programming by side-effects&quot;. In order to 
+reduce the impact of this approach on users, two different views of the common blocks are provided. The 
+declarations in <tt>ciftbx.cmn</tt> are needed by all users. The more extensive declarations in <tt>ciftbx.sys</tt>, 
+which include the same common declarations as are found in <tt>ciftbx.cmn</tt> and additional declarations used 
+internally within CIFtbx, are provided for use in maintaining the library. Caution is needed in making internal 
+modifications to the library to maintain the desired relationships among the actions of various routines and 
+the states of variables declared in the common blocks.
+
+The variables declared in <tt>ciftbx.cmn</tt> are organized into three labeled common blocks:
+
+<p><pre>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;common /tbuc/ strg_, bloc_, file_, type_, ttype_, dictype_,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;diccat_, dicname_, dicver_, tagname_, quote_,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;pquote_, tbxver_
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;common/tbui/ depth_,index_,list_,long_,longf_,line_,esdlim_,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;recn_,precn_,posnam_,posval_,posdec_,posend_,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;pposnam_,pposval_,pposdec_,pposend_,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;recbeg_,recend_,esddig_,pdepth_,pesddig_,pfold_,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;posdelim_,pposdelim_
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;common/tbul/ loop_,text_,align_,save_,saveo_,aliaso_,alias_,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;tabl_,tabx_,ptabx_,nblank_,nblanko_,glob_,globo_,decp_,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;pdecp_,lzero_,plzero_,append_,xmlout_,xmlong_,unfold_,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;fold_,valid_,clipt_,pclipt_,rdbrc_,rdbkt_,rdprn_,rdtq_,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;rdrcqt_,rdcolon_,logdnam_,phtml_
+
+</pre><p>
+
+The blocks with labels <tt>/tbuc/</tt>, <tt>/tbui/</tt>, and <tt>/tbul/</tt> are for variables of type character, 
+integer and logical respectively. The additional internal variables declared in <tt>ciftbx.sys</tt> are similarly 
+organized into labeled common blocks, /tbxc/, /tbxi/, /tbxdp/, /tbxr/, and /tbxl/ for variables of type character, 
+integer, double precision, real and logical, respectively. Portability is enhanced by not mixing common for 
+variables of different types.
+<p>
+Traditionally Fortran statements are written in the first 72 columns of a line, reserving columns one through five 
+for statement labels and using column six for continuation. Approaches that would require the use of C-libraries 
+or non-portable Fortran extensions are avoided. For this reason, all the internal service routines are written in 
+Fortran, all memory needed is preallocated with DIMENSION statements and a direct access file is used to hold the 
+working copy of a CIF.
+<p>
+<h3 align="left" id="Memory_Management">Memory Management</h3>
+<p>
+Since <i>CIFtbx</i> does static memory allocation with DIMENSION statements, it is sometimes necessary to adjust 
+the array dimensions chosen to suit a particular application. It may also be necessary to increase the storage 
+allocated for individual tags to allow for unusually long ones.
+<p>
+The sizes of most arrays and strings used in <i>CIFtbx</i> that might require adjustment are controlled by PARAMETER 
+statements in the files <tt>ciftbx.sys</tt> and <tt>ciftbx.cmv</tt> (the variable declaration portion of <tt>ciftbx.cmn</tt>).
+The parameters are:
+<p>
+<table border=0>
+<tr><th align="left" valign="top">
+<tt>NUMCHAR</tt>
+</th><td>
+Maximum number of characters in data names (default 80)
+</td></tr>
+<tr><th align="left" valign="top">
+<tt>MAXBUF</tt>
+</th><td>
+Maximum number of characters in a line (default 2048)
+</td></tr>
+<tr><th align="left" valign="top">
+<tt>NUMPAGE</tt>
+</th><td>
+Number of memory resident pages (default 200)
+</td></tr>
+<tr><th align="left" valign="top">
+<tt>NUMCPP</tt>
+</th><td>
+Number of characters per page (default 8192)
+</td></tr>
+<tr><th align="left" valign="top">
+<tt>NUMDICT</tt>
+</th><td>
+Number of entries in dictionary tables (default 11000)
+</td></tr>
+<tr><th align="left" valign="top">
+<tt>NUMHASH</tt>
+</th><td>
+Number of hash table entries (a modest prime, default 53)
+</td></tr>
+<tr><th align="left" valign="top">
+<tt>NUMBLOCK</tt>
+</th><td>
+Number of entries in data block tables (default 2500)
+</td></tr>
+<tr><th align="left" valign="top">
+<tt>NUMLOOP</tt> 
+</th><td>
+Number of loops in a data block (default 50)
+</td></tr>
+<tr><th align="left" valign="top">
+<tt>NUMITEM</tt>
+</th><td> 
+Number of items in a loop (default 50)
+</td></tr>
+<tr><th align="left" valign="top">
+<tt>MAXTAB</tt>
+</th><td> 
+Maximum number of tabs in output cif line (default 10)
+</td></tr>?
+<tr><th align="left" valign="top">
+<tt>MAXBOOK</tt>
+</th><td> 
+Maximum number of simultaneous bookmarks (default 1000)
+</td></tr>
+</table>
+<p>
+These values can result in <i>CIFtbx</i> requiring more than a megabyte of memory. On smaller machines working 
+with a small dictionary and simple CIFs, considerable space can be saved by reducing the values of 
+<tt>NUMDICT</tt> and <tt>NUMBLOCK</tt>.
+<p>
+On the other hand, an application working with several layered dictionaries and large and complex CIFs with many 
+data items and many loops in a data block might require a version of <i>CIFtbx</i> with larger values of 
+<tt>NUMDICT</tt>, <tt>NUMBLOCK</tt> and, perhaps, of <tt>NUMLOOP</tt>.
+<p>
+The variables <tt>NUMPAGE</tt> and <tt>NUMCPP</tt> control the amount of memory to be used to buffer the direct 
+access file and size of the data transfers to and from that file. Smaller values will reduce the demand for memory 
+at the expense of slower execution.
+<p>
+<h3 align="left" id="Use_of_INCLUDE">Use of INCLUDE</h3>
+<p>
+The INCLUDE statement allows the statements in the specified file to be treated as if they were being included in a 
+program in place of the INCLUDE statement itself. This simplifies the maintenance of common block declarations, and 
+is an important tool in keeping code well-organized. In CIFtbx, the INCLUDE statement is used to bring the statements 
+in the files <tt>ciftbx.cmn</tt> and <tt>ciftbx.sys</tt> into programs where they are needed, and to simplify 
+<tt>ciftbx.cmn</tt> and <tt>ciftbx.sys</tt> by using INCLUDEs of the files <tt>ciftbx.cmv</tt> and <tt>ciftbx.cmf</tt>.
+The file <tt>ciftbx.cmv</tt> contains the definitions of the essential <i>CIFtbx</i> data structures as common blocks, for inclusion in both <tt>ciftbx.cmn</tt> for user applications and in <tt>ciftbx.sys</tt> for the CIFtbx library routines themselves. Most compilers handle the INCLUDE statement, but, if necessary, a user may replace any or all of the INCLUDE statements with the contents of the indicated file. For example, the only non-comments in <tt>ciftbx.cmn</tt> are
+<p>
+<pre>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;include 'ciftbx.cmv'
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;include 'ciftbx.cmf'
+</pre>
+<p>
+This means that the file <tt>ciftbx.cmn</tt> could be replaced by a concatenation of the two files <tt>ciftbx.cmv</tt> 
+and <tt>ciftbx.cmf</tt>.
+<p>
+The system common, <tt>ciftbx.sys</tt> contains
+<p> 
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;include 'ciftbx.cmv'</tt>
+<p>
+but not the type declarations in <tt>ciftbx.cmf</tt> in order to avoid an excessive number warning messages 
+about unreferenced variables produced by some compilers.
+<p>
+<h3 align="left" id="Use_of_enddo">Use of ENDDO</h3>
+<p>
+CIFtbx makes some use of the ENDDO statement (as well as nested IF, THEN, ELSE, ENDIF constructs) to improve readability 
+of the source code. Most compilers accept the ENDDO statement, but if conversion is needed, then constructs of the form:
+<p><pre>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;do index = istart, iend, incr
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enddo
+</pre><p>
+should be changed to
+<p><pre>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;do nnn index = istart, iend, incr
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+nnn&nbsp;&nbsp;continue
+</pre><p>
+where <tt>nnn</tt> is a unique statement number, not used elsewhere in the same routine.
+<p>
+<h3 align="left" id="Names of Internal Routines">Names of Internal Routines</h3>
+<p>
+The following routines are used internally by <i>CIFtbx</i> version 2.6. If these names are needed for other routines, then changes in the library will be needed to avoid conflicts.
+<p>
+<table border=0>
+<tr><th align="left" colspan=2>
+Variable Initialization:
+</th></tr><tr><td align="left" valign="top"><tt>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;block data
+</tt></td></tr><tr><td>
+Critical <i>CIFtbx</i> variables are initialized with data statements in a block data routine.
+</td></tr><tr><th align="left">
+
+Control of Floating Point Exceptions:
+</th></tr><tr><td align="left" valign="top"><tt>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;subroutine <b>clearfp</b>
+</tt></td></tr><tr><td>
+If a system requires special handling of floating point exceptions, the necessary calls should be added to this subroutine.
+</td></tr><tr><th align="left">
+
+Message Processing:
+</th></tr><tr><td align="left" valign="top"><tt>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;subroutine&nbsp;<b>err</b>&nbsp;(mess)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character&nbsp;mess*(*)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;subroutine&nbsp;<b>warn</b>&nbsp;(mess)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character&nbsp;mess*(*)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;subroutine&nbsp;<b>cifmsg</b>&nbsp;(flag,&nbsp;mess)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character&nbsp;mess*(*),&nbsp;flag*(*)<br />
+</tt></td></tr><tr><td align=left&nbsp;valign="top">
+Error and warning messages are processed through these three routines.
+</td></tr><tr><th&nbsp;align="left">
+
+Internal&nbsp;Service&nbsp;Routines:
+</th></tr><tr><td align="left" valign="top"><tt>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;subroutine&nbsp;<b>dcheck</b>&nbsp;(name,&nbsp;type,&nbsp;flag,&nbsp;tflag)&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical&nbsp;flag,&nbsp;tflag&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character&nbsp;name*(*),&nbsp;type*4&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;subroutine&nbsp;<b>eotext</b>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;subroutine&nbsp;<b>eoloop</b><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;subroutine&nbsp;<b>excat</b>(sfname,&nbsp;bcname,&nbsp;lbcname)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character*(*)&nbsp;sfname,&nbsp;bcname&nbsp;integer lbcname<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;subroutine&nbsp;<b>getitm</b> (name)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character name*(*)&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;subroutine&nbsp;<b>getstr</b><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;subroutine&nbsp;<b>getlin</b>&nbsp;(flag)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character&nbsp;flag*4&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;subroutine&nbsp;<b>putstr</b>&nbsp;(string)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character&nbsp;string*(*)<br />
+</tt></td></tr><tr><td align=left&nbsp;valign="top">
+These routines are used internally by the library. The subroutine dcheck validates names against dictionaries. The 
+subroutines <tt>eotext</tt> and <tt>eoloop</tt> are used to ensure termination of loops and text strings. The subroutines 
+<tt>getitm</tt>, <tt>getstr</tt>, and <tt>getlin</tt> extract items, strings and lines from the input CIF. The 
+subroutine putstr writes strings to the output CIF. 
+</td></tr><tr><th align="left">
+
+Numeric Routines:
+</th></tr><tr><td align="left" valign="top"><tt>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;subroutine&nbsp;ctonum<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;subroutine&nbsp;putnum&nbsp;(numb,&nbsp;sdev,&nbsp;prec)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;double&nbsp;precision&nbsp;numb,&nbsp;sdev,&nbsp;prec<br />
+</tt></td></tr><tr><td align=left valign="top">
+The&nbsp;routine&nbsp;ctonum&nbsp;converts&nbsp;a&nbsp;string&nbsp;to&nbsp;a&nbsp;number&nbsp;and&nbsp;its&nbsp;esd.&nbsp;The&nbsp;subroutine&nbsp;putnum&nbsp;converts&nbsp;a&nbsp;number&nbsp;and&nbsp;esd&nbsp;to&nbsp;an&nbsp;output&nbsp;string.&nbsp;
+</td></tr><tr><th align="left">
+
+String&nbsp;Manipulation:
+</th></tr><tr><td align="left" valign="top"><tt>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;subroutine&nbsp;<b>detab</b><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer&nbsp;function&nbsp;<b>lastnb</b>&nbsp;(str)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character&nbsp;str*(*)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character*(<tt>MAXBUF</tt>) function <b>locase</b> (name)<br /> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character name*(*)<br />
+</tt></td></tr><tr><td align=left valign="top">
+The subroutine <tt>detab</tt> converts tabs to blanks. The function <tt>lastnb</tt> finds the column position of the last non-blank 
+character in a string. The function <tt>locase</tt> converts a string to lower case. 
+</td></tr><tr><th align="left">
+
+Hash Table Processing:
+</th></tr><tr><td align="left" valign="top"><tt>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;subroutine hash_find (name, name_list, chain_list,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;list_length, num_list, hash_table, hash_length,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;ifind)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character name*(*), name_list(list_length)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer hash_length, chain_list(list_length),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;hash_table(hash_length), ifind<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;subroutine hash_store (name, name_list, chain_list,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;list_length, num_list, hash_table, hash_length,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;ifind)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;character name*(*), * name_list(list_length)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer hash_length, chain_list(list_length),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;hash_table(hash_length), ifind <br />
+integer function hash_value (name, hash_length) character name*(*) integer hash_length<br />
+</tt></td></tr><tr><td align=left valign="top">
+These routines are used to manipulate the internal hash tables used by the library.
+</td></tr>
+</table>
+<p>
+
+<h3 align="left" id="Use_of_the_Underscore_Character">Use of the Underscore Character</h3>
+<p>
+All the externally accessible <i>CIFtbx</i> commands and variable terminate with the underscore character. This works well 
+on most systems, but can cause occasional problems, since traditional Fortran does not include the underscore in the character 
+set and some operating systems reserve the underscore as a system flag, for example to distinguish C-language library routines 
+from those written in Fortran. If conversion is needed, and the local compiler allows long variable and subroutine names, then 
+the simplest approach would be to make a local variant of <i>CIFtbx</i> in which every occurrence of underscore in a function, 
+subroutine or variable names was changed to a distinctive character pattern (e.g. "CIF" or "qq"), but caution is needed, since 
+there are many character strings used in the library that include the underscore. For example, in changing the variable <tt>loop_</tt>
+to <tt>loopCIF_tt>, it would be a mistake to change the statement
+<p>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(strg_(1:5).eq.'loop_') type_='loop'</tt>
+<p>
+to
+<p>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(strg_(1:5).eq.'loopCIF') type_='loop'</tt>
+<p>
+<h3 align="left" id="Names_Longer_than_Six_Characters">Names Longer than Six Characters</h3>
+<p>
+<i>CIFtbx</i> uses some function, subroutine and variable names longer than six characters to improve readability, 
+but, in most cases, consistent truncation of all uses of a name to six characters will not cause any problems.
+<p>
+<h3 align="left" id="File_Management">File Management</h3>
+<p>
+<i>CIFtbx</i> allows the user to read from one CIF while writing to another. The input CIF is first copied 
+to a direct access file to allow random access to desired portions of the input CIF. Since CIF allows data 
+items to be presented in any order, the alternatives to the use of a direct access file would have been to 
+create memory-resident data structures for the entire CIF or to track position and make multiple search 
+passes through the file as data items were requested. When programming for personal and laboratory computers 
+with limited memory and which may lack virtual memory capabilities, assuming the availability of enough 
+memory for large CIFs would greatly restrict the applications within which <i>CIFtbx</i> could be used. 
+However, the disk accesses involved in using a direct access file slow execution. When working on larger 
+computers, execution speed can be increased at the expense of memory by increasing the number of memory 
+resident pages (see the parameter <tt>NUMPAGE</tt>, above). If the number of pages times the number of characters 
+per page (<tt>NUMCPP</tt>) is large enough to hold the entire CIF, the application will run much faster.
+<p>
+Direct reading of the input CIF, making multiple passes when data items are requested out of the order in which 
+they are presented in the CIF is only practical when the number of out-of-order requests is small, and the 
+applications will not need to be used as a filter, perhaps reading the output of another program &quot;on-the-fly&quot;. 
+Since we cannot predict the range of applications and CIFs for which <i>CIFtbx</i> will be used, and direct reading 
+could become impossibly slow, <i>CIFtbx</i> uses a direct access file.
+<p>
+The processing of an output CIF is simpler than reading a CIF. The application determines the order in which 
+the writing is to be done. No sorting is normally needed. Therefore <i>CIFtbx</i> writes an output CIF directly.
+<p>
+<h3 align="left" id="Case_sensitivity">Case sensitivity</h3>
+<p>
+A CIF may contain data names in upper, lower, or a mixture of cases. Internally <i>CIFtbx</i> does all its name 
+comparisons in lower case, using the function <tt>locase</tt> (see above) to convert. Good style, however, 
+dictates the use of certain case combinations in certain names. Therefore <i>CIFtbx</i> does this lower case 
+conversion as needed, preserving the original case for whatever use may be desired. An application needing 
+maximum speed and which does not need to preserve the cases in the original CIF might consider doing the 
+case conversion once and removing the use of <tt>locase</tt>.
+<p>
+<h3 align="left" id="Management_of_White_Space">Management of White Space</h3>
+<p>
+CIF does not care about white space. One blank or tab is equivalent to many blanks or tabs or empty lines in 
+separating data names from values and values from one another. The internal routine <tt>getstr</tt> extracts the next 
+white-space delimited string, using <tt>getlin</tt> to deliver input lines from the direct access file as required. 
+Since Fortran does not provide dynamic memory allocation, this approach presents a problem with multi-line 
+text fields. Rather than allocate a large fixed space that might not hold still larger text fields the library 
+delivers those strings one line at a time. As with case-sensitivity, <i>CIFtbx</i> does white-space scanning repeatedly, 
+keeping the original presentation (including tabs) available should an application need access. An application 
+needing maximum speed and not needing the information and wishing to conserve space on disk might wish to modify 
+<i>CIFtbx</i> to remove all comments and compress all separating white space to single blanks or line terminators 
+in an initial sweep.
 
 
 
